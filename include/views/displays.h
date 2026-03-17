@@ -2,7 +2,7 @@
 #define DISPLAY_H
 
 #include <stdbool.h>
-#include "static_user.h"
+#include "data/static_user.h"
 // Success Msgs
 void display_transfer_success(bool success, User* sender);
 void display_withdraw_success(bool success, User* current_user);

@@ -2,7 +2,7 @@
 #define HANDLER_H
 
 // Transact Handlers
-#include "static_user.h"
+#include "data/static_user.h"
 void handle_withdraw_request(User* current_user);
 void handle_deposit_request(User* current_user);
 void handle_transfer_request(User* sender, User* receiver);

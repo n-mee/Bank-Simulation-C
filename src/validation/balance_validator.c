@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "auth.h"
-#include "displays.h"
+#include "auth/auth.h"
+#include "views/displays.h"
 
 // checks if the amount entered is valid and returns the according boolean values.
 bool is_valid_bal(double amt) {

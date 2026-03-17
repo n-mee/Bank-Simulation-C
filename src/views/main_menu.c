@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "main_menu.h"
+#include "views/main_menu.h"
 
 void header_menu(void) {
     printf("\n====================================\n");

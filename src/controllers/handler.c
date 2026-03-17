@@ -1,10 +1,10 @@
 #include <stdbool.h>
-#include "static_user.h"
-#include "transactions.h"
-#include "auth.h"
-#include "handler.h"
-#include "input.h"
-#include "displays.h"
+#include "data/static_user.h"
+#include "core/transactions.h"
+#include "auth/auth.h"
+#include "controllers/handler.h"
+#include "views/input.h"
+#include "views/displays.h"
 
 // Handles the main deposit logic.
 void handle_deposit_request(User* current_user){

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "static_user.h"
+#include "data/static_user.h"
 
 void display_transfer_success(bool success, User* sender){
     // Refers to the bool parameter and check what it returns.

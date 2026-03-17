@@ -1,7 +1,7 @@
 #include <stdbool.h>
-#include "input_parser.h"
-#include "displays.h"
-#include "auth.h"
+#include "utils/input_parser.h"
+#include "views/displays.h"
+#include "auth/auth.h"
 
 bool is_pin_valid(int targetPIN){
     int tmp_pin = get_int_prompt("Enter your pin: ");

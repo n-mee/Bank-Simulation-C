@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "input_parser.h"
-#include "static_user.h"
-#include "main_menu.h"
-#include "displays.h"
-#include "handler.h"
+#include "utils/input_parser.h"
+#include "data/static_user.h"
+#include "views/main_menu.h"
+#include "views/displays.h"
+#include "controllers/handler.h"
 
 int main(void) {
 

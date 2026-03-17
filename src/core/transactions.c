@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "static_user.h"
-#include "transactions.h"
-#include "auth.h"
+#include "data/static_user.h"
+#include "core/transactions.h"
+#include "auth/auth.h"
 
 bool execute_withdraw(User* current_user, double withdraw_amt) {
     // Checks the account balance.

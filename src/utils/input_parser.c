@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "input_parser.h"
+#include "utils/input_parser.h"
 
 // dynamic parsing prompt to get string to integer.
 // used a constant char for dynamic string arguments.
