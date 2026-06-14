@@ -36,11 +36,11 @@ void display_deposit_success(bool success, User* current_user){
 }
 
 void display_invalid_pin_msg() {
-    printf("[!] ERROR: Wrong PIN.\n");
+    printf("[!] ERROR: Invalid PIN... Try Again.\n");
 }
 
 void display_invalid_reciever_msg(){
-    printf("[!] ERROR: ID doesn't match any id in the database.\n");
+    printf("[!] ERROR: ID doesn't match any values in the database.\n");
 }
 
 void display_error_bal_msg() {
@@ -52,5 +52,5 @@ void display_invalid_selection_msg() {
 }
 
 void display_farewell_msg() {
-    printf("Exiting system. Goodbye.\n");
+    printf("Exiting system... Goodbye.\n");
 }
