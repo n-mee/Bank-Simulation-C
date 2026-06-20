@@ -16,7 +16,7 @@ int main(void) {
 
     while (running) {
         choice_menu();
-        int choice = get_int_prompt("Select an option: ");
+        int choice = get_int_prompt("\n Enter Selection: ");
 
         switch (choice) {
             case 1:
