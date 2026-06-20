@@ -1,16 +1,19 @@
 #include <stdbool.h>
+#include <string.h>
 #include "utils/input_parser.h"
 #include "views/displays.h"
 #include "auth/auth.h"
 
-bool is_pin_valid(int targetPIN){
-    int tmp_pin = get_int_prompt("Enter your pin: ");
+bool is_pin_valid(const char* targetPIN){
+    char tmp_buffer[10];
 
-    if (tmp_pin != targetPIN) {
-        display_invalid_pin_msg();
+    get_string_prompt("\n Enter your pin: ", tmp_buffer, sizeof(tmp_buffer));
+
+    if (strcmp(tmp_buffer, targetPIN) == 0) {
+        return true;
+    } else {
         return false;
     }
-    return true;
 }
 
 bool is_valid_receiver(int referrence, int target){

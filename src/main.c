@@ -12,9 +12,8 @@ int main(void) {
     Account person2 = {102, 00.00, "2007", "Ryu Min"};
     bool running = true;
 
-    header_menu();
-
     while (running) {
+        header_menu();
         choice_menu();
         int choice = get_int_prompt("\n Enter Selection: ");
 

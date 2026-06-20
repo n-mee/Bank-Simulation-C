@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 #include "utils/input_parser.h"
 
 // dynamic parsing prompt to get string to integer.
@@ -46,5 +47,19 @@ double get_decimal_prompt(const char* prompt){
         }
         // else we print this error msg and proceed to loop until the user enters the corresponding valid number.
         printf("[!] ERROR: Please enter valid decimals only.\n");
+    }
+}
+
+void get_string_prompt(const char* prompt, char* output_buffer, int buffer_size) {
+    fseek(stdin, 0, SEEK_END);
+    while (true) {
+        printf("%s", prompt);
+        if (fgets(output_buffer, buffer_size, stdin) != NULL) {
+            output_buffer[strcspn(output_buffer, "\n")] = '\0';
+            if (strlen(output_buffer) > 0) {
+                return;
+            }
+        }
+        printf("[!] ERROR: Input cannot be empty. Try again.\n");
     }
 }
