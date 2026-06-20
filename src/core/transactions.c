@@ -4,7 +4,7 @@
 #include "core/transactions.h"
 #include "auth/auth.h"
 
-bool execute_withdraw(User* current_user, double withdraw_amt) {
+bool execute_withdraw(Account* current_user, double withdraw_amt) {
     // Checks the account balance.
     if (current_user->bal < withdraw_amt) return false;
 
@@ -16,7 +16,7 @@ bool execute_withdraw(User* current_user, double withdraw_amt) {
     return true;
 }
 
-bool execute_deposit(User* current_user, double deposit_amt) {
+bool execute_deposit(Account* current_user, double deposit_amt) {
     // Checks if the amt is sufficient
     if (deposit_amt <= 0) return false;
 
@@ -25,7 +25,7 @@ bool execute_deposit(User* current_user, double deposit_amt) {
     return true;
 }
 
-bool execute_transfer(User* sender, User* receiver, double transfer_amt) {
+bool execute_transfer(Account* sender, Account* receiver, double transfer_amt) {
     // Checks the sender's balance for sufficiency
     if (sender->bal < transfer_amt) return false;
 

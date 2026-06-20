@@ -4,9 +4,9 @@
 #include <stdbool.h>
 #include "data/static_user.h"
 // Success Msgs
-void display_transfer_success(bool success, User* sender);
-void display_withdraw_success(bool success, User* current_user);
-void display_deposit_success(bool success, User* current_user);
+void display_transfer_success(bool success, Account* sender);
+void display_withdraw_success(bool success, Account* current_user);
+void display_deposit_success(bool success, Account* current_user);
 
 // Error Msgs
 void display_invalid_pin_msg();

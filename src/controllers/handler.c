@@ -7,7 +7,7 @@
 #include "views/displays.h"
 
 // Handles the main deposit logic.
-void handle_deposit_request(User* current_user){
+void handle_deposit_request(Account* current_user){
     // Checks and validates the id
     if (!is_pin_valid(current_user->pin)) return;
 
@@ -21,7 +21,7 @@ void handle_deposit_request(User* current_user){
 }
 
 // Handles the main withdraw logic.
-void handle_withdraw_request(User* current_user){
+void handle_withdraw_request(Account* current_user){
     if (!is_pin_valid(current_user->pin)) return;
 
     double withdraw_amt = get_amount();
@@ -32,7 +32,7 @@ void handle_withdraw_request(User* current_user){
 }
 
 // Handles the main transfer logic.
-void handle_transfer_request(User* sender, User* receiver){
+void handle_transfer_request(Account* sender, Account* receiver){
     if(!is_pin_valid(sender->pin)) return;
 
     int r_id = get_receiver_id_input();

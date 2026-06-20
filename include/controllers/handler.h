@@ -3,9 +3,9 @@
 
 // Transact Handlers
 #include "data/static_user.h"
-void handle_withdraw_request(User* current_user);
-void handle_deposit_request(User* current_user);
-void handle_transfer_request(User* sender, User* receiver);
+void handle_withdraw_request(Account* current_user);
+void handle_deposit_request(Account* current_user);
+void handle_transfer_request(Account* sender, Account* receiver);
 
 //Input Handler
 #endif
