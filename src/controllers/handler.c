@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include "data/static_user.h"
+#include "data/model.h"
 #include "core/transactions.h"
 #include "auth/auth.h"
 #include "controllers/handler.h"

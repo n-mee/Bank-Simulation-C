@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "utils/input_parser.h"
-#include "data/static_user.h"
+#include "data/model.h"
 #include "views/main_menu.h"
 #include "views/displays.h"
 #include "controllers/handler.h"
