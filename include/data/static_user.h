@@ -3,9 +3,9 @@
 
 typedef struct {
     int accID;
-    char name[50];
     double bal;
-    int pin;
-} User;
+    char pin[5];
+    char name[50];
+} Account;
 
 #endif

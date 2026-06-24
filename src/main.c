@@ -1,32 +1,31 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "input_parser.h"
-#include "static_user.h"
-#include "main_menu.h"
-#include "displays.h"
-#include "handler.h"
+#include "utils/input_parser.h"
+#include "data/static_user.h"
+#include "views/main_menu.h"
+#include "views/displays.h"
+#include "controllers/handler.h"
 
 int main(void) {
 
-    User a1 = {101, "Cassian", 1000.00, 2007};
-    User a2 = {102, "Scythe", 00.00, 1501};
+    Account person1 = {101, 1000.00, "0123", "Black Scythe"};
+    Account person2 = {102, 00.00, "2007", "Ryu Min"};
     bool running = true;
 
-    header_menu();
-
     while (running) {
+        header_menu();
         choice_menu();
-        int choice = get_int_prompt("Select an option: ");
+        int choice = get_int_prompt("\n Enter Selection: ");
 
         switch (choice) {
             case 1:
-                handle_withdraw_request(&a1);
+                handle_withdraw_request(&person1);
                 break;
             case 2:
-                handle_deposit_request(&a1);
+                handle_deposit_request(&person1);
                 break;
             case 3:
-                handle_transfer_request(&a1, &a2);
+                handle_transfer_request(&person1, &person2);
                 break;
             case 0:
                 display_farewell_msg();

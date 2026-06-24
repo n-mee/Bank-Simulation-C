@@ -1,5 +1,5 @@
-#include "input.h"
-#include "input_parser.h"
+#include "views/input.h"
+#include "utils/input_parser.h"
 
 // Prompts the user to enter the target id.
 int get_receiver_id_input(){
