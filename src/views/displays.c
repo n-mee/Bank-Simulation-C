@@ -35,6 +35,14 @@ void display_deposit_success(bool success, Account* current_user){
     }
 }
 
+void registration_success(int *id) {
+    printf("Registration successful! ID: %d\n", *id);
+}
+
+void memory_allocation_error() {
+    printf("[!] ERROR: Memory Allocation failed.. Exiting..");
+}
+
 void display_invalid_pin_msg() {
     printf("[!] ERROR: Invalid PIN... Try Again.\n");
 }
