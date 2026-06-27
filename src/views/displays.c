@@ -35,6 +35,18 @@ void display_deposit_success(bool success, Account* current_user){
     }
 }
 
+void login_successful() {
+    printf("Login success! Welcome Back!\n");
+}
+
+void invalid_search() {
+    printf("[!] ERROR: Unique ID doesn't exist.\n");
+}
+
+void search_success() {
+    printf("ID has been found.\n");
+}
+
 void registration_success(int *id) {
     printf("Registration successful! ID: %d\n", *id);
 }
