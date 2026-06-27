@@ -1,3 +1,5 @@
+#include <stddef.h>
+#include <string.h>
 #include "../include/views/displays.h"
 #include "../include/utils/input_parser.h"
 #include "../include/controllers/auth_controller.h"
@@ -19,3 +21,24 @@ void handle_registration(BankDatabase *db) {
     }
     registration_success(&acc_id);
 }
+
+void handle_login(BankDatabase *db, Account **session_user) {
+    char temp_pin[6];
+    int temp_id = get_int_prompt("Enter your Unique ID: ");
+
+    int search_id = db_find_identity(db, temp_id);
+    if (search_id == -1){
+        invalid_search();
+        *session_user = NULL;
+        return;       
+    }
+
+    get_string_prompt("Enter your PIN: ", temp_pin, sizeof(temp_pin));
+    if (strcmp(temp_pin, db->records[search_id].pin) != 0){
+        *session_user = NULL;
+        return;
+    }
+
+    *session_user = &db->records[search_id];
+    login_successful();
+} 
