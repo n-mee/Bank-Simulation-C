@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "../include/views/displays.h"
 #include "../include/data/database_manager.h"
 
 static int account_id_generator(BankDatabase *db) {
@@ -57,6 +58,15 @@ int db_account_creation(BankDatabase *db, const char *name, const char *pin) {
     int new_id = db->records[index].accID;
     db->account_count++;
     return new_id;
+}
+
+int db_find_indentity(BankDatabase *db, int target_id) {
+    for (int i = 0; i < db->account_count; i++) {
+        if (db->records[i].accID == target_id){
+            return i;
+        }
+    }
+    return -1;
 }
 
 void db_termination(BankDatabase *db){
