@@ -1,5 +1,5 @@
-#ifndef MENU_FUNC_H
-#define MENU_FUNC_H
+#ifndef TRANSACTION_H
+#define TRANSACTION_H
 
 #include <stdbool.h>
 #include "data/model.h"

@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include "controllers/auth_controller.h"
 #include "utils/input_parser.h"
-#include "data/database_manager.h"
+#include "data/database_functions.h"
 #include "views/menus.h"
 #include "views/displays.h"
 #include "controllers/transaction_controller.h"

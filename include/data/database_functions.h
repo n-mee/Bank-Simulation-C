@@ -1,5 +1,5 @@
-#ifndef DATABASE_MANAGER_H
-#define DATABASE_MANAGER_H
+#ifndef DATABASE_FUNCTIONS_H
+#define DATABASE_FUNCTIONS_H
 
 #include <stdbool.h>
 #include "../include/data/model.h"
