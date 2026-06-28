@@ -17,7 +17,7 @@ void handle_deposit_request(Account* current_user){
 
     // executes the main code and prints the result.
     bool success = execute_deposit(current_user, deposit_amt);
-    display_deposit_success(success, current_user);
+    deposit_status(success, current_user);
 }
 
 // Handles the main withdraw logic.
@@ -28,7 +28,7 @@ void handle_withdraw_request(Account* current_user){
     if (!is_valid_bal(withdraw_amt)) return;
 
     bool success = execute_withdraw(current_user, withdraw_amt);
-    display_withdraw_success(success, current_user);
+    withdraw_status(success, current_user);
 }
 
 // Handles the main transfer logic.
@@ -38,7 +38,7 @@ void handle_transfer_request(BankDatabase *db, Account *sender){
     int r_id = get_receiver_id_input();
     int id_found = db_find_identity(db, r_id);
     if (id_found == -1) {
-        display_invalid_reciever_msg();
+        invalid_reciever_msg();
         return;
     }
 
@@ -48,5 +48,5 @@ void handle_transfer_request(BankDatabase *db, Account *sender){
     if(!is_valid_bal(transfer_amt)) return;
 
     bool success = execute_transfer(sender, receiver, transfer_amt);
-    display_transfer_success(success, sender);
+    transfer_status(success, sender);
 }

@@ -32,7 +32,7 @@ int main(void) {
                     running = false;
                     break;
                 default:
-                    display_invalid_selection_msg();
+                    invalid_selection_msg();
                     break;
             }
         } else {
@@ -54,11 +54,11 @@ int main(void) {
                     running = false;
                     break;
                 case 0:
-                    display_farewell_msg();
+                    exit_msg();
                     current_session = NULL;
                     break;
                 default:
-                    display_invalid_selection_msg();
+                    invalid_selection_msg();
                     break;
             }
         }
