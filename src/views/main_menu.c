@@ -1,13 +1,24 @@
 #include <stdio.h>
 #include "views/main_menu.h"
 
-void header_menu(void) {
+void gateway_menu(void) {
     puts("\n+-------------------------------------+");
-    puts("         Net-Bank Secure Portal           ");
-    puts("+-------------------------------------+");   
+    puts("            Net-Bank Gateway           ");
+    puts("+-------------------------------------+\n\n"); 
+    puts("+-------------------------------------+");
+    puts("|                                     |");
+    puts("|  [1] Login                          |");
+    puts("|  [2] Register                       |");
+    puts("|                                     |");
+    puts("|  [0] Exit                           |");
+    puts("|                                     |");
+    puts("+-------------------------------------+");
 }
 
-void choice_menu(void) {
+void main_menu(void) {
+    puts("\n+-------------------------------------+");
+    puts("         Net-Bank Secure Portal           ");
+    puts("+-------------------------------------+\n"); 
     puts("|                                     |");
     puts("|  [1] Withdraw                       |");
     puts("|  [2] Deposit                        |");
@@ -16,5 +27,5 @@ void choice_menu(void) {
     puts("|                                     |");
     puts("|  [0] Exit                           |");
     puts("|                                     |");
-    puts("+-------------------------------------|");
+    puts("+-------------------------------------+");
 }

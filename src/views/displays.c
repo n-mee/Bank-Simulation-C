@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "data/static_user.h"
+#include "data/model.h"
 
 void display_transfer_success(bool success, Account* sender){
     // Refers to the bool parameter and check what it returns.
@@ -35,6 +35,26 @@ void display_deposit_success(bool success, Account* current_user){
     }
 }
 
+void login_successful() {
+    printf("Login success! Welcome Back!\n");
+}
+
+void invalid_search() {
+    printf("[!] ERROR: Unique ID doesn't exist.\n");
+}
+
+void search_success() {
+    printf("ID has been found.\n");
+}
+
+void registration_success(int *id) {
+    printf("Registration successful! ID: %d\n", *id);
+}
+
+void memory_allocation_error() {
+    printf("[!] ERROR: Memory Allocation failed.. Exiting..");
+}
+
 void display_invalid_pin_msg() {
     printf("[!] ERROR: Invalid PIN... Try Again.\n");
 }
@@ -53,4 +73,9 @@ void display_invalid_selection_msg() {
 
 void display_farewell_msg() {
     printf("Exiting system... Goodbye.\n");
+}
+
+void wip_msg() {
+    printf("[!] This feature is a Work-In-Progress (WIP)\n");
+    printf("Come back again later\n");
 }

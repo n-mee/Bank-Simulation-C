@@ -1,5 +1,5 @@
 #include <stdbool.h>
-#include "data/static_user.h"
+#include "data/model.h"
 #include "core/transactions.h"
 #include "auth/auth.h"
 #include "controllers/handler.h"
@@ -32,14 +32,17 @@ void handle_withdraw_request(Account* current_user){
 }
 
 // Handles the main transfer logic.
-void handle_transfer_request(Account* sender, Account* receiver){
+void handle_transfer_request(BankDatabase *db, Account *sender){
     if(!is_pin_valid(sender->pin)) return;
 
     int r_id = get_receiver_id_input();
-    if (!is_valid_receiver(r_id, receiver->accID)){
+    int id_found = db_find_identity(db, r_id);
+    if (id_found == -1) {
         display_invalid_reciever_msg();
         return;
     }
+
+    Account *receiver = &db->records[id_found];
 
     double transfer_amt = get_amount();
     if(!is_valid_bal(transfer_amt)) return;

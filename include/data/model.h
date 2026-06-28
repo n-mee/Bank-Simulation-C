@@ -1,5 +1,5 @@
-#ifndef STATIC_USER_H
-#define STATIC_USER_H
+#ifndef MODEL_H
+#define MODEL_H
 
 typedef struct {
     int accID;

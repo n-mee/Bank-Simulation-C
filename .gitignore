@@ -6,3 +6,4 @@ build/
 
 # ignore extra directories
 docs/
+test/
