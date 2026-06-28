@@ -4,7 +4,7 @@
 #include "../include/views/displays.h"
 #include "../include/utils/input_parser.h"
 #include "../include/controllers/auth_controller.h"
-#include "../include/data/database_manager.h"
+#include "../include/data/database_functions.h"
 
 
 void handle_registration(BankDatabase *db) {

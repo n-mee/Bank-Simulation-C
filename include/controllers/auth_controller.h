@@ -2,7 +2,7 @@
 #define AUTH_CONTROLLER_H
 
 #include <stdbool.h>
-#include "../include/data/database_manager.h"
+#include "../include/data/database_functions.h"
 
 void handle_registration(BankDatabase *db);
 void handle_login(BankDatabase *db, Account **session_user);
