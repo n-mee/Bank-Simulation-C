@@ -3,9 +3,9 @@
 #include "controllers/auth_controller.h"
 #include "utils/input_parser.h"
 #include "data/database_manager.h"
-#include "views/main_menu.h"
+#include "views/menus.h"
 #include "views/displays.h"
-#include "controllers/handler.h"
+#include "controllers/transaction_controller.h"
 
 int main(void) {
 
@@ -32,7 +32,7 @@ int main(void) {
                     running = false;
                     break;
                 default:
-                    display_invalid_selection_msg();
+                    invalid_selection_msg();
                     break;
             }
         } else {
@@ -54,11 +54,11 @@ int main(void) {
                     running = false;
                     break;
                 case 0:
-                    display_farewell_msg();
+                    exit_msg();
                     current_session = NULL;
                     break;
                 default:
-                    display_invalid_selection_msg();
+                    invalid_selection_msg();
                     break;
             }
         }

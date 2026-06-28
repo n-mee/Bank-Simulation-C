@@ -77,3 +77,10 @@ void db_termination(BankDatabase *db){
     db->account_count = 0;
     db->db_capacity = 0;
 }
+
+bool is_valid_receiver(int referrence, int target){
+    if (referrence != target || referrence <= -1){
+        return false;
+    }
+    return true;
+}
