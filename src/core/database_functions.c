@@ -60,7 +60,7 @@ int db_account_creation(BankDatabase *db, const char *name, const char *pin) {
     return new_id;
 }
 
-int db_find_indentity(BankDatabase *db, int target_id) {
+int db_find_identity(BankDatabase *db, int target_id) {
     for (int i = 0; i < db->account_count; i++) {
         if (db->records[i].accID == target_id){
             return i;

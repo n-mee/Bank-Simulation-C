@@ -74,3 +74,8 @@ void display_invalid_selection_msg() {
 void display_farewell_msg() {
     printf("Exiting system... Goodbye.\n");
 }
+
+void wip_msg() {
+    printf("[!] This feature is a Work-In-Progress (WIP)\n");
+    printf("Come back again later\n");
+}

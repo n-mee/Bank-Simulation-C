@@ -20,6 +20,7 @@ void display_error_bal_msg();
 void display_invalid_selection_msg();
 
 // Msgs
+void wip_msg();
 void display_farewell_msg();
 
 #endif
