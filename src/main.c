@@ -12,6 +12,8 @@ int main(void) {
     BankDatabase bank;
     db_init(&bank, 4);
 
+    db_load_from_file(&bank);
+
     Account *current_session = NULL;
     bool running = true;
     int choice;
@@ -64,6 +66,7 @@ int main(void) {
         }
     }
 
+    db_save_to_file(&bank);
     db_termination(&bank);
     return 0;
 }

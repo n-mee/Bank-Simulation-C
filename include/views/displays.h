@@ -12,6 +12,7 @@ void search_success();
 void login_successful();
 
 // Error Msgs
+void invalid_file();
 void invalid_search();
 void memory_allocation_error();
 void invalid_pin_msg();

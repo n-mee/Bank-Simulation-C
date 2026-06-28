@@ -39,6 +39,9 @@ void login_successful() {
     printf("Login success! Welcome Back!\n");
 }
 
+void invalid_file () {
+    printf("[!] ERROR: Invalid file.\n");
+}
 void invalid_search() {
     printf("[!] ERROR: Unique ID doesn't exist.\n");
 }

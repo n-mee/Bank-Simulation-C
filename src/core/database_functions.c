@@ -3,7 +3,7 @@
 #include <string.h>
 #include <time.h>
 #include "../include/views/displays.h"
-#include "../include/data/database_manager.h"
+#include "../include/data/database_functions.h"
 
 static int account_id_generator(BankDatabase *db) {
     int unique_id;
@@ -38,12 +38,9 @@ int db_init(BankDatabase *db, int init_slots) {
 int db_account_creation(BankDatabase *db, const char *name, const char *pin) {
     // checks db size availability accordingly
     if (db->account_count >= db->db_capacity) {
-        // increases the database by 2
-        int new_capacity = db->db_capacity * 2;
-        Account *temp = realloc(db->records, new_capacity * sizeof(Account));
-        if (temp == NULL) return -1;
-        db->records = temp;
-        db->db_capacity = new_capacity;
+        if (db_expand(db, db->db_capacity * 2) == -1){
+            return -1;
+        }
     }
 
     int index = db->account_count;
@@ -58,6 +55,18 @@ int db_account_creation(BankDatabase *db, const char *name, const char *pin) {
     int new_id = db->records[index].accID;
     db->account_count++;
     return new_id;
+}
+
+int db_expand(BankDatabase *db, int capacity) {
+    // checks db size availability accordingly
+    if (capacity > db->db_capacity) {
+        // increases the database size using the target capacity
+        Account *temp = realloc(db->records, capacity * sizeof(Account));
+        if (temp == NULL) return -1;
+        db->records = temp;
+        db->db_capacity = capacity;
+    }
+    return 1;
 }
 
 int db_find_identity(BankDatabase *db, int target_id) {
@@ -83,4 +92,36 @@ bool is_valid_receiver(int referrence, int target){
         return false;
     }
     return true;
+}
+
+void db_save_to_file(BankDatabase *db){
+    FILE *data = fopen("data/database.bin", "wb");
+    if (data == NULL) {
+        invalid_file();
+        return;
+    }
+
+    //save the number of the accounts
+    fwrite(&db->account_count, sizeof(db->account_count), 1,data);
+    //saving the actual data themselves
+    fwrite(db->records, sizeof(Account), db->account_count, data);
+
+    fclose(data);
+}
+
+void db_load_from_file(BankDatabase *db){
+    FILE *data = fopen("data/database.bin", "rb");
+    if (data == NULL) {
+        invalid_file();
+        return;
+    }
+
+    fread(&db->account_count, sizeof(db->account_count), 1, data);
+    if (db_expand(db, db->account_count) == -1) {
+        fclose(data);
+        return;
+    }
+    fread(db->records, sizeof(Account), db->account_count, data);
+
+    fclose(data);
 }
