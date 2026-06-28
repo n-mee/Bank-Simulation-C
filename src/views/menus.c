@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "views/main_menu.h"
+#include "views/menus.h"
 
 void gateway_menu(void) {
     puts("\n+-------------------------------------+");
