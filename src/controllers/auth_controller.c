@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include <string.h>
+#include <stdbool.h>
 #include "../include/views/displays.h"
 #include "../include/utils/input_parser.h"
 #include "../include/controllers/auth_controller.h"
@@ -41,4 +42,16 @@ void handle_login(BankDatabase *db, Account **session_user) {
 
     *session_user = &db->records[search_id];
     login_successful();
-} 
+}
+
+bool is_pin_valid(const char* targetPIN){
+    char tmp_buffer[10];
+
+    get_string_prompt("\n Enter your pin: ", tmp_buffer, sizeof(tmp_buffer));
+
+    if (strcmp(tmp_buffer, targetPIN) == 0) {
+        return true;
+    } else {
+        return false;
+    }
+}

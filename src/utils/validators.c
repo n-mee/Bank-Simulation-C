@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "auth/auth.h"
+#include "utils/validators.h"
 #include "views/displays.h"
 
 // checks if the amount entered is valid and returns the according boolean values.

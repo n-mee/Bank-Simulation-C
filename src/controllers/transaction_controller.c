@@ -2,7 +2,8 @@
 #include "data/database_manager.h"
 #include "data/model.h"
 #include "core/transactions.h"
-#include "auth/auth.h"
+#include "controllers/auth_controller.h"
+#include "utils/validators.h"
 #include "views/input.h"
 #include "views/displays.h"
 
