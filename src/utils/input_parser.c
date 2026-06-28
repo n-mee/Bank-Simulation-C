@@ -51,10 +51,13 @@ double get_decimal_prompt(const char* prompt){
 }
 
 void get_string_prompt(const char* prompt, char* output_buffer, int buffer_size) {
-    fseek(stdin, 0, SEEK_END);
     while (true) {
         printf("%s", prompt);
         if (fgets(output_buffer, buffer_size, stdin) != NULL) {
+            if (strchr(output_buffer, '\n') == NULL) {
+                int c;
+                while ((c = getchar()) != '\n' && c != EOF); 
+            }
             output_buffer[strcspn(output_buffer, "\n")] = '\0';
             if (strlen(output_buffer) > 0) {
                 return;
