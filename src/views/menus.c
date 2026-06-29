@@ -31,14 +31,14 @@ void main_menu(void) {
 }
 
 void account_menu(void) {
-    puts("\n+---------------------------------------+");
-    puts("              Account Settings            ");
-    puts("+----------------------------------------+\n");
-    puts("|                                        |");
-    puts("|   [1] Change Display Name              |");
-    puts("|   [2] Change PIN                       |");
-    puts("|                                        |");
-    puts("|   [0] Exit                             |");
-    puts("|                                        |");
-    puts("+----------------------------------------+");
+    puts("\n+-------------------------------------+");
+    puts("              Account Settings           ");
+    puts("+-------------------------------------+\n");
+    puts("|                                     |");
+    puts("|   [1] Change Display Name           |");
+    puts("|   [2] Change PIN                    |");
+    puts("|                                     |");
+    puts("|   [0] Exit                          |");
+    puts("|                                     |");
+    puts("+-------------------------------------+");
 }
