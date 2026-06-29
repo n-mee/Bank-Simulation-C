@@ -5,6 +5,7 @@
 #include "data/database_functions.h"
 #include "views/menus.h"
 #include "views/displays.h"
+#include "controllers/account_controller.h"
 #include "controllers/transaction_controller.h"
 
 int main(void) {
@@ -52,8 +53,7 @@ int main(void) {
                     handle_transfer_request(&bank, current_session);
                     break;
                 case 4:
-                    wip_msg();
-                    running = false;
+                    handle_account_settings(current_session);
                     break;
                 case 0:
                     exit_msg();
