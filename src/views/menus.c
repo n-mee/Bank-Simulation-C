@@ -23,7 +23,7 @@ void main_menu(void) {
     puts("|  [1] Withdraw                       |");
     puts("|  [2] Deposit                        |");
     puts("|  [3] Transfer                       |");
-    puts("|  [4] Account Setting (WIP)          |");
+    puts("|  [4] Account Setting                |");
     puts("|                                     |");
     puts("|  [0] Exit                           |");
     puts("|                                     |");
