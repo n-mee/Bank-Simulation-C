@@ -39,9 +39,24 @@ void login_successful() {
     printf("Login success! Welcome Back!\n");
 }
 
+void change_pin_success(Account *session) {
+    printf("Change of PIN: [SUCCESS!!]\n");
+    printf("Your new PIN: %s\n", session->pin);
+}
+
+void change_name_success(Account *session) {
+    printf("Change of display name: [SUCCESS!!]\n");
+    printf("Your new display name: %s\n", session->name);
+}
+
+void invalid_str_size() {
+    printf("[!] ERROR: Invalid string input.\n");
+}
+
 void invalid_file () {
     printf("[!] ERROR: Invalid file.\n");
 }
+
 void invalid_search() {
     printf("[!] ERROR: Unique ID doesn't exist.\n");
 }
@@ -72,6 +87,11 @@ void error_bal_msg() {
 
 void invalid_selection_msg() {
     printf("[!] ERROR: Invalid selection.\n");
+}
+
+void back_to_menu() {
+    printf("Exiting..\n");
+    printf("Going back to menu..\n");
 }
 
 void exit_msg() {
