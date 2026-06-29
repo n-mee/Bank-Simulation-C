@@ -112,7 +112,6 @@ void db_save_to_file(BankDatabase *db){
 void db_load_from_file(BankDatabase *db){
     FILE *data = fopen("data/database.bin", "rb");
     if (data == NULL) {
-        invalid_file();
         return;
     }
 
