@@ -44,15 +44,3 @@ void handle_login(BankDatabase *db, Account **session_user) {
     *session_user = &db->records[search_id];
     login_successful();
 }
-
-bool is_pin_valid(const char* targetPIN){
-    char tmp_buffer[10];
-
-    get_string_prompt("Enter your pin: ", tmp_buffer, sizeof(tmp_buffer));
-
-    if (strcmp(tmp_buffer, targetPIN) == 0) {
-        return true;
-    } else {
-        return false;
-    }
-}
