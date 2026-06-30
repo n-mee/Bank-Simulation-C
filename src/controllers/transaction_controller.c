@@ -43,6 +43,11 @@ void handle_transfer_request(BankDatabase *db, Account *sender){
         return;
     }
 
+    if (db->records[id_found].accID == sender->accID) {
+        self_transfer_error();
+        return;
+    }
+
     Account *receiver = &db->records[id_found];
 
     double transfer_amt = get_amount();

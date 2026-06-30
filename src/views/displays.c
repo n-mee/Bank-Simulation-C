@@ -85,6 +85,10 @@ void invalid_reciever_msg(){
     printf("[!] ERROR: ID doesn't match any values in the database.\n");
 }
 
+void self_transfer_error() {
+    printf("[!] ERROR: Cannot transfer money to yourself.\n");
+}
+
 void error_bal_msg() {
     printf("[!] ERROR: Amount should be greater than 0.\n");
 }

@@ -14,6 +14,7 @@ void search_success();
 void login_successful();
 
 // Error Msgs
+void self_transfer_error();
 void invalid_str_size();
 void invalid_file();
 void invalid_search();
