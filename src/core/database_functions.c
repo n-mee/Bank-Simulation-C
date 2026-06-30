@@ -87,13 +87,6 @@ void db_termination(BankDatabase *db){
     db->db_capacity = 0;
 }
 
-bool is_valid_receiver(int referrence, int target){
-    if (referrence != target || referrence <= -1){
-        return false;
-    }
-    return true;
-}
-
 void db_save_to_file(BankDatabase *db){
     FILE *data = fopen("data/database.bin", "wb");
     if (data == NULL) {

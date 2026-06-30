@@ -1,7 +1,6 @@
 #ifndef DATABASE_FUNCTIONS_H
 #define DATABASE_FUNCTIONS_H
 
-#include <stdbool.h>
 #include "../include/data/model.h"
 
 typedef struct {
@@ -16,9 +15,6 @@ int db_expand(BankDatabase *db, int capacity);
 int db_account_creation(BankDatabase *db, const char *name, const char *pin);
 int db_find_identity(BankDatabase *db, int target_id);
 void db_termination(BankDatabase *db);
-
-//id validity checker
-bool is_valid_receiver(int referrence, int target);
 
 //serialization
 void db_save_to_file(BankDatabase *db);

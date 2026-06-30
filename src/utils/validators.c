@@ -28,3 +28,10 @@ bool is_valid_length_input(const char* target) {
     }
     return true;
 }
+
+bool is_valid_receiver(int referrence, int target){
+    if (referrence != target || referrence <= -1){
+        return false;
+    }
+    return true;
+}
