@@ -18,6 +18,7 @@ void invalid_str_size();
 void invalid_file();
 void invalid_search();
 void memory_allocation_error();
+void wrong_pin_msg();
 void invalid_pin_msg();
 void invalid_reciever_msg();
 void error_bal_msg();

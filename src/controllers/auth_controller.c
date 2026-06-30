@@ -36,6 +36,7 @@ void handle_login(BankDatabase *db, Account **session_user) {
 
     get_string_prompt("Enter your PIN: ", temp_pin, sizeof(temp_pin));
     if (strcmp(temp_pin, db->records[search_id].pin) != 0){
+        wrong_pin_msg();
         *session_user = NULL;
         return;
     }

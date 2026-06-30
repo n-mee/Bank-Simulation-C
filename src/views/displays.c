@@ -73,6 +73,10 @@ void memory_allocation_error() {
     printf("[!] ERROR: Memory Allocation failed.. Exiting..");
 }
 
+void wrong_pin_msg() {
+    printf("[!] ERROR: Wrong PIN.\n");
+}
+
 void invalid_pin_msg() {
     printf("[!] ERROR: Invalid PIN... Try Again.\n");
 }
