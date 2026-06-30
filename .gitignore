@@ -5,5 +5,5 @@ build/
 *.out
 
 # ignore extra directories
-docs/
 test/
+data/
