@@ -5,12 +5,19 @@
 #include "../include/views/displays.h"
 #include "../include/data/database_functions.h"
 
+/**
+ * @brief Geneators a Unique 2-digit ID
+ * @param db Pointer referrence for duplication checking
+ * @return The unique_id as an int to be assigned on a new account
+ */
 static int account_id_generator(BankDatabase *db) {
     int unique_id;
     int is_duplicate;
     do {
+        // Unique ID generator from 10 - 99
         unique_id = (rand() % 90) + 10;
         is_duplicate = 0;
+        // Linear index checker for duplication
         for (int i = 0; i < db->account_count; i++) {
             if (db->records[i].accID == unique_id) {
                 is_duplicate = 1;
@@ -22,19 +29,18 @@ static int account_id_generator(BankDatabase *db) {
 }
 
 int db_init(BankDatabase *db, int init_slots) {
-    // random seed for pure randomness
+    // Random seed for pure randomness
     srand(time(NULL));
 
-    // initializaiton of data
+    // Initializes database with set slots and default values
     db->db_capacity = init_slots;
     db->account_count = 0;
-    // actual data initialization
+    // Allocates memory and return whether it succeeded
     db->records = malloc(init_slots * sizeof(Account));
-    // returns the 1 if successful and 0 if failed.
     return (db->records != NULL);
 }
 
-// Account creation function that also automatically adds new accs
+// Database new account initializer
 int db_account_creation(BankDatabase *db, const char *name, const char *pin) {
     // checks db size availability accordingly
     if (db->account_count >= db->db_capacity) {
@@ -43,20 +49,24 @@ int db_account_creation(BankDatabase *db, const char *name, const char *pin) {
         }
     }
 
+    // Initializes the new account slot with default values
     int index = db->account_count;
     db->records[index].accID = account_id_generator(db);
     db->records[index].bal = 0.0;
     
+    // Copies the name and pin param to set as biometrics for new account
     strncpy(db->records[index].name, name, sizeof(db->records[index].name) - 1);
     db->records[index].name[sizeof(db->records[index].name) - 1] = '\0';
     strncpy(db->records[index].pin, pin, sizeof(db->records[index].pin) - 1);
     db->records[index].pin[sizeof(db->records[index].pin) - 1] = '\0';
 
+    // Increments database records and returns ID
     int new_id = db->records[index].accID;
     db->account_count++;
     return new_id;
 }
 
+// Database expander
 int db_expand(BankDatabase *db, int capacity) {
     // checks db size availability accordingly
     if (capacity > db->db_capacity) {
@@ -69,8 +79,10 @@ int db_expand(BankDatabase *db, int capacity) {
     return 1;
 }
 
+// Linear scan search for indentity tracking
 int db_find_identity(BankDatabase *db, int target_id) {
     for (int i = 0; i < db->account_count; i++) {
+        // returns the account index if match found
         if (db->records[i].accID == target_id){
             return i;
         }
@@ -78,15 +90,18 @@ int db_find_identity(BankDatabase *db, int target_id) {
     return -1;
 }
 
+// Terminates the database by freeing
 void db_termination(BankDatabase *db){
     if (db->records != NULL) {
         free(db->records);
+        // Set to null to avoid being used after freeing
         db->records = NULL;
     }
     db->account_count = 0;
     db->db_capacity = 0;
 }
 
+// TODO: Read header file according to this function name
 void db_save_to_file(BankDatabase *db){
     FILE *data = fopen("data/database.bin", "wb");
     if (data == NULL) {
@@ -102,6 +117,7 @@ void db_save_to_file(BankDatabase *db){
     fclose(data);
 }
 
+// TODO: read header file before touching this code
 void db_load_from_file(BankDatabase *db){
     FILE *data = fopen("data/database.bin", "rb");
     if (data == NULL) {
