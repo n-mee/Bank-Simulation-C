@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include <string.h>
 #include "utils/validators.h"
+#include "utils/input_parser.h"
 #include "views/displays.h"
 
 // checks if the amount entered is valid and returns the according boolean values.
