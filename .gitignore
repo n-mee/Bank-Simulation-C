@@ -6,4 +6,4 @@ build/
 
 # ignore extra directories
 test/
-data/
+/data/
