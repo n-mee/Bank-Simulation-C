@@ -35,6 +35,10 @@ void deposit_status(bool success, Account* current_user){
     }
 }
 
+void dir_init_success() {
+    printf("Successfuly Initiated the directory.\n");
+}
+
 void login_successful() {
     printf("Login success! Welcome Back!\n");
 }
@@ -47,6 +51,10 @@ void change_pin_success(Account *session) {
 void change_name_success(Account *session) {
     printf("Change of display name: [SUCCESS!!]\n");
     printf("Your new display name: %s\n", session->name);
+}
+
+void dir_initiation_err() {
+    fprintf(stderr, "[!] ERROR: Failed to initialize directory.\n");
 }
 
 void invalid_str_size() {

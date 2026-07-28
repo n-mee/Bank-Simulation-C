@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include "../include/utils/file_utility.h"
 #include "../include/views/displays.h"
 #include "../include/data/database_functions.h"
 
@@ -103,6 +104,16 @@ void db_termination(BankDatabase *db){
 
 // TODO: Read header file according to this function name
 void db_save_to_file(BankDatabase *db){
+
+    // Checks for directory avaibility
+    if (verify_dir_status("data") == -1) {
+        dir_initiation_err();
+        return;
+    } else {
+        dir_init_success();
+    }
+
+    // Initiates the creation of database file
     FILE *data = fopen("data/database.bin", "wb");
     if (data == NULL) {
         invalid_file();

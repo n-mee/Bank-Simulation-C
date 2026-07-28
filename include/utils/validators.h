@@ -46,11 +46,4 @@ bool is_valid_length_input(const char* target);
  */
 bool is_valid_id(int referrence, int target);
 
-/**
- * @brief Validates PIN via scope input and comparing it with param value
- * @param targetPIN Used as the evaluation check to validate pin input
- * @return True if it matches, False if not
- */
-bool is_pin_valid(const char* targetPIN);
-
 #endif

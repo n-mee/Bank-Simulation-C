@@ -10,10 +10,12 @@ void deposit_status(bool success, Account* current_user);
 void registration_success(int *id);
 void change_pin_success(Account *session);
 void change_name_success(Account *session);
+void dir_init_success();
 void search_success();
 void login_successful();
 
 // Error Msgs
+void dir_initiation_err();
 void self_transfer_error();
 void invalid_str_size();
 void invalid_file();
