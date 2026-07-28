@@ -3,6 +3,5 @@
 
 void gateway_menu(void);
 void main_menu(void);
-void account_menu(void);
 
 #endif

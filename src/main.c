@@ -5,15 +5,12 @@
 #include "data/database_functions.h"
 #include "views/menus.h"
 #include "views/displays.h"
-#include "controllers/account_controller.h"
 #include "controllers/transaction_controller.h"
 
 int main(void) {
 
     BankDatabase bank;
     db_init(&bank, 4);
-
-    db_load_from_file(&bank);
 
     Account *current_session = NULL;
     bool running = true;
@@ -53,7 +50,8 @@ int main(void) {
                     handle_transfer_request(&bank, current_session);
                     break;
                 case 4:
-                    handle_account_settings(current_session);
+                    wip_msg();
+                    running = false;
                     break;
                 case 0:
                     exit_msg();
@@ -66,7 +64,6 @@ int main(void) {
         }
     }
 
-    db_save_to_file(&bank);
     db_termination(&bank);
     return 0;
 }

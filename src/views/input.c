@@ -10,7 +10,3 @@ int get_receiver_id_input(){
 double get_amount(){
     return get_decimal_prompt("Enter the amount: ");
 }
-
-void get_pin(char* PIN) {
-    get_string_prompt("Enter your PIN: ", PIN, sizeof(PIN));
-}

@@ -22,11 +22,5 @@ $(BUILD_DIR)/%.o: %.c
 clean:
 		rm -rf $(BUILD_DIR)/* $(BIN_DIR)/*
 
-memcheck:
-	valgrind --leak-check=full \
-	         --show-leak-kinds=all \
-	         --track-origins=yes \
-	         ./$(TARGET)
-
 run: all
 		./$(TARGET)

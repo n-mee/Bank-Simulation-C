@@ -17,28 +17,15 @@ void gateway_menu(void) {
 
 void main_menu(void) {
     puts("\n+-------------------------------------+");
-    puts("         Net-Bank Secure Portal          ");
+    puts("         Net-Bank Secure Portal           ");
     puts("+-------------------------------------+\n"); 
     puts("|                                     |");
     puts("|  [1] Withdraw                       |");
     puts("|  [2] Deposit                        |");
     puts("|  [3] Transfer                       |");
-    puts("|  [4] Account Setting                |");
+    puts("|  [4] Account Setting (WIP)          |");
     puts("|                                     |");
     puts("|  [0] Exit                           |");
-    puts("|                                     |");
-    puts("+-------------------------------------+");
-}
-
-void account_menu(void) {
-    puts("\n+-------------------------------------+");
-    puts("              Account Settings           ");
-    puts("+-------------------------------------+\n");
-    puts("|                                     |");
-    puts("|   [1] Change Display Name           |");
-    puts("|   [2] Change PIN                    |");
-    puts("|                                     |");
-    puts("|   [0] Exit                          |");
     puts("|                                     |");
     puts("+-------------------------------------+");
 }
