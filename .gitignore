@@ -7,5 +7,8 @@ build/
 # ignore extra directories
 test/
 /data/
-/.vscode/
+.vscode/*
 /.github/
+
+#Allow tracking of some files 
+!.vscode/c_cpp_properties.json
