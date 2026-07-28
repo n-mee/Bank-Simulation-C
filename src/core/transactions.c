@@ -7,7 +7,7 @@ bool execute_withdraw(Account* current_user, double withdraw_amt) {
     // Checks the account balance.
     if (current_user->bal < withdraw_amt) return false;
 
-    // Checks if the amt is sufficient
+    // Ensures the amount is always positive
     if (withdraw_amt <= 0) return false;
 
     // Execute the withdrawal method.
@@ -16,10 +16,10 @@ bool execute_withdraw(Account* current_user, double withdraw_amt) {
 }
 
 bool execute_deposit(Account* current_user, double deposit_amt) {
-    // Checks if the amt is sufficient
+    // Ensures the deposit amount is positive
     if (deposit_amt <= 0) return false;
 
-    //Executes the deposit logic
+    // Executes the deposit logic
     current_user->bal += deposit_amt;
     return true;
 }
@@ -28,7 +28,7 @@ bool execute_transfer(Account* sender, Account* receiver, double transfer_amt) {
     // Checks the sender's balance for sufficiency
     if (sender->bal < transfer_amt) return false;
 
-    // Checks if the amt is sufficent
+    // Ensures the transfer amount is positive
     if (transfer_amt <= 0) return false;
 
     // Executes the transfer method.

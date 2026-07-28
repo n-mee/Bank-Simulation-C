@@ -3,5 +3,6 @@
 
 int get_receiver_id_input();
 double get_amount();
+void get_pin(char* PIN);
 
 #endif

@@ -35,8 +35,34 @@ void deposit_status(bool success, Account* current_user){
     }
 }
 
+void dir_init_success() {
+    printf("Successfuly Initiated the directory.\n");
+}
+
 void login_successful() {
     printf("Login success! Welcome Back!\n");
+}
+
+void change_pin_success(Account *session) {
+    printf("Change of PIN: [SUCCESS!!]\n");
+    printf("Your new PIN: %s\n", session->pin);
+}
+
+void change_name_success(Account *session) {
+    printf("Change of display name: [SUCCESS!!]\n");
+    printf("Your new display name: %s\n", session->name);
+}
+
+void dir_initiation_err() {
+    fprintf(stderr, "[!] ERROR: Failed to initialize directory.\n");
+}
+
+void invalid_str_size() {
+    printf("[!] ERROR: Invalid string input.\n");
+}
+
+void invalid_file () {
+    printf("[!] ERROR: Invalid file.\n");
 }
 
 void invalid_search() {
@@ -55,6 +81,10 @@ void memory_allocation_error() {
     printf("[!] ERROR: Memory Allocation failed.. Exiting..");
 }
 
+void wrong_pin_msg() {
+    printf("[!] ERROR: Wrong PIN.\n");
+}
+
 void invalid_pin_msg() {
     printf("[!] ERROR: Invalid PIN... Try Again.\n");
 }
@@ -63,12 +93,21 @@ void invalid_reciever_msg(){
     printf("[!] ERROR: ID doesn't match any values in the database.\n");
 }
 
+void self_transfer_error() {
+    printf("[!] ERROR: Cannot transfer money to yourself.\n");
+}
+
 void error_bal_msg() {
     printf("[!] ERROR: Amount should be greater than 0.\n");
 }
 
 void invalid_selection_msg() {
     printf("[!] ERROR: Invalid selection.\n");
+}
+
+void back_to_menu() {
+    printf("Exiting..\n");
+    printf("Going back to menu..\n");
 }
 
 void exit_msg() {
