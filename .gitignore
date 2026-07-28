@@ -7,4 +7,4 @@ build/
 # ignore extra directories
 test/
 /data/
-.vscode/
+/.vscode/
