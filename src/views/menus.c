@@ -2,43 +2,43 @@
 #include "views/menus.h"
 
 void gateway_menu(void) {
-    puts("\n+-------------------------------------+");
-    puts("            Net-Bank Gateway           ");
-    puts("+-------------------------------------+\n\n"); 
     puts("+-------------------------------------+");
+    puts("            Net-Bank Gateway           ");
+    puts("+-------------------------------------+"); 
     puts("|                                     |");
-    puts("|  [1] Login                          |");
-    puts("|  [2] Register                       |");
+    puts("|  [1] LOGIN                          |");
+    puts("|  [2] REGISTER                       |");
     puts("|                                     |");
-    puts("|  [0] Exit                           |");
+    puts("|  [0] EXIT                           |");
     puts("|                                     |");
     puts("+-------------------------------------+");
 }
 
 void main_menu(void) {
-    puts("\n+-------------------------------------+");
-    puts("         Net-Bank Secure Portal          ");
-    puts("+-------------------------------------+\n"); 
+    puts("+-------------------------------------+");
+    puts("         Net-Bank Secure Portal        ");
+    puts("+-------------------------------------+"); 
     puts("|                                     |");
-    puts("|  [1] Withdraw                       |");
-    puts("|  [2] Deposit                        |");
-    puts("|  [3] Transfer                       |");
-    puts("|  [4] Account Setting                |");
+    puts("|  [1] WITHDRAW                       |");
+    puts("|  [2] DEPOSIT                        |");
+    puts("|  [3] TRANSFER                       |");
+    puts("|  [4] ACCOUNT SETTINGS               |");
     puts("|                                     |");
-    puts("|  [0] Exit                           |");
+    puts("|  [0] EXIT                           |");
     puts("|                                     |");
     puts("+-------------------------------------+");
 }
 
 void account_menu(void) {
-    puts("\n+-------------------------------------+");
-    puts("              Account Settings           ");
-    puts("+-------------------------------------+\n");
+    puts("+-------------------------------------+");
+    puts("            Account Settings           ");
+    puts("+-------------------------------------+");
     puts("|                                     |");
-    puts("|   [1] Change Display Name           |");
-    puts("|   [2] Change PIN                    |");
+    puts("|   [1] PROFILE SETTINGS              |");
+    puts("|   [2] PREFERENCE SETTINGS           |");
+    puts("|   [3] CARD AND PAYMENT CONTROLS     |");
     puts("|                                     |");
-    puts("|   [0] Exit                          |");
+    puts("|   [0] EXIT                          |");
     puts("|                                     |");
     puts("+-------------------------------------+");
 }
