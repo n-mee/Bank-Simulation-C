@@ -42,7 +42,7 @@ int db_init(BankDatabase *db, int init_slots) {
 }
 
 // Database new account initializer
-int db_account_creation(BankDatabase *db, const char *name, const char *pin) {
+int db_account_creation(BankDatabase *db, Account new_acc) {
     // checks db size availability accordingly
     if (db->account_count >= db->db_capacity) {
         if (db_expand(db, db->db_capacity * 2) == -1){
@@ -50,16 +50,11 @@ int db_account_creation(BankDatabase *db, const char *name, const char *pin) {
         }
     }
 
-    // Initializes the new account slot with default values
+    // Initializes the new account slot
     int index = db->account_count;
+    db->records[index] = new_acc;
     db->records[index].accID = account_id_generator(db);
     db->records[index].bal = 0.0;
-    
-    // Copies the name and pin param to set as biometrics for new account
-    strncpy(db->records[index].profile.name, name, sizeof(db->records[index].profile.name) - 1);
-    db->records[index].profile.name[sizeof(db->records[index].profile.name) - 1] = '\0';
-    strncpy(db->records[index].profile.pin, pin, sizeof(db->records[index].profile.pin) - 1);
-    db->records[index].profile.pin[sizeof(db->records[index].profile.name) - 1] = '\0';
 
     // Increments database records and returns ID
     int new_id = db->records[index].accID;
