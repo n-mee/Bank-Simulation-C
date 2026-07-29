@@ -8,14 +8,22 @@
 
 // handles the gateway registartion logic
 void handle_registration(BankDatabase *db) {
-    char temp_name[50];
-    char temp_pin[6];
+    Account temp_acc = {0};
 
-    get_string_prompt("Enter your name: ", temp_name, sizeof(temp_name));
-    get_string_prompt("Enter your PIN: ", temp_pin, sizeof(temp_pin));
+    get_string_prompt("Enter your Full Government Name: ", temp_acc.profile.name, sizeof(temp_acc.profile.name));
+    get_string_prompt("Enter your Username: ", temp_acc.profile.username, sizeof(temp_acc.profile.username));
+    get_string_prompt("Enter your email: ", temp_acc.profile.email, sizeof(temp_acc.profile.email));
+    get_string_prompt("Enter your PIN: ", temp_acc.profile.pin, sizeof(temp_acc.profile.pin));
+
+    temp_acc.preference.email_notif = false;
+    temp_acc.preference.push_notif = false;
+    temp_acc.preference.low_balance_alert = false;
+    temp_acc.preference.large_transaction_alert = false;
+    temp_acc.controls.status = ACCOUNT_ACTIVE;
+    temp_acc.controls.daily_limit = 50000.00;
 
     // creates an account using another module function in database and returns a value as ID
-    int acc_id = db_account_creation(db, temp_name, temp_pin);
+    int acc_id = db_account_creation(db, temp_acc);
 
     // checks if the id is not negative one
     if (acc_id == -1) {
