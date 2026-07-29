@@ -66,3 +66,18 @@ void get_string_prompt(const char* prompt, char* output_buffer, int buffer_size)
         printf("[!] ERROR: Input cannot be empty. Try again.\n");
     }
 }
+
+bool get_yes_no_prompt(const char* prompt) {
+    char answer[10];
+    while (true) {
+        get_string_prompt(prompt, answer, sizeof(answer));
+
+        if (strcmp(answer, "yes") == 0) {
+            return true;
+        } else if (strcmp(answer, "no") == 0) {
+            return false;
+        }
+        
+        printf("\nInvalid choice. Please type 'yes' or 'no'.\n");
+    }
+}
