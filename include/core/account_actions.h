@@ -32,4 +32,10 @@ void account_update_username(Account *session, const char* new_name);
 
 void account_update_email(Account *session, const char* new_email);
 
+void set_email_notif(Account* session, bool enabled);
+void set_push_notif(Account* session, bool enabled);
+void set_low_bal_notif(Account* session, bool enabled);
+void set_large_txn_notif(Account* session, bool enabled);
+
+
 #endif
