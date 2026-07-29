@@ -6,17 +6,40 @@
  * 
  * @note: Nothing much to do here, it's just the model of
  *        an account you see being accessed in the database
- * 
- * TODO:
- *      Apply Binary Search Tree (BST) for better data structure
- *      before implementing role privileges and other management
- *      account roles
- */
+*/
+
+typedef struct {
+    char name[51];
+    char username[21];
+    char email[71];
+    char pin[5];
+} ProfileSettings;
+
+typedef struct {
+    bool email_notif;
+    bool push_notif;
+    bool low_balance_alert;
+    bool large_transaction_alert;
+} PreferenceSettings;
+
+typedef enum {
+    ACCOUNT_ACTIVE,
+    ACCOUNT_FROZEN,
+    ACCOUNT_CLOSED
+} AccountStatus;
+
+typedef struct {
+    AccountStatus status;
+    double daily_limit;
+} CardControls;
+
 typedef struct {
     int accID;
     double bal;
-    char pin[5];
-    char name[50];
+
+    ProfileSettings profile;
+    PreferenceSettings preference;
+    CardControls controls;
 } Account;
 
 #endif
