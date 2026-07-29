@@ -8,6 +8,7 @@ void transfer_status(bool success, Account* sender);
 void withdraw_status(bool success, Account* current_user);
 void deposit_status(bool success, Account* current_user);
 void registration_success(int *id);
+void update_email_status(Account *session);
 void change_pin_success(Account *session);
 void change_name_success(Account *session);
 void dir_init_success();

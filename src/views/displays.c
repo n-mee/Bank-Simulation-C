@@ -43,6 +43,11 @@ void login_successful() {
     printf("Login success! Welcome Back!\n");
 }
 
+void update_email_status(Account *session) {
+    printf("Successfully changed your email!\n");
+    printf("Your new email: %s\n", session->profile.email);
+}
+
 void change_pin_success(Account *session) {
     printf("Change of PIN: [SUCCESS!!]\n");
     printf("Your new PIN: %s\n", session->profile.pin);
