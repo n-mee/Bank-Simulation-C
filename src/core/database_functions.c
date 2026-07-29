@@ -56,10 +56,10 @@ int db_account_creation(BankDatabase *db, const char *name, const char *pin) {
     db->records[index].bal = 0.0;
     
     // Copies the name and pin param to set as biometrics for new account
-    strncpy(db->records[index].name, name, sizeof(db->records[index].name) - 1);
-    db->records[index].name[sizeof(db->records[index].name) - 1] = '\0';
-    strncpy(db->records[index].pin, pin, sizeof(db->records[index].pin) - 1);
-    db->records[index].pin[sizeof(db->records[index].pin) - 1] = '\0';
+    strncpy(db->records[index].profile.name, name, sizeof(db->records[index].profile.name) - 1);
+    db->records[index].profile.name[sizeof(db->records[index].profile.name) - 1] = '\0';
+    strncpy(db->records[index].profile.pin, pin, sizeof(db->records[index].profile.pin) - 1);
+    db->records[index].profile.pin[sizeof(db->records[index].profile.name) - 1] = '\0';
 
     // Increments database records and returns ID
     int new_id = db->records[index].accID;

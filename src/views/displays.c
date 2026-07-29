@@ -45,12 +45,12 @@ void login_successful() {
 
 void change_pin_success(Account *session) {
     printf("Change of PIN: [SUCCESS!!]\n");
-    printf("Your new PIN: %s\n", session->pin);
+    printf("Your new PIN: %s\n", session->profile.pin);
 }
 
 void change_name_success(Account *session) {
     printf("Change of display name: [SUCCESS!!]\n");
-    printf("Your new display name: %s\n", session->name);
+    printf("Your new display name: %s\n", session->profile.name);
 }
 
 void dir_initiation_err() {

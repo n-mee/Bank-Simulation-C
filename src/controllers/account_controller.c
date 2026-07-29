@@ -20,7 +20,7 @@ void change_pin_pipeline(Account *session) {
     get_string_prompt("\nEnter Current PIN: ", current_pin, sizeof(current_pin));
 
     // check if the current pin matches before changing it
-    if (!is_valid_pin(session->pin, current_pin)) return;
+    if (!is_valid_pin(session->profile.pin, current_pin)) return;
 
     // declaring var for new pin
     char new_pin[6];
@@ -38,7 +38,7 @@ void change_name_pipeline(Account *session) {
     get_string_prompt("\nEnter current PIN: ", current_pin, sizeof(current_pin));
 
     // checks if the current pin inputted matches the current_user's pin
-    if (!is_valid_pin(session->pin, current_pin)) return;
+    if (!is_valid_pin(session->profile.pin, current_pin)) return;
 
     // declaring of variable for new name
     char new_name[50];
