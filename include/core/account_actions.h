@@ -3,6 +3,7 @@
 
 // dependency header (data model)
 #include "../include/data/model.h"
+#include "../include/data/database_functions.h"
 
 /** ================================
  *        ACCOUNT FUNCTIONS
@@ -27,6 +28,8 @@ void account_update_pin(Account *session, const char* new_pin);
  * @param session Current account struct used to change the values inside
  * @param new_name New display name value to replace the old one
  */
-void account_update_name(Account *session, const char* new_name);
+void account_update_username(Account *session, const char* new_name);
+
+void account_update_email(Account *session, const char* new_email);
 
 #endif
