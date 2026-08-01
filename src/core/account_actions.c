@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include "../include/utils/validators.h"
+#include "../include/utils/input_parser.h"
 #include "../include/views/displays.h"
 #include "../include/core/account_actions.h"
 
@@ -59,4 +61,63 @@ void set_large_txn_notif(Account *session, bool enabled) {
     }
     session->preference.large_transaction_alert = enabled;
     printf("\nLarge transactions are notifications are now %s.\n", enabled ? "ENABLED" : "DISABLED");
+}
+
+void set_acc_frozen(Account *session) {
+    if (get_yes_no_prompt("\nDo you wanna FREEZE your account? (yes/no): ") != true) {
+        printf("Returning...\n");
+        return;
+    }
+
+    if (session->controls.status == ACCOUNT_CLOSED) {
+        printf("Cannot FREEZE an already CLOSED account.\n");
+        return;
+    }
+
+    if (session->controls.status == ACCOUNT_FROZEN) {
+        printf("Your account is already frozen.\n");
+        return;
+    }
+
+    session->controls.status = ACCOUNT_FROZEN;
+    printf("Successfully freezed the account.\n");
+}
+
+void set_acc_active(Account *session) {
+    if (get_yes_no_prompt("\nDo you wanna Re-Activate your account? (yes/no): ") != true) {
+        printf("Returning...\n");
+        return;
+    }
+
+    if (session->controls.status == ACCOUNT_ACTIVE) {
+        printf("Your account is already ACTIVE.\n");
+        return;
+    }
+
+    session->controls.status = ACCOUNT_ACTIVE;
+    printf("Successfully re-activated the account.\n");
+}
+
+void set_acc_closed(Account *session) {
+    if (get_yes_no_prompt("\nDo you wanna CLOSE your account? (yes/no): ") != true) {
+        printf("Returning...\n");
+        return;
+    }
+
+    if (session->controls.status == ACCOUNT_CLOSED) {
+        printf("Your account is already CLOSED.\n");
+        return;
+    }
+
+    session->controls.status = ACCOUNT_CLOSED;
+    printf("Successfully CLOSED the account.\n");
+}
+
+void set_daily_limit(Account *session, double new_limit) {
+    if (!is_valid_limit(&new_limit)) {
+        printf("Limit should only be between 10,000-50,000. Try again..\n");
+        return;
+    }
+    session->controls.daily_limit = new_limit;
+    printf("Sucessfully set a new limit: %.2f.\n", session->controls.daily_limit);
 }

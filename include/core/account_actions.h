@@ -37,5 +37,10 @@ void set_push_notif(Account* session, bool enabled);
 void set_low_bal_notif(Account* session, bool enabled);
 void set_large_txn_notif(Account* session, bool enabled);
 
+void set_acc_frozen(Account* session);
+void set_acc_active(Account* session);
+void set_acc_closed(Account* session);
+void set_daily_limit(Account* session, double new_limit);
+
 
 #endif
