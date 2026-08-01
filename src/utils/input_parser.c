@@ -1,7 +1,9 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include "utils/input_parser.h"
+#include "../include/views/displays.h"
+#include "../include/utils/input_parser.h"
 
 // dynamic parsing prompt to get string to integer.
 // used a constant char for dynamic string arguments.
@@ -23,7 +25,7 @@ int get_int_prompt(const char* prompt) {
             }
         }
         // else, it just repeats the loob with an error.
-        printf("[!] ERROR: Please enter valid number.\n");
+        invalid_integer_input();
     }
 }
 
@@ -46,7 +48,7 @@ double get_decimal_prompt(const char* prompt){
             }
         }
         // else we print this error msg and proceed to loop until the user enters the corresponding valid number.
-        printf("[!] ERROR: Please enter valid decimals only.\n");
+        invalid_decimal_input();
     }
 }
 
@@ -63,6 +65,24 @@ void get_string_prompt(const char* prompt, char* output_buffer, int buffer_size)
                 return;
             }
         }
-        printf("[!] ERROR: Input cannot be empty. Try again.\n");
+        empty_string_input();
+    }
+}
+
+bool get_yes_no_prompt(const char* prompt) {
+    char answer[10];
+    while (true) {
+        get_string_prompt(prompt, answer, sizeof(answer));
+
+        for (int i = 0; answer[i]; i++) {
+            answer[i] = tolower((unsigned char)answer[i]);
+        }
+
+        if (strcmp(answer, "yes") == 0 || strcmp (answer, "y") == 0) {
+            return true;
+        } else if (strcmp(answer, "no") == 0 || strcmp(answer, "n") == 0) {
+            return false;
+        }
+        invalid_yn_choice();
     }
 }

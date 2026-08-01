@@ -4,6 +4,8 @@
         1. specifically handles the account settings manu as well as the option inside
         2. only for specific account settings option
 */
+#include <stdio.h>
+#include <string.h>
 #include <stdbool.h>
 #include "../include/data/model.h"
 #include "../include/views/menus.h"
@@ -20,7 +22,7 @@ void change_pin_pipeline(Account *session) {
     get_string_prompt("\nEnter Current PIN: ", current_pin, sizeof(current_pin));
 
     // check if the current pin matches before changing it
-    if (!is_valid_pin(session->pin, current_pin)) return;
+    if (!is_valid_pin(session->profile.pin, current_pin)) return;
 
     // declaring var for new pin
     char new_pin[6];
@@ -33,12 +35,12 @@ void change_pin_pipeline(Account *session) {
 }
 
 // change name function using Pass-by-referrence
-void change_name_pipeline(Account *session) {
+void change_username_pipeline(Account *session) {
     char current_pin[6];
     get_string_prompt("\nEnter current PIN: ", current_pin, sizeof(current_pin));
 
     // checks if the current pin inputted matches the current_user's pin
-    if (!is_valid_pin(session->pin, current_pin)) return;
+    if (!is_valid_pin(session->profile.pin, current_pin)) return;
 
     // declaring of variable for new name
     char new_name[50];
@@ -48,8 +50,23 @@ void change_name_pipeline(Account *session) {
     if (!is_valid_length_input(new_name)) return;
 
     // same logic in pin, changes the account name and returns the success msg
-    account_update_name(session, new_name);
+    account_update_username(session, new_name);
     change_name_success(session);
+}
+
+void change_email_pipeline(Account *session) {
+    char current_pin[6];
+    get_string_prompt("\nEnter Current PIN: ", current_pin, sizeof(current_pin));
+
+    if(!is_valid_pin(session->profile.pin, current_pin)) return;
+
+    char new_email[51];
+    get_string_prompt("\nEnter your new email: ", new_email, sizeof(new_email));
+
+    if (!is_valid_length_input(new_email)) return;
+
+    account_update_email(session, new_email);
+    update_email_status(session);
 }
 
 // handles the users settings config if he presses option 4
@@ -62,12 +79,13 @@ void handle_account_settings(Account *current_session) {
 
         switch (choice) {
             case 1:
-                // logic for changing name function can be seen above
-                change_name_pipeline(current_session);
+                handle_profile_settings(current_session);
                 break;
             case 2:
-                // same goes here but for pin
-                change_pin_pipeline(current_session);
+                handle_preference_settings(current_session);
+                break;
+            case 3:
+                handle_payment_settings(current_session);
                 break;
             case 0:
                 // if user presses 0 which is exit it closes immediately
@@ -80,4 +98,144 @@ void handle_account_settings(Account *current_session) {
                 break;
         }
     }
+}
+
+void handle_profile_settings(Account *current_session) {
+
+    bool in_settings = true;
+    while (in_settings) {
+        profile_settings();
+        int choice = get_int_prompt("\nEnter your choice: ");
+
+        switch(choice) {
+            case 1:
+                change_username_pipeline(current_session);
+                break;
+            case 2:
+                change_email_pipeline(current_session);
+                break;
+            case 3:
+                change_pin_pipeline(current_session);
+                break;
+            case 0:
+                back_to_menu();
+                in_settings = false;
+                break;
+            default:
+                invalid_selection_msg();
+                continue;
+        }
+    }
+}
+
+void handle_preference_settings(Account *current_session) {
+    bool in_settings = true;
+    while (in_settings) {
+        preference_settings();
+        int choice = get_int_prompt("\nEnter your choice: ");
+
+        switch (choice) {
+            case 1:
+                set_email_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle email notifications? (yes/no): "));
+                break;
+            case 2:
+                set_push_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle push notifications? (yes/no): "));
+                break;
+            case 3:
+                handle_sub_pref_settings(current_session);
+                break;
+            case 0:
+                back_to_menu();
+                in_settings = false;
+                break;
+            default:
+                invalid_selection_msg();
+                continue;
+        }
+    }
+}
+
+void handle_sub_pref_settings(Account *current_session) {
+    bool in_subpref = true;
+    while (in_subpref) {
+        alert_pref_settings();
+        int choice = get_int_prompt("\nEnter your choice: ");
+
+        switch (choice) {
+            case 1:
+                set_low_bal_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle Low Balance Alerts? (yes/no): "));
+                break;
+            case 2:
+                set_large_txn_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle Large Transaction Alerts? (yes/no): "));
+                break;
+            case 0:
+                back_to_menu();
+                in_subpref = false;
+                break;
+            default:
+                invalid_selection_msg();
+                continue;
+        }
+    }
+}
+
+void update_account_status(Account *current_session) {
+    bool in_accstatus = true;
+    while (in_accstatus) {
+        account_status_menu();
+        int choice = get_int_prompt("\nEnter your choice: ");
+
+        switch (choice) {
+            case 1:
+                set_acc_frozen(current_session);
+                break;
+            case 2:
+                set_acc_active(current_session);
+                break;
+            case 3:
+                set_acc_closed(current_session);
+                break;
+            case 0:
+                back_to_menu();
+                in_accstatus = false;
+                break;
+            default:
+                invalid_selection_msg();
+                continue;
+        }
+    }
+}
+
+void handle_payment_settings(Account *current_session) {
+    bool in_psettings = true;
+    while (in_psettings) {
+        payment_settings();
+        int choice = get_int_prompt("\nEnter your choice: ");
+
+        switch (choice) {
+            case 1:
+                update_account_status(current_session);
+                break;
+            case 2:
+                update_daily_limit(current_session);
+                break;
+            case 0:
+                back_to_menu();
+                in_psettings = false;
+                break;
+            default:
+                invalid_selection_msg();
+                continue;
+        }
+    }
+}
+
+ void update_daily_limit(Account *current_session) {
+    if (get_yes_no_prompt("\nDaily Limits should only be around 10,000 to 50,000. Are you sure you wanna continue? (yes/no): ") != true) {
+        back_to_menu();
+        return;
+    }
+
+    double new_limit = get_decimal_prompt("\nEnter new limit: ");
+    set_daily_limit(current_session, new_limit);
 }

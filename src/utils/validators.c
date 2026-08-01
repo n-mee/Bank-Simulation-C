@@ -36,3 +36,17 @@ bool is_valid_id(int referrence, int target){
     }
     return true;
 }
+
+bool is_valid_limit(const double* target) {
+    double lowest_limit = 10000.00;
+    double highest_limit = 50000.00;
+
+    if (target == NULL) {
+        return false;
+    }
+
+    if (*target < lowest_limit || *target > highest_limit) {
+        return false;
+    }
+    return true;
+}

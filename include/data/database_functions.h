@@ -51,7 +51,7 @@ int db_expand(BankDatabase *db, int capacity);
  * @param pin Final string value of pin (truncated if input exceeds array size)
  * @return negative one if it fails at allocating ram space, return the ID if success
  */
-int db_account_creation(BankDatabase *db, const char *name, const char *pin);
+int db_account_creation(BankDatabase *db, Account new_acc);
 
 /**
  * @brief Linear scan for identity matching

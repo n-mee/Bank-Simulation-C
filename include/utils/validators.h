@@ -46,4 +46,6 @@ bool is_valid_length_input(const char* target);
  */
 bool is_valid_id(int referrence, int target);
 
+bool is_valid_limit(const double* target);
+
 #endif

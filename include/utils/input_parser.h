@@ -23,4 +23,6 @@ double get_decimal_prompt(const char* prompt);
  */
 void get_string_prompt(const char* prompt, char* output_buffer, int buffer_size);
 
+bool get_yes_no_prompt(const char* prompt);
+
 #endif
