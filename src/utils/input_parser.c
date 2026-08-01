@@ -1,3 +1,4 @@
+#include <ctype.h>
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
@@ -72,12 +73,15 @@ bool get_yes_no_prompt(const char* prompt) {
     while (true) {
         get_string_prompt(prompt, answer, sizeof(answer));
 
-        if (strcmp(answer, "yes") == 0) {
+        for (int i = 0; answer[i]; i++) {
+            answer[i] = tolower((unsigned char)answer[i]);
+        }
+
+        if (strcmp(answer, "yes") == 0 || strcmp (answer, "y") == 0) {
             return true;
-        } else if (strcmp(answer, "no") == 0) {
+        } else if (strcmp(answer, "no") == 0 || strcmp(answer, "n") == 0) {
             return false;
         }
-        
-        printf("\nInvalid choice. Please type 'yes' or 'no'.\n");
+        invalid_yn_choice();
     }
 }
