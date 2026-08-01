@@ -28,5 +28,6 @@ void handle_profile_settings(Account *current_session);
 void handle_preference_settings(Account *current_session);
 void handle_sub_pref_settings(Account *current_session);
 void handle_payment_settings(Account *current_session);
+void update_daily_limit(Account *current_session);
 
 #endif

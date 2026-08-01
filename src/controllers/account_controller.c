@@ -85,6 +85,7 @@ void handle_account_settings(Account *current_session) {
                 handle_preference_settings(current_session);
                 break;
             case 3:
+                handle_payment_settings(current_session);
                 break;
             case 0:
                 // if user presses 0 which is exit it closes immediately
@@ -176,4 +177,65 @@ void handle_sub_pref_settings(Account *current_session) {
                 continue;
         }
     }
+}
+
+void update_account_status(Account *current_session) {
+    bool in_accstatus = true;
+    while (in_accstatus) {
+        account_status_menu();
+        int choice = get_int_prompt("\nEnter your choice: ");
+
+        switch (choice) {
+            case 1:
+                set_acc_frozen(current_session);
+                break;
+            case 2:
+                set_acc_active(current_session);
+                break;
+            case 3:
+                set_acc_closed(current_session);
+                break;
+            case 0:
+                back_to_menu();
+                in_accstatus = false;
+                break;
+            default:
+                invalid_selection_msg();
+                continue;
+        }
+    }
+}
+
+void handle_payment_settings(Account *current_session) {
+    bool in_psettings = true;
+    while (in_psettings) {
+        payment_settings();
+        int choice = get_int_prompt("\nEnter your choice: ");
+
+        switch (choice) {
+            case 1:
+                update_account_status(current_session);
+                break;
+            case 2:
+                update_daily_limit(current_session);
+                break;
+            case 0:
+                back_to_menu();
+                in_psettings = false;
+                break;
+            default:
+                invalid_selection_msg();
+                continue;
+        }
+    }
+}
+
+ void update_daily_limit(Account *current_session) {
+    if (get_yes_no_prompt("\nDaily Limits should only be around 10,000 to 50,000. Are you sure you wanna continue? (yes/no): ") != true) {
+        back_to_menu();
+        return;
+    }
+
+    double new_limit = get_decimal_prompt("\nEnter new limit: ");
+    set_daily_limit(current_session, new_limit);
 }
