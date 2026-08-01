@@ -52,6 +52,11 @@ void handle_login(BankDatabase *db, Account **session_user) {
         return;       
     }
 
+    if (db->records[search_id].controls.status == ACCOUNT_CLOSED) {
+        acc_closed();
+        return;
+    }
+
     // prompts a pin input and checks if the pin input matches the one in account
     get_string_prompt("Enter your PIN: ", temp_pin, sizeof(temp_pin));
     // if it's not the code below exits the function

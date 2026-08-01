@@ -29,38 +29,38 @@ void account_update_email(Account *session, const char* new_email) {
 
 void set_email_notif(Account *session, bool enabled) {
     if (session->preference.email_notif == enabled) {
-        printf("Your email notifications are already %s.\n", enabled ? "ENABLED" : "DISABLED");
+        email_notif_alr_on(enabled);
         return;
     }
     session->preference.email_notif = enabled;
-    printf("\nEmail notifications are now %s.\n", enabled ? "ENABLED" : "DISABLED");
+    email_enable_msg(enabled);
 }
 
 void set_push_notif(Account *session, bool enabled) {
     if (session->preference.push_notif == enabled) {
-        printf("Your push notifications are already %s.\n", enabled ? "ENABLED" : "DISABLED");
+        push_notif_alr_on(enabled);
         return;
     }
     session->preference.push_notif = enabled;
-    printf("\nPush notifications are now %s.\n", enabled ? "ENABLED" : "DISABLED");
+    push_enable_msg(enabled);
 }
 
 void set_low_bal_notif(Account *session, bool enabled) {
     if (session->preference.low_balance_alert == enabled) {
-        printf("Your low balance alert notifications are already %s.\n", enabled ? "ENABLED" : "DISABLED");
+        lowbal_notif_alr_on(enabled);
         return;
     }
     session->preference.low_balance_alert = enabled;
-    printf("\nLow balance alert notifications are now %s.\n", enabled ? "ENABLED" : "DISABLED");
+    lowbal_enable_msg(enabled);
 }
 
 void set_large_txn_notif(Account *session, bool enabled) {
     if (session->preference.large_transaction_alert == enabled) {
-        printf("Your large transactions alert notifications are already %s.\n", enabled ? "ENABLED" : "DISABLED");
+        txn_notif_alr_on(enabled);
         return;
     }
     session->preference.large_transaction_alert = enabled;
-    printf("\nLarge transactions are notifications are now %s.\n", enabled ? "ENABLED" : "DISABLED");
+    txn_enable_msg(enabled);
 }
 
 void set_acc_frozen(Account *session) {
@@ -70,17 +70,17 @@ void set_acc_frozen(Account *session) {
     }
 
     if (session->controls.status == ACCOUNT_CLOSED) {
-        printf("Cannot FREEZE an already CLOSED account.\n");
+        two_acc_status_inc();
         return;
     }
 
     if (session->controls.status == ACCOUNT_FROZEN) {
-        printf("Your account is already frozen.\n");
+        acc_is_frozen();
         return;
     }
 
     session->controls.status = ACCOUNT_FROZEN;
-    printf("Successfully freezed the account.\n");
+    acc_freeze_success();
 }
 
 void set_acc_active(Account *session) {
@@ -90,12 +90,12 @@ void set_acc_active(Account *session) {
     }
 
     if (session->controls.status == ACCOUNT_ACTIVE) {
-        printf("Your account is already ACTIVE.\n");
+        acc_is_active();
         return;
     }
 
     session->controls.status = ACCOUNT_ACTIVE;
-    printf("Successfully re-activated the account.\n");
+    acc_reactivation_success();
 }
 
 void set_acc_closed(Account *session) {
@@ -105,19 +105,19 @@ void set_acc_closed(Account *session) {
     }
 
     if (session->controls.status == ACCOUNT_CLOSED) {
-        printf("Your account is already CLOSED.\n");
+        acc_is_closed();
         return;
     }
 
     session->controls.status = ACCOUNT_CLOSED;
-    printf("Successfully CLOSED the account.\n");
+    closed_acc_success();
 }
 
 void set_daily_limit(Account *session, double new_limit) {
     if (!is_valid_limit(&new_limit)) {
-        printf("Limit should only be between 10,000-50,000. Try again..\n");
+        limit_out_range();
         return;
     }
     session->controls.daily_limit = new_limit;
-    printf("Sucessfully set a new limit: %.2f.\n", session->controls.daily_limit);
+    acc_limit_success(session);
 }
