@@ -2,7 +2,7 @@
 #define DISPLAY_H
 
 #include <stdbool.h>
-#include "data/model.h"
+#include "../include/models/account_model.h"
 // Success Msgs
 void transfer_status(bool success, Account* sender);
 void withdraw_status(bool success, Account* current_user);

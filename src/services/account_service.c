@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <string.h>
-#include "../include/utils/validators.h"
-#include "../include/utils/input_parser.h"
-#include "../include/views/displays.h"
-#include "../include/core/account_actions.h"
+#include "common/validators.h"
+#include "common/value_parser.h"
+#include "cli/displays.h"
+#include "services/account_service.h"
 
 
 void account_update_pin(Account *session, const char* new_pin) {

@@ -2,8 +2,8 @@
 #define TRANSACTION_CONTROLLER_H
 
 // Dependency Headers
-#include "data/model.h"
-#include "data/database_functions.h"
+#include "../include/models/account_model.h"
+#include "../include/repositories/account_repository.h"
 
 /**
  * @brief Processes account withdrawal after several safety checks

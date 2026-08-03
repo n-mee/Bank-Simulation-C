@@ -1,8 +1,8 @@
-#ifndef DATABASE_FUNCTIONS_H
-#define DATABASE_FUNCTIONS_H
+#ifndef ACCOUNT_REPOSITORY_H
+#define ACCOUNT_REPOSITORY_H
 
 // dependency header (one used for pointers inside struct)
-#include "../include/data/model.h"
+#include "../include/models/account_model.h"
 
 // Database struct 
 typedef struct {

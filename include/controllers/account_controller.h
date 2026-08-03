@@ -2,7 +2,7 @@
 #define ACCOUNT_CONTROLLER_H
 
 // Dependency Headers
-#include "../include/data/model.h"
+#include "../include/models/account_model.h"
 
 /**
  * @brief Handles the process of changing account pin

@@ -1,11 +1,11 @@
 #include <stdbool.h>
-#include "data/database_functions.h"
-#include "data/model.h"
-#include "core/transactions.h"
-#include "controllers/auth_controller.h"
-#include "utils/validators.h"
-#include "views/input.h"
-#include "views/displays.h"
+#include "repositories/account_repository.h"
+#include "models/account_model.h"
+#include "services/transaction_service.h"
+#include "controllers/transaction_controller.h"
+#include "common/validators.h"
+#include "cli/input.h"
+#include "cli/displays.h"
 
 // Handles the main deposit logic.
 void handle_deposit_request(Account* current_user){

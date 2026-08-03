@@ -1,10 +1,10 @@
 #include <stddef.h>
 #include <string.h>
 #include <stdbool.h>
-#include "../include/views/displays.h"
-#include "../include/utils/input_parser.h"
-#include "../include/controllers/auth_controller.h"
-#include "../include/data/database_functions.h"
+#include "cli/displays.h"
+#include "common/value_parser.h"
+#include "controllers/auth_controller.h"
+#include "repositories/account_repository.h"
 
 // handles the gateway registartion logic
 void handle_registration(BankDatabase *db) {

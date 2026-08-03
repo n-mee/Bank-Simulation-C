@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "controllers/auth_controller.h"
-#include "utils/input_parser.h"
-#include "data/database_functions.h"
-#include "views/menus.h"
-#include "views/displays.h"
+#include "common/value_parser.h"
+#include "repositories/account_repository.h"
+#include "cli/menus.h"
+#include "cli/displays.h"
 #include "controllers/account_controller.h"
 #include "controllers/transaction_controller.h"
 

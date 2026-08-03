@@ -4,7 +4,7 @@ CFLAGS := -Iinclude -Wall -Wextra -g
 BIN_DIR := bin
 BUILD_DIR := build
 
-SRCS := src/main.c $(wildcard src/views/*.c src/auth/*.c src/controllers/*.c src/validation/*.c src/core/*.c src/utils/*.c)
+SRCS := src/main.c $(wildcard src/cli/*.c src/repositories/*.c src/controllers/*.c src/services/*.c src/common/*.c)
 OBJS := $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRCS))
 
 TARGET := $(BIN_DIR)/bankapp

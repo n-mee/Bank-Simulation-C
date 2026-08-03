@@ -7,13 +7,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "../include/data/model.h"
-#include "../include/views/menus.h"
-#include "../include/views/displays.h"
-#include "../include/utils/validators.h"
-#include "../include/utils/input_parser.h"
-#include "../include/core/account_actions.h"
-#include "../include/controllers/account_controller.h"
+#include "models/account_model.h"
+#include "cli/menus.h"
+#include "cli/displays.h"
+#include "common/validators.h"
+#include "common/value_parser.h"
+#include "services/account_service.h"
+#include "controllers/account_controller.h"
 
 
 // changes the pin of the user using Pass-by-referrence

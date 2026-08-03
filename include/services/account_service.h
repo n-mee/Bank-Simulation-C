@@ -2,8 +2,8 @@
 #define ACCOUNT_ACTIONS_H
 
 // dependency header (data model)
-#include "../include/data/model.h"
-#include "../include/data/database_functions.h"
+#include "../include/models/account_model.h"
+#include "../include/repositories/account_repository.h"
 
 /** ================================
  *        ACCOUNT FUNCTIONS

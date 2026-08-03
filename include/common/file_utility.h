@@ -11,6 +11,8 @@
     #define make_dir(path) mkdir(path, 0755)
 #endif
 
+#include <stdio.h>
+#include <errno.h>
 /**
  * @brief Initializes the directory given from parameter
  * @param path String reference for directory to be evaluated

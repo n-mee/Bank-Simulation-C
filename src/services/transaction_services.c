@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "data/model.h"
-#include "core/transactions.h"
+#include "models/account_model.h"
+#include "services/transaction_service.h"
 
 bool execute_withdraw(Account* current_user, double withdraw_amt) {
     // Checks the account balance.

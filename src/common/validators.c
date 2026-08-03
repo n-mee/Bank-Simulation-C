@@ -1,9 +1,6 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <string.h>
-#include "utils/validators.h"
-#include "utils/input_parser.h"
-#include "views/displays.h"
+#include "common/validators.h"
+#include "common/value_parser.h"
+#include "cli/displays.h"
 
 // checks if the amount entered is valid and returns the according boolean values.
 bool is_valid_bal(double amt) {

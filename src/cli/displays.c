@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "data/model.h"
+#include "models/account_model.h"
 
 void transfer_status(bool success, Account* sender){
     // Refers to the bool parameter and check what it returns.

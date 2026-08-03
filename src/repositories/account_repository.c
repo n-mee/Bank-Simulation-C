@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include "../include/utils/file_utility.h"
-#include "../include/views/displays.h"
-#include "../include/data/database_functions.h"
+#include "common/file_utility.h"
+#include "cli/displays.h"
+#include "repositories/account_repository.h"
 
 /**
  * @brief Geneators a Unique 2-digit ID

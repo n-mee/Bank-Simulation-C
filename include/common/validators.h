@@ -3,7 +3,7 @@
 
 // Dependency Header
 #include <stdbool.h>
-
+#include <string.h>
 
 
 /**
