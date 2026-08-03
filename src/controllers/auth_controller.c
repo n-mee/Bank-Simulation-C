@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "cli/displays.h"
+#include "cli/input.h"
 #include "common/value_parser.h"
 #include "controllers/auth_controller.h"
 #include "repositories/account_repository.h"
@@ -37,7 +38,7 @@ void handle_registration(BankDatabase *db) {
 // handles the gateway login menu logic
 void handle_login(BankDatabase *db, Account **session_user) {
     char temp_pin[6];
-    int temp_id = get_int_prompt("Enter your Unique ID: ");
+    int temp_id = get_prompt_int("Enter your Unique ID: ");
 
     // uses a custom-made search algorithm to search for matching IDs
     int search_id = db_find_identity(db, temp_id);

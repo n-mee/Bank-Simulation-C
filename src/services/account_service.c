@@ -2,6 +2,7 @@
 #include <string.h>
 #include "common/validators.h"
 #include "common/value_parser.h"
+#include "cli/input.h"
 #include "cli/displays.h"
 #include "services/account_service.h"
 
@@ -64,7 +65,8 @@ void set_large_txn_notif(Account *session, bool enabled) {
 }
 
 void set_acc_frozen(Account *session) {
-    if (get_yes_no_prompt("\nDo you wanna FREEZE your account? (yes/no): ") != true) {
+    bool choice = get_yn_prompt("\nDo you wanna FREEZE your account? (yes/no): ");
+    if (choice != true) {
         printf("Returning...\n");
         return;
     }
@@ -84,7 +86,8 @@ void set_acc_frozen(Account *session) {
 }
 
 void set_acc_active(Account *session) {
-    if (get_yes_no_prompt("\nDo you wanna Re-Activate your account? (yes/no): ") != true) {
+    bool choice = get_yn_prompt("\nDo you wanna Re-Activate your account? (yes/no): ");
+    if (choice != true) {
         printf("Returning...\n");
         return;
     }
@@ -99,7 +102,8 @@ void set_acc_active(Account *session) {
 }
 
 void set_acc_closed(Account *session) {
-    if (get_yes_no_prompt("\nDo you wanna CLOSE your account? (yes/no): ") != true) {
+    bool choice = get_yn_prompt("\nDo you wanna CLOSE your account? (yes/no): ");
+    if (choice != true) {
         printf("Returning...\n");
         return;
     }

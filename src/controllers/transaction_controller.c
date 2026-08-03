@@ -15,7 +15,7 @@ void handle_deposit_request(Account* current_user){
     if (!is_valid_pin(current_user->profile.pin, PIN)) return;
 
     // Gets the amount and checks if the amount is valid.
-    double deposit_amt = get_amount();
+    double deposit_amt = get_prompt_double("Enter amount: ");
     if (!is_valid_bal(deposit_amt)) return;
 
     // executes the main code and prints the result.
@@ -31,7 +31,7 @@ void handle_withdraw_request(Account* current_user){
     if (!is_valid_pin(current_user->profile.pin, PIN)) return;
 
     // handles the withdraw input and verifies the balance
-    double withdraw_amt = get_amount();
+    double withdraw_amt = get_prompt_double("Enter amount: ");
     if (!is_valid_bal(withdraw_amt)) return;
 
     // handles the main business logic of bank and returns boolean if it succeed or not
@@ -46,7 +46,7 @@ void handle_transfer_request(BankDatabase *db, Account *sender){
     // check for valid pin
     if (!is_valid_pin(sender->profile.pin, PIN)) return;
     // get the id of the reciever
-    int r_id = get_receiver_id_input();
+    int r_id = get_prompt_int("Enter receiver's UID: ");
     // check if the reciever's id is in the database
     int id_found = db_find_identity(db, r_id);
     // if not it prints an error and closes
@@ -65,7 +65,7 @@ void handle_transfer_request(BankDatabase *db, Account *sender){
     Account *receiver = &db->records[id_found];
 
     // gets the balance amount and verifies its validity
-    double transfer_amt = get_amount();
+    double transfer_amt = get_prompt_double("Enter amount: ");
     if(!is_valid_bal(transfer_amt)) return;
 
     // handles the main logic of the transfer and returns the status of the transfer

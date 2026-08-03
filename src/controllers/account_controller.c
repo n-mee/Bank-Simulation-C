@@ -12,6 +12,7 @@
 #include "cli/displays.h"
 #include "common/validators.h"
 #include "common/value_parser.h"
+#include "cli/input.h"
 #include "services/account_service.h"
 #include "controllers/account_controller.h"
 
@@ -75,7 +76,7 @@ void handle_account_settings(Account *current_session) {
     bool in_settings = true;
     while (in_settings) {
         account_menu();
-        int choice = get_int_prompt("\nEnter your choice: ");
+        int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
             case 1:
@@ -105,7 +106,7 @@ void handle_profile_settings(Account *current_session) {
     bool in_settings = true;
     while (in_settings) {
         profile_settings();
-        int choice = get_int_prompt("\nEnter your choice: ");
+        int choice = get_prompt_int("\nEnter your choice: ");
 
         switch(choice) {
             case 1:
@@ -132,14 +133,16 @@ void handle_preference_settings(Account *current_session) {
     bool in_settings = true;
     while (in_settings) {
         preference_settings();
-        int choice = get_int_prompt("\nEnter your choice: ");
+        int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
             case 1:
-                set_email_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle email notifications? (yes/no): "));
+                bool e_choice = get_yn_prompt("\nDo you wanna toggle email notifications? (yes/no): ");
+                set_email_notif(current_session, e_choice);
                 break;
             case 2:
-                set_push_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle push notifications? (yes/no): "));
+                bool p_choice = get_yn_prompt("\nDo you wanna toggle push notifications? (yes/no): ");
+                set_push_notif(current_session, p_choice);
                 break;
             case 3:
                 handle_sub_pref_settings(current_session);
@@ -159,14 +162,16 @@ void handle_sub_pref_settings(Account *current_session) {
     bool in_subpref = true;
     while (in_subpref) {
         alert_pref_settings();
-        int choice = get_int_prompt("\nEnter your choice: ");
+        int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
             case 1:
-                set_low_bal_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle Low Balance Alerts? (yes/no): "));
+                bool lb_choice = get_yn_prompt("\nDo you wanna toggle Low Balance Alerts? (yes/no): ");
+                set_low_bal_notif(current_session, lb_choice);
                 break;
             case 2:
-                set_large_txn_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle Large Transaction Alerts? (yes/no): "));
+                bool lt_choice = get_yn_prompt("\nDo you wanna toggle Large Transaction Alerts? (yes/no): ");
+                set_large_txn_notif(current_session, lt_choice);
                 break;
             case 0:
                 back_to_menu();
@@ -183,7 +188,7 @@ void update_account_status(Account *current_session) {
     bool in_accstatus = true;
     while (in_accstatus) {
         account_status_menu();
-        int choice = get_int_prompt("\nEnter your choice: ");
+        int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
             case 1:
@@ -210,7 +215,7 @@ void handle_payment_settings(Account *current_session) {
     bool in_psettings = true;
     while (in_psettings) {
         payment_settings();
-        int choice = get_int_prompt("\nEnter your choice: ");
+        int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
             case 1:
@@ -231,11 +236,12 @@ void handle_payment_settings(Account *current_session) {
 }
 
  void update_daily_limit(Account *current_session) {
-    if (get_yes_no_prompt("\nDaily Limits should only be around 10,000 to 50,000. Are you sure you wanna continue? (yes/no): ") != true) {
+    bool choice = get_yn_prompt("\nDaily Limits should only be around 10,000 to 50,000.\nAre you sure you wanna continue? (yes/no): ");
+    if (choice != true) {
         back_to_menu();
         return;
     }
 
-    double new_limit = get_decimal_prompt("\nEnter new limit: ");
+    double new_limit = get_prompt_double("\nEnter new limit: ");
     set_daily_limit(current_session, new_limit);
 }

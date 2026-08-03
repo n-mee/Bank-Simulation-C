@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "controllers/auth_controller.h"
-#include "common/value_parser.h"
+#include "cli/input.h"
 #include "repositories/account_repository.h"
 #include "cli/menus.h"
 #include "cli/displays.h"
@@ -22,7 +22,7 @@ int main(void) {
     while(running) {
         if (current_session == NULL){
             gateway_menu();
-            choice = get_int_prompt("Enter your choice: ");
+            choice = get_prompt_int("Enter your choice: ");
 
             switch (choice) {
                 case 1:
@@ -40,7 +40,7 @@ int main(void) {
             }
         } else {
             main_menu();
-            choice = get_int_prompt("Enter your choice: ");
+            choice = get_prompt_int("Enter your choice: ");
 
             switch (choice) {
                 case 1:
