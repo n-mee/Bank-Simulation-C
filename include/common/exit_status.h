@@ -1,0 +1,18 @@
+#ifndef EXIT_STATUS_H
+#define EXIT_STATUS_H
+
+typedef enum {
+    PARSE_SUCCESS = 0,
+    ERR_INVALID_INT,
+    ERR_INVALID_DOUBLE,
+    ERR_NULL_PTR,
+    ERR_TRAILING_GARBAGE,
+} ParseExitResult;
+
+typedef enum {
+    YN_SUCCESS,
+    ERR_INVALID_INPUT,
+    ERR_INPUT_EXCEED_RANGE
+} YesNoResult;
+
+#endif

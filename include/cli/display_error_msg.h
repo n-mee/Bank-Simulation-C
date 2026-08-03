@@ -1,0 +1,10 @@
+#ifndef DISPLAY_ERROR_MSG_H
+#define DISPLAY_ERROR_MSG_H
+
+#include "common/exit_status.h"
+
+void invalid_integer_value(ParseExitResult status);
+void invalid_double_input(ParseExitResult status);
+void invalid_bool_value(YesNoResult status);
+
+#endif
