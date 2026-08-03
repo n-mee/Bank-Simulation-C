@@ -12,8 +12,6 @@
  */
 void get_string_prompt(const char* prompt, char* output_buffer, int buffer_size);
 
-// bool get_yes_no_prompt(const char* prompt);
-
 ParseExitResult int_parser(const char* text, int* out_n);
 ParseExitResult double_parser(const char* text, double* out_n);
 YesNoResult yn_parser(const char* text, bool* out_v);

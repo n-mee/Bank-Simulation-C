@@ -1,6 +1,8 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include <stdbool.h>
+
 void get_pin(char* PIN);
 int get_prompt_int(const char* prompt);
 double get_prompt_double(const char* prompt);
