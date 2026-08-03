@@ -3,19 +3,6 @@
 
 #include "common/exit_status.h"
 #include <stdbool.h>
-// /**
-//  * @brief Prompts the user and safely parses a string input to an integer
-//  * @param prompt Message displayed on the terminal
-//  * @return Convered integer value
-//  */
-// int get_int_prompt(const char* prompt);
-
-// /**
-//  * @brief Prompts the user and safely parses a string input to an integer
-//  * @param prompt Message displayed on the terminal
-//  * @return Converted double value
-//  */
-// double get_decimal_prompt(const char* prompt);
 
 /**
  * @brief Safely reads a string input and trims the trailing newline char
