@@ -1,8 +1,10 @@
 #include <stddef.h>
 #include <string.h>
 #include <stdbool.h>
+#include "cli/display_error_msg.h"
 #include "cli/displays.h"
 #include "cli/input.h"
+#include "common/validators.h"
 #include "common/value_parser.h"
 #include "controllers/auth_controller.h"
 #include "repositories/account_repository.h"
@@ -11,10 +13,17 @@
 void handle_registration(BankDatabase *db) {
     Account temp_acc = {0};
 
-    get_string_prompt("Enter your Full Government Name: ", temp_acc.profile.name, sizeof(temp_acc.profile.name));
-    get_string_prompt("Enter your Username: ", temp_acc.profile.username, sizeof(temp_acc.profile.username));
-    get_string_prompt("Enter your email: ", temp_acc.profile.email, sizeof(temp_acc.profile.email));
-    get_string_prompt("Enter your PIN: ", temp_acc.profile.pin, sizeof(temp_acc.profile.pin));
+    if (!get_prompt_string("Enter your Full Government Name: ", temp_acc.profile.name, sizeof(temp_acc.profile.name)) ||
+        !get_prompt_string("Enter your Username: ", temp_acc.profile.username, sizeof(temp_acc.profile.username)) ||
+        !get_prompt_string("Enter your email: ", temp_acc.profile.email, sizeof(temp_acc.profile.email)) ||
+        !get_prompt_string("Enter your PIN: ", temp_acc.profile.pin, sizeof(temp_acc.profile.pin))) {
+        return;
+    }
+
+    if (!is_valid_pin_length(temp_acc.profile.pin)) {
+        invalid_pin_length();
+        return;
+    }
 
     temp_acc.preference.email_notif = false;
     temp_acc.preference.push_notif = false;
@@ -59,7 +68,7 @@ void handle_login(BankDatabase *db, Account **session_user) {
     }
 
     // prompts a pin input and checks if the pin input matches the one in account
-    get_string_prompt("Enter your PIN: ", temp_pin, sizeof(temp_pin));
+    if (!get_prompt_string("\nEnter your PIN: ", temp_pin, sizeof(temp_pin))) return;
     // if it's not the code below exits the function
     if (strcmp(temp_pin, db->records[search_id].profile.pin) != 0){
         wrong_pin_msg();

@@ -19,17 +19,13 @@
 
 // changes the pin of the user using Pass-by-referrence
 void change_pin_pipeline(Account *session) {
-    char current_pin[6];
-    get_string_prompt("\nEnter Current PIN: ", current_pin, sizeof(current_pin));
-
-    // check if the current pin matches before changing it
-    if (!is_valid_pin(session->profile.pin, current_pin)) return;
-
-    // declaring var for new pin
     char new_pin[6];
-    get_string_prompt("\nEnter your New PIN: ", new_pin, sizeof(new_pin));
+    char current_pin[6];
 
-    // change pin logic
+    if (!get_prompt_string("\nEnter Current PIN: ", current_pin, sizeof(current_pin))) return;
+    if (!is_valid_pin(session->profile.pin, current_pin)) return;
+    // declaring var for new pin
+    if (!get_prompt_string("\nEnter your New PIN: ", new_pin, sizeof(new_pin))) return;
     account_update_pin(session, new_pin);
     // return pin success
     change_pin_success(session);
@@ -38,16 +34,13 @@ void change_pin_pipeline(Account *session) {
 // change name function using Pass-by-referrence
 void change_username_pipeline(Account *session) {
     char current_pin[6];
-    get_string_prompt("\nEnter current PIN: ", current_pin, sizeof(current_pin));
+    char new_name[50];
 
-    // checks if the current pin inputted matches the current_user's pin
+    if (!get_prompt_string("\nEnter current PIN: ", current_pin, sizeof(current_pin))) return;
     if (!is_valid_pin(session->profile.pin, current_pin)) return;
 
     // declaring of variable for new name
-    char new_name[50];
-    get_string_prompt("\nEnter your new Display Name: ", new_name, sizeof(new_name));
-
-    // checks if the length of the name meets the require length for input (e.g. is it more than 50 or less than 4)
+    if (!get_prompt_string("\nEnter your new Display Name: ", new_name, sizeof(new_name))) return;
     if (!is_valid_length_input(new_name)) return;
 
     // same logic in pin, changes the account name and returns the success msg
@@ -57,13 +50,12 @@ void change_username_pipeline(Account *session) {
 
 void change_email_pipeline(Account *session) {
     char current_pin[6];
-    get_string_prompt("\nEnter Current PIN: ", current_pin, sizeof(current_pin));
+    char new_email[51];
 
+    if (!get_prompt_string("Enter your PIN: ", current_pin, sizeof(current_pin))) return;
     if(!is_valid_pin(session->profile.pin, current_pin)) return;
 
-    char new_email[51];
-    get_string_prompt("\nEnter your new email: ", new_email, sizeof(new_email));
-
+    if (!get_prompt_string("\nEnter your new email: ", new_email, sizeof(new_email))) return;
     if (!is_valid_length_input(new_email)) return;
 
     account_update_email(session, new_email);
