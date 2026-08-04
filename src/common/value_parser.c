@@ -6,23 +6,6 @@
 #include "cli/displays.h"
 #include "common/value_parser.h"
 
-void get_string_prompt(const char* prompt, char* output_buffer, int buffer_size) {
-    while (true) {
-        printf("%s", prompt);
-        if (fgets(output_buffer, buffer_size, stdin) != NULL) {
-            if (strchr(output_buffer, '\n') == NULL) {
-                int c;
-                while ((c = getchar()) != '\n' && c != EOF); 
-            }
-            output_buffer[strcspn(output_buffer, "\n")] = '\0';
-            if (strlen(output_buffer) > 0) {
-                return;
-            }
-        }
-        empty_string_input();
-    }
-}
-
 ParsedStringResult string_parser(const char* text, char* out_str, size_t size_limit) {
     if (text == NULL || text == NULL || size_limit == 0) {
         return ERR_STRING_NULL_PTR;
