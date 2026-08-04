@@ -43,8 +43,8 @@ ParsedStringResult string_parser(const char* text, char* out_str, size_t size_li
 
     if (t_len >= size_limit) return ERR_EXCEEDED_MAX_SIZE;
 
-    strcnp(out_str, text, t_len);
-    out_str[t_len] == '\0';
+    strncpy(out_str, text, t_len);
+    out_str[t_len] = '\0';
 
     return PARSED_STRING_SUCCESS;
 }

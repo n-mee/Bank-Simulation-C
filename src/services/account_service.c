@@ -65,7 +65,9 @@ void set_large_txn_notif(Account *session, bool enabled) {
 }
 
 void set_acc_frozen(Account *session) {
-    bool choice = get_yn_prompt("\nDo you wanna FREEZE your account? (yes/no): ");
+    bool choice;
+    get_yn_prompt("\nDo you wanna FREEZE your account? (yes/no): ", &choice);
+
     if (choice != true) {
         printf("Returning...\n");
         return;
@@ -86,7 +88,9 @@ void set_acc_frozen(Account *session) {
 }
 
 void set_acc_active(Account *session) {
-    bool choice = get_yn_prompt("\nDo you wanna Re-Activate your account? (yes/no): ");
+    bool choice;
+    get_yn_prompt("\nDo you wanna Re-Activate your account? (yes/no): ", &choice);
+
     if (choice != true) {
         printf("Returning...\n");
         return;
@@ -102,7 +106,9 @@ void set_acc_active(Account *session) {
 }
 
 void set_acc_closed(Account *session) {
-    bool choice = get_yn_prompt("\nDo you wanna CLOSE your account? (yes/no): ");
+    bool choice;
+    get_yn_prompt("\nDo you wanna CLOSE your account? (yes/no): ", &choice);
+    
     if (choice != true) {
         printf("Returning...\n");
         return;

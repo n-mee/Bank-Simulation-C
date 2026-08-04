@@ -130,19 +130,21 @@ void handle_profile_settings(Account *current_session) {
 }
 
 void handle_preference_settings(Account *current_session) {
+    bool c;
     bool in_settings = true;
+
     while (in_settings) {
         preference_settings();
         int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
             case 1:
-                bool e_choice = get_yn_prompt("\nDo you wanna toggle email notifications? (yes/no): ");
-                set_email_notif(current_session, e_choice);
+                get_yn_prompt("\nDo you wanna toggle email notifications? (yes/no): ", &c);
+                set_email_notif(current_session, c);
                 break;
             case 2:
-                bool p_choice = get_yn_prompt("\nDo you wanna toggle push notifications? (yes/no): ");
-                set_push_notif(current_session, p_choice);
+                get_yn_prompt("\nDo you wanna toggle push notifications? (yes/no): ", &c);
+                set_push_notif(current_session, c);
                 break;
             case 3:
                 handle_sub_pref_settings(current_session);
@@ -159,19 +161,21 @@ void handle_preference_settings(Account *current_session) {
 }
 
 void handle_sub_pref_settings(Account *current_session) {
+    bool c;
     bool in_subpref = true;
+
     while (in_subpref) {
         alert_pref_settings();
         int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
             case 1:
-                bool lb_choice = get_yn_prompt("\nDo you wanna toggle Low Balance Alerts? (yes/no): ");
-                set_low_bal_notif(current_session, lb_choice);
+                get_yn_prompt("\nDo you wanna toggle Low Balance Alerts? (yes/no): ", &c);
+                set_low_bal_notif(current_session, c);
                 break;
             case 2:
-                bool lt_choice = get_yn_prompt("\nDo you wanna toggle Large Transaction Alerts? (yes/no): ");
-                set_large_txn_notif(current_session, lt_choice);
+                get_yn_prompt("\nDo you wanna toggle Large Transaction Alerts? (yes/no): ", &c);
+                set_large_txn_notif(current_session, c);
                 break;
             case 0:
                 back_to_menu();
@@ -236,7 +240,9 @@ void handle_payment_settings(Account *current_session) {
 }
 
  void update_daily_limit(Account *current_session) {
-    bool choice = get_yn_prompt("\nDaily Limits should only be around 10,000 to 50,000.\nAre you sure you wanna continue? (yes/no): ");
+    bool choice;
+
+    get_yn_prompt("\nDaily Limits should only be around 10,000 to 50,000.\nAre you sure you wanna continue? (yes/no): ", &choice);
     if (choice != true) {
         back_to_menu();
         return;
