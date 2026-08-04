@@ -45,7 +45,7 @@ bool is_valid_length_input(const char* target);
  * @return True if both ID matches, False if not
  */
 bool is_valid_id(int referrence, int target);
-
+bool is_valid_pin_length(const char* target_pin);
 bool is_valid_limit(const double* target);
 
 #endif

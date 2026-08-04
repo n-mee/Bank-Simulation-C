@@ -19,6 +19,11 @@ bool is_valid_pin(const char* target_pin, const char* input_pin) {
     return true;
 }
 
+bool is_valid_pin_length(const char* target_pin) {
+    if (strlen(target_pin) < 4) return false;
+    return true;
+}
+
 bool is_valid_length_input(const char* target) {
     if (strlen(target) < 2) {
         invalid_str_size();

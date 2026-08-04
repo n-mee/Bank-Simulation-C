@@ -35,3 +35,7 @@ void invalid_string_value(ParsedStringResult status) {
         default: break;
     }
 }
+
+void invalid_pin_length() {
+    printf("[!] ERROR: Invalid PIN length.\n");
+}
