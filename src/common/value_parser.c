@@ -23,23 +23,32 @@ void get_string_prompt(const char* prompt, char* output_buffer, int buffer_size)
     }
 }
 
-bool get_yes_no_prompt(const char* prompt) {
-    char answer[10];
-    while (true) {
-        get_string_prompt(prompt, answer, sizeof(answer));
-
-        for (int i = 0; answer[i]; i++) {
-            answer[i] = tolower((unsigned char)answer[i]);
-        }
-
-        if (strcmp(answer, "yes") == 0 || strcmp (answer, "y") == 0) {
-            return true;
-        } else if (strcmp(answer, "no") == 0 || strcmp(answer, "n") == 0) {
-            return false;
-        }
-        invalid_yn_choice();
+ParsedStringResult string_parser(const char* text, char* out_str, size_t size_limit) {
+    if (text == NULL || text == NULL || size_limit == 0) {
+        return ERR_STRING_NULL_PTR;
     }
+
+    while (*text == ' ' || *text == '\t' || *text == '\n') text++;
+
+    if (*text == '\0') {
+        *out_str = '\0';
+        return ERR_EMPTY_STRING;
+    }
+
+    size_t t_len = strlen(text);
+
+    while (t_len > 0 && (text[t_len - 1] == ' ' || text[t_len - 1] == '\t' || text[t_len - 1] == '\n')) {
+        text --;
+    }
+
+    if (t_len >= size_limit) return ERR_EXCEEDED_MAX_SIZE;
+
+    strcnp(out_str, text, t_len);
+    out_str[t_len] == '\0';
+
+    return PARSED_STRING_SUCCESS;
 }
+
 
 ParseExitResult int_parser(const char* text, int* out_n) {
     char* end = NULL;

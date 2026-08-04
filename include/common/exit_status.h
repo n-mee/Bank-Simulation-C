@@ -15,4 +15,11 @@ typedef enum {
     ERR_INPUT_EXCEED_RANGE
 } YesNoResult;
 
+typedef enum {
+    PARSED_STRING_SUCCESS = 0,
+    ERR_EMPTY_STRING,
+    ERR_EXCEEDED_MAX_SIZE,
+    ERR_STRING_NULL_PTR
+} ParsedStringResult;
+
 #endif

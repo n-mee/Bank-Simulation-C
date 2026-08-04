@@ -26,3 +26,12 @@ void invalid_bool_value(YesNoResult status) {
         default: break;
     }
 }
+
+void invalid_string_value(ParsedStringResult status) {
+    switch (status) {
+        case ERR_EMPTY_STRING: printf("[!] ERROR: Input cannot be empty.\n"); break;
+        case ERR_EXCEEDED_MAX_SIZE: printf("[!] ERROR: Text exceeds memory limits.\n"); break;
+        case ERR_STRING_NULL_PTR: printf("[!] ERROR: String referrence is pointed to NULL.\n"); break;
+        default: break;
+    }
+}
