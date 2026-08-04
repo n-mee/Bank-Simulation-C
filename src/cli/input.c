@@ -15,10 +15,6 @@ static bool read_line(const char* prompt, char* buf, size_t size) {
     return true;
 }
 
-void get_pin(char* PIN) {
-    get_string_prompt("Enter your PIN: ", PIN, sizeof(PIN));
-}
-
 bool get_prompt_string(const char* prompt, char* out_str, size_t size) {
     char msg[128];
 
@@ -37,7 +33,7 @@ int get_prompt_int(const char* prompt) {
     int value;
 
     for(;;){
-        if (read_line(prompt, msg, sizeof(msg))) return -1;
+        if (!read_line(prompt, msg, sizeof(msg))) return -1;
 
         ParseExitResult status = int_parser(msg, &value);
         if (status == PARSE_SUCCESS) return value;
