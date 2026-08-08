@@ -8,11 +8,13 @@
  *        an account you see being accessed in the database
 */
 
+#include "common/constants.h"
+
 typedef struct {
     char name[51];
     char username[21];
     char email[71];
-    char pin[5];
+    char pin[PIN_LENGTH];
 } ProfileSettings;
 
 typedef struct {

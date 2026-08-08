@@ -3,15 +3,16 @@
 #include "models/account_model.h"
 #include "services/transaction_service.h"
 #include "controllers/transaction_controller.h"
+#include "common/constants.h"
 #include "common/validators.h"
 #include "cli/input.h"
 #include "cli/displays.h"
 
 // Handles the main deposit logic.
 void handle_deposit_request(Account* current_user){
-    char PIN[6];
+    char PIN[PIN_LENGTH];
 
-    if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN))) return;
+    if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN_LENGTH))) return;
     // check for valid pin
     if (!is_valid_pin(current_user->profile.pin, PIN)) return;
 
@@ -26,8 +27,8 @@ void handle_deposit_request(Account* current_user){
 
 // Handles the main withdraw logic.
 void handle_withdraw_request(Account* current_user){
-    char PIN[6];
-    if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN))) return;
+    char PIN[PIN_LENGTH];
+    if (!get_prompt_string("\nEnter your PIN: ", PIN, PIN_LENGTH)) return;
     // check for valid pin
     if (!is_valid_pin(current_user->profile.pin, PIN)) return;
 
@@ -42,8 +43,8 @@ void handle_withdraw_request(Account* current_user){
 
 // Handles the main transfer logic.
 void handle_transfer_request(BankDatabase *db, Account *sender){
-    char PIN[6];
-    if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN))) return;
+    char PIN[PIN_LENGTH];
+    if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN_LENGTH))) return;
     // check for valid pin
     if (!is_valid_pin(sender->profile.pin, PIN)) return;
     // get the id of the reciever

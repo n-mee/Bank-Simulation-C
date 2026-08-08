@@ -4,6 +4,7 @@
 #include "cli/display_error_msg.h"
 #include "cli/displays.h"
 #include "cli/input.h"
+#include "common/constants.h"
 #include "common/validators.h"
 #include "common/value_parser.h"
 #include "controllers/auth_controller.h"
@@ -46,7 +47,7 @@ void handle_registration(BankDatabase *db) {
 
 // handles the gateway login menu logic
 void handle_login(BankDatabase *db, Account **session_user) {
-    char temp_pin[6];
+    char temp_pin[PIN_LENGTH];
     int temp_id = get_prompt_int("Enter your Unique ID: ");
 
     // uses a custom-made search algorithm to search for matching IDs
@@ -68,7 +69,7 @@ void handle_login(BankDatabase *db, Account **session_user) {
     }
 
     // prompts a pin input and checks if the pin input matches the one in account
-    if (!get_prompt_string("\nEnter your PIN: ", temp_pin, sizeof(temp_pin))) return;
+    if (!get_prompt_string("\nEnter your PIN: ", temp_pin, PIN_LENGTH)) return;
     // if it's not the code below exits the function
     if (strcmp(temp_pin, db->records[search_id].profile.pin) != 0){
         wrong_pin_msg();
