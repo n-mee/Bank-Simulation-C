@@ -34,9 +34,10 @@ bool is_valid_pin(const char* target_pin, const char* input_pin);
 /**
  * @brief Checks the length of a string whether it matches or exceeds length constraints
  * @param target Target string to be validated
+ * @param limit_len Comparator size for limit checking
  * @return True if it passes the validation, False otherwise
  */
-bool is_valid_length_input(const char* target);
+bool is_valid_length_input(const char* target, int limit_len);
 
 /**
  * @brief Validates ID by comparing it against a reference value

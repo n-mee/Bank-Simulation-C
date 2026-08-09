@@ -6,8 +6,11 @@ BUILD_DIR := build
 
 SRCS := src/main.c $(wildcard src/cli/*.c src/repositories/*.c src/controllers/*.c src/services/*.c src/common/*.c)
 OBJS := $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRCS))
+DEPS := $(OBJS:.o=.d)
 
 TARGET := $(BIN_DIR)/bankapp
+
+.PHONY: all clean memcheck run
 
 all: $(TARGET)
 
@@ -30,3 +33,5 @@ memcheck:
 
 run: all
 		./$(TARGET)
+
+-include $(DEPS)

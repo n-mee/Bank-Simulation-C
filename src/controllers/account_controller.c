@@ -41,7 +41,7 @@ void change_username_pipeline(Account *session) {
 
     // declaring of variable for new name
     if (!get_prompt_string("\nEnter your new Display Name: ", new_name, PIN_LENGTH)) return;
-    if (!is_valid_length_input(new_name)) return;
+    if (!is_valid_length_input(new_name, USERNAME_LEN)) return;
 
     // same logic in pin, changes the account name and returns the success msg
     account_update_username(session, new_name);
@@ -56,7 +56,7 @@ void change_email_pipeline(Account *session) {
     if(!is_valid_pin(session->profile.pin, current_pin)) return;
 
     if (!get_prompt_string("\nEnter your new email: ", new_email, PIN_LENGTH)) return;
-    if (!is_valid_length_input(new_email)) return;
+    if (!is_valid_length_input(new_email, EMAIL_LEN)) return;
 
     account_update_email(session, new_email);
     update_email_status(session);

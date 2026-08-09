@@ -20,12 +20,13 @@ bool is_valid_pin(const char* target_pin, const char* input_pin) {
 }
 
 bool is_valid_pin_length(const char* target_pin) {
-    if (strlen(target_pin) < 4) return false;
-    return true;
+    if (target_pin == NULL) return false;
+
+    return strlen(target_pin) == PIN_LENGTH;
 }
 
-bool is_valid_length_input(const char* target) {
-    if (strlen(target) < 2) {
+bool is_valid_length_input(const char* target, int limit_len) {
+    if (strlen(target) < (size_t)limit_len) {
         invalid_str_size();
         return false;
     }
