@@ -7,7 +7,7 @@
 #include "common/value_parser.h"
 
 ParsedStringResult string_parser(const char* text, char* out_str, size_t size_limit) {
-    if (text == NULL || text == NULL || size_limit == 0) {
+    if (text == NULL || out_str == NULL || size_limit == 0) {
         return ERR_STRING_NULL_PTR;
     }
 
@@ -21,7 +21,7 @@ ParsedStringResult string_parser(const char* text, char* out_str, size_t size_li
     size_t t_len = strlen(text);
 
     while (t_len > 0 && (text[t_len - 1] == ' ' || text[t_len - 1] == '\t' || text[t_len - 1] == '\n')) {
-        text --;
+        t_len--;
     }
 
     if (t_len >= size_limit) return ERR_EXCEEDED_MAX_SIZE;
