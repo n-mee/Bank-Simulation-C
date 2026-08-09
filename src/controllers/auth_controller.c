@@ -47,7 +47,7 @@ void handle_registration(BankDatabase *db) {
 
 // handles the gateway login menu logic
 void handle_login(BankDatabase *db, Account **session_user) {
-    char temp_pin[PIN_LENGTH];
+    char temp_pin[PIN_LENGTH + 1];
     int temp_id = get_prompt_int("Enter your Unique ID: ");
 
     // uses a custom-made search algorithm to search for matching IDs

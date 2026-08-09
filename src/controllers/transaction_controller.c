@@ -10,7 +10,7 @@
 
 // Handles the main deposit logic.
 void handle_deposit_request(Account* current_user){
-    char PIN[PIN_LENGTH];
+    char PIN[PIN_LENGTH + 1];
 
     if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN_LENGTH))) return;
     // check for valid pin
@@ -27,7 +27,7 @@ void handle_deposit_request(Account* current_user){
 
 // Handles the main withdraw logic.
 void handle_withdraw_request(Account* current_user){
-    char PIN[PIN_LENGTH];
+    char PIN[PIN_LENGTH + 1];
     if (!get_prompt_string("\nEnter your PIN: ", PIN, PIN_LENGTH)) return;
     // check for valid pin
     if (!is_valid_pin(current_user->profile.pin, PIN)) return;
@@ -43,7 +43,7 @@ void handle_withdraw_request(Account* current_user){
 
 // Handles the main transfer logic.
 void handle_transfer_request(BankDatabase *db, Account *sender){
-    char PIN[PIN_LENGTH];
+    char PIN[PIN_LENGTH + 1];
     if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN_LENGTH))) return;
     // check for valid pin
     if (!is_valid_pin(sender->profile.pin, PIN)) return;

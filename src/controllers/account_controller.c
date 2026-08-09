@@ -19,8 +19,8 @@
 
 // changes the pin of the user using Pass-by-referrence
 void change_pin_pipeline(Account *session) {
-    char new_pin[PIN_LENGTH];
-    char current_pin[PIN_LENGTH];
+    char new_pin[PIN_LENGTH + 1];
+    char current_pin[PIN_LENGTH + 1];
 
     if (!get_prompt_string("\nEnter Current PIN: ", current_pin, PIN_LENGTH)) return;
     if (!is_valid_pin(session->profile.pin, current_pin)) return;
@@ -33,7 +33,7 @@ void change_pin_pipeline(Account *session) {
 
 // change name function using Pass-by-referrence
 void change_username_pipeline(Account *session) {
-    char current_pin[PIN_LENGTH];
+    char current_pin[PIN_LENGTH + 1];
     char new_name[50];
 
     if (!get_prompt_string("\nEnter current PIN: ", current_pin, PIN_LENGTH)) return;
@@ -49,7 +49,7 @@ void change_username_pipeline(Account *session) {
 }
 
 void change_email_pipeline(Account *session) {
-    char current_pin[PIN_LENGTH];
+    char current_pin[PIN_LENGTH + 1];
     char new_email[51];
 
     if (!get_prompt_string("Enter your PIN: ", current_pin, PIN_LENGTH)) return;
