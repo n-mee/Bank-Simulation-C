@@ -14,7 +14,7 @@ typedef struct {
     char name[51];
     char username[21];
     char email[71];
-    char pin[PIN_LENGTH];
+    char pin[PIN_LENGTH + 1];
 } ProfileSettings;
 
 typedef struct {
