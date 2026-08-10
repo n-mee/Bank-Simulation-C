@@ -1,4 +1,4 @@
-#include <stdbool.h>
+#include <stdio.h>
 #include "cli/display_success_msg.h"
 
 void account_operation_success(AccountOperationType type) {
