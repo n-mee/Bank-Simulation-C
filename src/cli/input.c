@@ -47,7 +47,7 @@ double get_prompt_double(const char* prompt) {
     double value;
 
     for(;;) {
-        if (read_line(prompt, msg, sizeof(msg))) return -1;
+        if (!read_line(prompt, msg, sizeof(msg))) return -1;
 
         ParseExitResult status = double_parser(msg, &value);
         if (status == PARSE_SUCCESS) return value;
@@ -60,7 +60,7 @@ bool get_yn_prompt(const char* prompt, bool* out_c) {
     char msg[128];
 
     for(;;) {
-        if (read_line(prompt, msg, sizeof(msg))) return false;
+        if (!read_line(prompt, msg, sizeof(msg))) return false;
 
         YesNoResult status = yn_parser(msg, out_c);
         if (status == YN_SUCCESS) return true;
