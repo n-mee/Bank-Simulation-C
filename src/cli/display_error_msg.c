@@ -36,6 +36,17 @@ void invalid_string_value(ParsedStringResult status) {
     }
 }
 
+void account_operation_error(Credentials status) {
+    switch (status) {
+        case ERR_INVALID_PIN: printf("[!] ERROR: Wrong Pin.\n"); break;
+        case ERR_MISMATCH_PIN: printf("[!] ERROR: Pin doesn't match the credentials.\n"); break;
+        case ERR_INPUT_STR_ERROR: printf("[!] ERROR: Input exceeded buffer size.\n"); break;
+        case ERR_UPDATE_OPERATION_FAIL: printf("[!] ERROR: Something wrong happened.\n"); break;
+        case OPERATION_SUCCESS:
+        default: break;
+    }
+}
+
 void invalid_pin_length() {
     printf("[!] ERROR: Invalid PIN length.\n");
 }

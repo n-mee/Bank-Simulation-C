@@ -7,12 +7,14 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "models/account_model.h"
+#include "cli/input.h"
 #include "cli/menus.h"
 #include "cli/displays.h"
+#include "common/constants.h"
 #include "common/validators.h"
 #include "common/value_parser.h"
-#include "cli/input.h"
+#include "models/account_model.h"
+#include "cli/display_error_msg.h"
 #include "services/account_service.h"
 #include "controllers/account_controller.h"
 
@@ -48,21 +50,25 @@ void handle_account_settings(Account *current_session) {
 }
 
 void handle_profile_settings(Account *current_session) {
-
+    Credentials status;
     bool in_settings = true;
+
     while (in_settings) {
         profile_settings();
         int choice = get_prompt_int("\nEnter your choice: ");
 
         switch(choice) {
             case 1:
-                change_username_pipeline(current_session);
+                status = change_credential_pipeline(current_session, UPDATE_USERNAME);
+                account_operation_error(status);
                 break;
             case 2:
-                change_email_pipeline(current_session);
+                status = change_credential_pipeline(current_session, UPDATE_EMAIL);
+                account_operation_error(status);
                 break;
             case 3:
-                change_pin_pipeline(current_session);
+                status = change_credential_pipeline(current_session, UPDATE_PIN);
+                account_operation_error(status);               
                 break;
             case 0:
                 back_to_menu();
