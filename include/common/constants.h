@@ -11,4 +11,11 @@ typedef enum {
     UPDATE_USERNAME
 } AccountOperationType;
 
+typedef enum {
+    ENABLE_EMAIL_NOTIF,
+    ENABLE_PUSH_NOTIF,
+    ENABLE_LARGE_TXN_NOTIF,
+    ENABLE_LOW_BAL_NOTIF
+} AccountNotificationsType;
+
 #endif

@@ -17,10 +17,7 @@
 */
 
 Credentials change_credential_pipeline(Account* session, AccountOperationType type);
-void set_email_notif(Account* session, bool enabled);
-void set_push_notif(Account* session, bool enabled);
-void set_low_bal_notif(Account* session, bool enabled);
-void set_large_txn_notif(Account* session, bool enabled);
+NotificationsStatus account_notifications_pipeline (Account* session, AccountNotificationsType type, bool enabled);
 
 void set_acc_frozen(Account* session);
 void set_acc_active(Account* session);

@@ -31,4 +31,11 @@ typedef enum {
     ERR_UPDATE_OPERATION_FAIL
 } Credentials;
 
+typedef enum {
+    NOTIF_SUCCESS_ENABLED,
+    NOTIF_SUCCESS_DISABLED,
+    NOTIF_WARN_ALREADY_SET,
+    NOTIF_ERR_SESSION_NULL,
+} NotificationsStatus;
+
 #endif

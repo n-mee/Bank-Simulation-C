@@ -68,41 +68,24 @@ Credentials change_credential_pipeline(Account* session, AccountOperationType ty
     return OPERATION_SUCCESS;
 }
 
-void set_email_notif(Account *session, bool enabled) {
-    if (session->preference.email_notif == enabled) {
-        email_notif_alr_on(enabled);
-        return;
-    }
-    session->preference.email_notif = enabled;
-    email_enable_msg(enabled);
+NotificationsStatus account_notifications_pipeline (Account* session, AccountNotificationsType type, bool enabled) {
+    if (!session) return NOTIF_ERR_SESSION_NULL;
+
+    bool* target_field = NULL;
+
+    if (type == ENABLE_EMAIL_NOTIF) target_field = &session->preference.email_notif;
+    else if (type == ENABLE_PUSH_NOTIF) target_field = &session->preference.push_notif;
+    else if (type == ENABLE_LARGE_TXN_NOTIF) target_field = &session->preference.large_transaction_alert;
+    else if (type == ENABLE_LARGE_TXN_NOTIF) target_field = &session->preference.low_balance_alert;
+    else return NOTIF_ERR_SESSION_NULL;
+
+    if (*target_field == enabled) return NOTIF_WARN_ALREADY_SET;
+
+    *target_field = enabled;
+
+    return enabled ? NOTIF_SUCCESS_ENABLED : NOTIF_SUCCESS_DISABLED;
 }
 
-void set_push_notif(Account *session, bool enabled) {
-    if (session->preference.push_notif == enabled) {
-        push_notif_alr_on(enabled);
-        return;
-    }
-    session->preference.push_notif = enabled;
-    push_enable_msg(enabled);
-}
-
-void set_low_bal_notif(Account *session, bool enabled) {
-    if (session->preference.low_balance_alert == enabled) {
-        lowbal_notif_alr_on(enabled);
-        return;
-    }
-    session->preference.low_balance_alert = enabled;
-    lowbal_enable_msg(enabled);
-}
-
-void set_large_txn_notif(Account *session, bool enabled) {
-    if (session->preference.large_transaction_alert == enabled) {
-        txn_notif_alr_on(enabled);
-        return;
-    }
-    session->preference.large_transaction_alert = enabled;
-    txn_enable_msg(enabled);
-}
 
 void set_acc_frozen(Account *session) {
     bool choice;
