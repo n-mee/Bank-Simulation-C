@@ -15,8 +15,17 @@
 #include "common/value_parser.h"
 #include "models/account_model.h"
 #include "cli/display_error_msg.h"
+#include "cli/display_success_msg.h"
 #include "services/account_service.h"
 #include "controllers/account_controller.h"
+
+static void account_notifications_routing(AccountNotificationsType type, NotificationsStatus status) {
+    if (status == NOTIF_WARN_ALREADY_SET || status == NOTIF_ERR_SESSION_NULL) {
+        account_notification_fail(status);
+    } else {
+        account_notification_status(type, status);
+    }
+}
 
 // handles the users settings config if he presses option 4
 void handle_account_settings(Account *current_session) {
@@ -82,7 +91,8 @@ void handle_profile_settings(Account *current_session) {
 }
 
 void handle_preference_settings(Account *current_session) {
-    bool c;
+    NotificationsStatus status;
+    bool toggle_choice;
     bool in_settings = true;
 
     while (in_settings) {
@@ -91,12 +101,16 @@ void handle_preference_settings(Account *current_session) {
 
         switch (choice) {
             case 1:
-                get_yn_prompt("\nDo you wanna toggle email notifications? (yes/no): ", &c);
-                set_email_notif(current_session, c);
+                if (get_yn_prompt("\nDo you wanna toggle email notifications? (yes/no): ", &toggle_choice)) {
+                    status = account_notifications_pipeline(current_session, ENABLE_EMAIL_NOTIF, toggle_choice);
+                    account_notifications_routing(ENABLE_EMAIL_NOTIF, status);
+                }
                 break;
             case 2:
-                get_yn_prompt("\nDo you wanna toggle push notifications? (yes/no): ", &c);
-                set_push_notif(current_session, c);
+                if (get_yn_prompt("\nDo you wanna toggle push notifications? (yes/no): ", &toggle_choice)) {
+                    status = account_notifications_pipeline(current_session, ENABLE_PUSH_NOTIF, toggle_choice);
+                    account_notifications_routing(ENABLE_PUSH_NOTIF, status);
+                }
                 break;
             case 3:
                 handle_sub_pref_settings(current_session);
@@ -107,13 +121,14 @@ void handle_preference_settings(Account *current_session) {
                 break;
             default:
                 invalid_selection_msg();
-                continue;
+                break;
         }
     }
 }
 
 void handle_sub_pref_settings(Account *current_session) {
-    bool c;
+    NotificationsStatus status;
+    bool toggle_choice;
     bool in_subpref = true;
 
     while (in_subpref) {
@@ -122,12 +137,16 @@ void handle_sub_pref_settings(Account *current_session) {
 
         switch (choice) {
             case 1:
-                get_yn_prompt("\nDo you wanna toggle Low Balance Alerts? (yes/no): ", &c);
-                set_low_bal_notif(current_session, c);
+                if (get_yn_prompt("\nDo you wanna toggle Large Transaction Alerts? (yes/no): ", &toggle_choice)) {
+                    status = account_notifications_pipeline(current_session, ENABLE_LARGE_TXN_NOTIF, toggle_choice);
+                    account_notifications_routing(ENABLE_LARGE_TXN_NOTIF, status);
+                }
                 break;
             case 2:
-                get_yn_prompt("\nDo you wanna toggle Large Transaction Alerts? (yes/no): ", &c);
-                set_large_txn_notif(current_session, c);
+                if (get_yn_prompt("\nDo you wanna toggle Low Balance Alerts? (yes/no): ", &toggle_choice)) {
+                    status = account_notifications_pipeline(current_session, ENABLE_LOW_BAL_NOTIF, toggle_choice);
+                    account_notifications_routing(ENABLE_LOW_BAL_NOTIF, status);
+                }
                 break;
             case 0:
                 back_to_menu();
@@ -135,7 +154,7 @@ void handle_sub_pref_settings(Account *current_session) {
                 break;
             default:
                 invalid_selection_msg();
-                continue;
+                break;
         }
     }
 }
