@@ -22,4 +22,13 @@ typedef enum {
     ERR_STRING_NULL_PTR
 } ParsedStringResult;
 
+typedef enum {
+    OPERATION_SUCCESS = 0,
+    ERR_ACCOUNT_NULL,
+    ERR_INVALID_PIN,
+    ERR_MISMATCH_PIN,
+    ERR_INPUT_STR_ERROR,
+    ERR_UPDATE_OPERATION_FAIL
+} Credentials;
+
 #endif

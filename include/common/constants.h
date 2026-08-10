@@ -5,4 +5,10 @@
 #define EMAIL_LEN 12
 #define USERNAME_LEN 3
 
+typedef enum {
+    UPDATE_PIN,
+    UPDATE_EMAIL,
+    UPDATE_USERNAME
+} AccountOperationType;
+
 #endif
