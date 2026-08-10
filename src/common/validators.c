@@ -26,7 +26,7 @@ bool is_valid_pin_length(const char* target_pin) {
 }
 
 bool is_valid_length_input(const char* target, int limit_len) {
-    if (strlen(target) < (size_t)limit_len) {
+    if (strlen(target) <= (size_t)limit_len) {
         invalid_str_size();
         return false;
     }
