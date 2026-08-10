@@ -16,52 +16,6 @@
 #include "services/account_service.h"
 #include "controllers/account_controller.h"
 
-
-// changes the pin of the user using Pass-by-referrence
-void change_pin_pipeline(Account *session) {
-    char new_pin[PIN_LENGTH + 1];
-    char current_pin[PIN_LENGTH + 1];
-
-    if (!get_prompt_string("\nEnter Current PIN: ", current_pin, PIN_LENGTH)) return;
-    if (!is_valid_pin(session->profile.pin, current_pin)) return;
-    // declaring var for new pin
-    if (!get_prompt_string("\nEnter your New PIN: ", new_pin, PIN_LENGTH)) return;
-    account_update_pin(session, new_pin);
-    // return pin success
-    change_pin_success(session);
-}
-
-// change name function using Pass-by-referrence
-void change_username_pipeline(Account *session) {
-    char current_pin[PIN_LENGTH + 1];
-    char new_name[50];
-
-    if (!get_prompt_string("\nEnter current PIN: ", current_pin, PIN_LENGTH)) return;
-    if (!is_valid_pin(session->profile.pin, current_pin)) return;
-
-    // declaring of variable for new name
-    if (!get_prompt_string("\nEnter your new Display Name: ", new_name, PIN_LENGTH)) return;
-    if (!is_valid_length_input(new_name, USERNAME_LEN)) return;
-
-    // same logic in pin, changes the account name and returns the success msg
-    account_update_username(session, new_name);
-    change_name_success(session);
-}
-
-void change_email_pipeline(Account *session) {
-    char current_pin[PIN_LENGTH + 1];
-    char new_email[51];
-
-    if (!get_prompt_string("Enter your PIN: ", current_pin, PIN_LENGTH)) return;
-    if(!is_valid_pin(session->profile.pin, current_pin)) return;
-
-    if (!get_prompt_string("\nEnter your new email: ", new_email, PIN_LENGTH)) return;
-    if (!is_valid_length_input(new_email, EMAIL_LEN)) return;
-
-    account_update_email(session, new_email);
-    update_email_status(session);
-}
-
 // handles the users settings config if he presses option 4
 void handle_account_settings(Account *current_session) {
     // set state for while loop
@@ -229,17 +183,4 @@ void handle_payment_settings(Account *current_session) {
                 continue;
         }
     }
-}
-
- void update_daily_limit(Account *current_session) {
-    bool choice;
-
-    get_yn_prompt("\nDaily Limits should only be around 10,000 to 50,000.\nAre you sure you wanna continue? (yes/no): ", &choice);
-    if (choice != true) {
-        back_to_menu();
-        return;
-    }
-
-    double new_limit = get_prompt_double("\nEnter new limit: ");
-    set_daily_limit(current_session, new_limit);
 }
