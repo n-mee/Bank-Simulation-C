@@ -48,21 +48,17 @@ Credentials change_credential_pipeline(Account* session, AccountOperationType ty
     char current_pin[PIN_LENGTH + 1];
     char new_value[256];
 
-    if (!get_prompt_string("\nEnter your PIN: ", current_pin, PIN_LENGTH)) return ERR_INVALID_PIN;
+    if (!get_prompt_string("\nEnter your PIN: ", current_pin, sizeof(current_pin))) return ERR_INVALID_PIN;
     if (!is_valid_pin(session->profile.pin, current_pin)) return ERR_MISMATCH_PIN;
     
     const char* prompt = NULL;
-    size_t input_len = PIN_LENGTH;
 
     if (type == UPDATE_PIN) {
         prompt = "\nEnter your new PIN: ";
-        input_len = PIN_LENGTH;
     } else if (type == UPDATE_EMAIL) {
         prompt = "\nEnter your new e-mail: ";
-        input_len = EMAIL_LEN;
     } else if (type == UPDATE_USERNAME) {
         prompt = "\nEnter your new username: ";
-        input_len = USERNAME_LEN;
     }
 
     if (!get_prompt_string(prompt, new_value, sizeof(new_value) - 1)) return ERR_INPUT_STR_ERROR;   
