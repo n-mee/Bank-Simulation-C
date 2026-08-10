@@ -47,6 +47,18 @@ void account_operation_error(Credentials status) {
     }
 }
 
+void account_notification_fail(NotificationsStatus status) {
+    if (status == NOTIF_WARN_ALREADY_SET) {
+        printf("[!] WARN: Alert is already set to that state.\n");
+        return;
+    }
+
+    if (status == NOTIF_ERR_SESSION_NULL) {
+        printf("[!] ERROR: Active session cannot be found.\n");
+        return;
+    }
+}
+
 void invalid_pin_length() {
     printf("[!] ERROR: Invalid PIN length.\n");
 }

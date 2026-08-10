@@ -9,3 +9,15 @@ void account_operation_success(AccountOperationType type) {
         default: break;
     }
 }
+
+void account_notification_status(AccountNotificationsType type, NotificationsStatus status) {
+    const char* state_str = (status == NOTIF_SUCCESS_ENABLED) ? "ENABLED" : "DISABLED";
+
+    switch (type) {
+        case ENABLE_EMAIL_NOTIF: printf("Email notifications are now %s!\n", state_str); break;
+        case ENABLE_PUSH_NOTIF: printf("Push notifications are now %s!\n", state_str); break;
+        case ENABLE_LARGE_TXN_NOTIF: printf("Large Transaction alerts are now %s!\n", state_str); break;
+        case ENABLE_LOW_BAL_NOTIF: printf("Low Balance alerts are now %s!\n", state_str); break;
+        default: break;
+    }
+}
