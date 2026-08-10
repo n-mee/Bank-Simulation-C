@@ -13,7 +13,6 @@ bool is_valid_bal(double amt) {
 
 bool is_valid_pin(const char* target_pin, const char* input_pin) {
     if (strcmp(target_pin, input_pin) != 0) {
-        invalid_pin_msg();
         return false;
     }
     return true;
@@ -26,11 +25,9 @@ bool is_valid_pin_length(const char* target_pin) {
 }
 
 bool is_valid_length_input(const char* target, int limit_len) {
-    if (strlen(target) <= (size_t)limit_len) {
-        invalid_str_size();
-        return false;
-    }
-    return true;
+    if (target == NULL) return false;
+
+    return strlen(target) >= (size_t)limit_len;
 }
 
 bool is_valid_id(int referrence, int target){
