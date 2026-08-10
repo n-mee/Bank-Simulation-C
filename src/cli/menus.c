@@ -76,8 +76,8 @@ void alert_pref_settings(void) {
     puts("          Alert Notifications          ");
     puts("+-------------------------------------+");
     puts("|                                     |");
-    puts("|   [3] Low Balance Alerts            |");
-    puts("|   [4] Large Transaction Alerts      |");
+    puts("|   [1] Low Balance Alerts            |");
+    puts("|   [2] Large Transaction Alerts      |");
     puts("|                                     |");
     puts("|   [0] EXIT                          |");
     puts("|                                     |");
