@@ -59,6 +59,17 @@ void account_notification_fail(NotificationsStatus status) {
     }
 }
 
+void account_state_error(AccountStateStatus status) {
+    switch (status) {
+        case STATUS_OPERATION_ERR_CLOSE_INCOMPATIBLE: printf("[!] ERROR: Cannot freeze an account that is already closed.\n"); break;
+        case STATUS_OPERATION_ERR_OUT_OF_RANGE: printf("[!] ERROR: Limit is not in the 10k - 50k range.\n"); break;
+        case STATUS_OPERATION_ERR_SESSION_NULL: printf("[!] ERROR: Session cannot be found.\n"); break;
+        case STATUS_OPERATION_WARN_ALREADY_SET: printf("[!] WARN: Your account is already set to that state.\n"); break;
+        case STATUS_OPERATION_SUCCESS:
+        default: break;
+    }
+}
+
 void invalid_pin_length() {
     printf("[!] ERROR: Invalid PIN length.\n");
 }

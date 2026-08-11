@@ -9,6 +9,7 @@ void invalid_bool_value(YesNoResult status);
 void invalid_string_value(ParsedStringResult status);
 void account_operation_error(Credentials status);
 void account_notification_fail(NotificationsStatus status);
+void account_state_error(AccountStateStatus status);
 void invalid_pin_length();
 
 #endif

@@ -21,3 +21,13 @@ void account_notification_status(AccountNotificationsType type, NotificationsSta
         default: break;
     }
 }
+
+void account_state_success(AccountStateOperationType type) {
+    switch (type) {
+        case SET_STATE_FREEZE: printf("Successfully froze your account.\n"); break;
+        case SET_STATE_ACTIVATE: printf("Successfully re-activate your account.\n"); break;
+        case SET_STATE_CLOSED: printf("Successfully set your account as closed.\n"); break;
+        case SET_LIMIT_UPDATE: printf("Successfully updated your account limits.\n"); break;
+        default: break;
+    }
+}
