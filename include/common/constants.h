@@ -18,4 +18,11 @@ typedef enum {
     ENABLE_LOW_BAL_NOTIF
 } AccountNotificationsType;
 
+typedef enum {
+    SET_STATE_FREEZE,
+    SET_STATE_ACTIVATE,
+    SET_STATE_CLOSED,
+    SET_LIMIT_UPDATE
+} AccountStateOperationType;
+
 #endif
