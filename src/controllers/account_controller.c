@@ -27,6 +27,14 @@ static void account_notifications_routing(AccountNotificationsType type, Notific
     }
 }
 
+static void account_status_routing(AccountStateOperationType type, AccountStateStatus status) {
+    if (status != STATUS_OPERATION_SUCCESS) {
+        account_state_error(status);
+    } else {
+        account_state_success(type);
+    }
+}
+
 // handles the users settings config if he presses option 4
 void handle_account_settings(Account *current_session) {
     // set state for while loop
@@ -159,53 +167,60 @@ void handle_sub_pref_settings(Account *current_session) {
     }
 }
 
-void update_account_status(Account *current_session) {
-    bool in_accstatus = true;
-    while (in_accstatus) {
-        account_status_menu();
-        int choice = get_prompt_int("\nEnter your choice: ");
 
-        switch (choice) {
-            case 1:
-                set_acc_frozen(current_session);
-                break;
-            case 2:
-                set_acc_active(current_session);
-                break;
-            case 3:
-                set_acc_closed(current_session);
-                break;
-            case 0:
-                back_to_menu();
-                in_accstatus = false;
-                break;
-            default:
-                invalid_selection_msg();
-                continue;
+void handle_payment_settings (Account *current_session) {
+    AccountStateStatus status;
+    bool in_settings = true;
+    bool in_sub_settings = false;
+
+    while (in_settings) {
+
+        if (in_sub_settings) {
+            account_status_menu();
+        } else {
+            payment_settings();
         }
-    }
-}
 
-void handle_payment_settings(Account *current_session) {
-    bool in_psettings = true;
-    while (in_psettings) {
-        payment_settings();
         int choice = get_prompt_int("\nEnter your choice: ");
 
-        switch (choice) {
-            case 1:
-                update_account_status(current_session);
-                break;
-            case 2:
-                update_daily_limit(current_session);
-                break;
-            case 0:
-                back_to_menu();
-                in_psettings = false;
-                break;
-            default:
-                invalid_selection_msg();
-                continue;
+        if (!in_sub_settings) {
+            switch (choice) {
+                case 1:
+                    in_sub_settings = true;
+                    break;
+                case 2:
+                    status = account_status_pipeline(current_session, SET_LIMIT_UPDATE);
+                    account_status_routing(SET_LIMIT_UPDATE, status);
+                    break;
+                case 0:
+                    back_to_menu();
+                    in_settings = false;
+                    break;
+                default:
+                    invalid_selection_msg();
+                    break;
+            }
+        } else {
+            switch (choice) {
+                case 1:
+                    status = account_status_pipeline(current_session, SET_STATE_FREEZE);
+                    account_status_routing(SET_STATE_FREEZE, status);
+                    break;
+                case 2:
+                    status = account_status_pipeline(current_session, SET_STATE_ACTIVATE);
+                    account_status_routing(SET_STATE_ACTIVATE, status);
+                    break;
+                case 3:
+                    status = account_status_pipeline(current_session, SET_STATE_CLOSED);
+                    account_status_routing(SET_STATE_CLOSED, status);
+                    break;
+                case 0:
+                    in_sub_settings = false;
+                    break;
+                default:
+                    invalid_selection_msg();
+                    break;
+            }
         }
     }
 }
