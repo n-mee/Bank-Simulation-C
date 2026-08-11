@@ -25,7 +25,7 @@ $(BUILD_DIR)/%.o: %.c
 clean:
 		rm -rf $(BUILD_DIR)/* $(BIN_DIR)/*
 
-memcheck:
+memcheck: $(TARGET)
 	valgrind --leak-check=full \
 	         --show-leak-kinds=all \
 	         --track-origins=yes \
