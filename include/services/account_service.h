@@ -18,13 +18,7 @@
 
 Credentials change_credential_pipeline(Account* session, AccountOperationType type);
 NotificationsStatus account_notifications_pipeline (Account* session, AccountNotificationsType type, bool enabled);
-
-void set_acc_frozen(Account* session);
-void set_acc_active(Account* session);
-void set_acc_closed(Account* session);
-void set_daily_limit(Account* session, double new_limit);
-
-void update_daily_limit(Account *current_session);
+AccountStateStatus account_status_pipeline (Account* session, AccountStateOperationType type);
 
 
 #endif

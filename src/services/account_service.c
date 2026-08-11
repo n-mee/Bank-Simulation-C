@@ -42,6 +42,32 @@ static bool account_update_credentials(Account *session, AccountOperationType ty
     return true;
 }
 
+static AccountStateStatus update_account_status(Account* session, AccountStateOperationType type) {
+    if (!session) return STATUS_OPERATION_ERR_SESSION_NULL;
+
+    if (session->controls.status == ACCOUNT_CLOSED) return STATUS_OPERATION_ERR_CLOSE_INCOMPATIBLE;
+
+    AccountStatus select_status;
+    if (type == SET_STATE_FREEZE) select_status = ACCOUNT_FROZEN;
+    else if (type == SET_STATE_ACTIVATE) select_status = ACCOUNT_ACTIVE;
+    else if (type == SET_STATE_CLOSED) select_status = ACCOUNT_CLOSED;
+    else return STATUS_OPERATION_ERR_SESSION_NULL;
+
+    if (session->controls.status == select_status) return STATUS_OPERATION_WARN_ALREADY_SET;
+
+    session->controls.status = select_status;
+    return STATUS_OPERATION_SUCCESS;
+}
+
+static AccountStateStatus update_account_limit(Account* session, double* new_limt) {
+    if (!session) return STATUS_OPERATION_ERR_SESSION_NULL;
+
+    if (!is_valid_limit(new_limt)) return STATUS_OPERATION_ERR_OUT_OF_RANGE;
+
+    session->controls.daily_limit = *new_limt;
+    return STATUS_OPERATION_SUCCESS;
+}
+
 Credentials change_credential_pipeline(Account* session, AccountOperationType type) {
     if (!session) return ERR_ACCOUNT_NULL;
 
@@ -86,81 +112,23 @@ NotificationsStatus account_notifications_pipeline (Account* session, AccountNot
     return enabled ? NOTIF_SUCCESS_ENABLED : NOTIF_SUCCESS_DISABLED;
 }
 
+AccountStateStatus account_status_pipeline (Account* session, AccountStateOperationType type){
+    if (!session) return STATUS_OPERATION_ERR_SESSION_NULL;
 
-void set_acc_frozen(Account *session) {
-    bool choice;
-    get_yn_prompt("\nDo you wanna FREEZE your account? (yes/no): ", &choice);
+    bool confirm = false;
+    const char* prompt = NULL;
 
-    if (choice != true) {
-        return;
+    if (type == SET_STATE_FREEZE) prompt = "\nDo you wanna FREEZE your account? (yes/no): ";
+    else if (type == SET_STATE_ACTIVATE) prompt = "\nDo you wanna RE-ACTIVATE your account? (yes/no): ";
+    else if (type == SET_STATE_CLOSED) prompt = "\nDo you wanna CLOSE your account? (yes/no): ";
+    else if (type == SET_LIMIT_UPDATE) prompt = "\nDaily Limits should ony be around 10k - 50k.\nDo you wanna continue? (yes/no): ";
+
+    if (!get_yn_prompt(prompt, &confirm) || !confirm) return STATUS_OPERATION_ERR_SESSION_NULL;
+
+    if (type == SET_LIMIT_UPDATE) {
+        double new_limit = get_prompt_double("\nEnter new limt: ");
+        return update_account_limit(session, &new_limit);
     }
 
-    if (session->controls.status == ACCOUNT_CLOSED) {
-        two_acc_status_inc();
-        return;
-    }
-
-    if (session->controls.status == ACCOUNT_FROZEN) {
-        acc_is_frozen();
-        return;
-    }
-
-    session->controls.status = ACCOUNT_FROZEN;
-    acc_freeze_success();
-}
-
-void set_acc_active(Account *session) {
-    bool choice;
-    get_yn_prompt("\nDo you wanna Re-Activate your account? (yes/no): ", &choice);
-
-    if (choice != true) {
-        return;
-    }
-
-    if (session->controls.status == ACCOUNT_ACTIVE) {
-        acc_is_active();
-        return;
-    }
-
-    session->controls.status = ACCOUNT_ACTIVE;
-    acc_reactivation_success();
-}
-
-void set_acc_closed(Account *session) {
-    bool choice;
-    get_yn_prompt("\nDo you wanna CLOSE your account? (yes/no): ", &choice);
-    
-    if (choice != true) {
-        return;
-    }
-
-    if (session->controls.status == ACCOUNT_CLOSED) {
-        acc_is_closed();
-        return;
-    }
-
-    session->controls.status = ACCOUNT_CLOSED;
-    closed_acc_success();
-}
-
-void set_daily_limit(Account *session, double new_limit) {
-    if (!is_valid_limit(&new_limit)) {
-        limit_out_range();
-        return;
-    }
-    session->controls.daily_limit = new_limit;
-    acc_limit_success(session);
-}
-
-void update_daily_limit(Account *current_session) {
-    bool choice;
-
-    get_yn_prompt("\nDaily Limits should only be around 10,000 to 50,000.\nAre you sure you wanna continue? (yes/no): ", &choice);
-    if (choice != true) {
-        back_to_menu();
-        return;
-    }
-
-    double new_limit = get_prompt_double("\nEnter new limit: ");
-    set_daily_limit(current_session, new_limit);
+    return update_account_status(session, type);
 }
