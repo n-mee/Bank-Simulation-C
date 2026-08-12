@@ -13,11 +13,14 @@
 
 #include <stdio.h>
 #include <errno.h>
+#include <time.h>
 /**
  * @brief Initializes the directory given from parameter
  * @param path String reference for directory to be evaluated
  * @return 0 if successful, -1 if the initialization or creation failed.
  */
 int verify_dir_status(const char* path);
+
+void write_transac_log(const char* status, const char* op, int acc1, int acc2, long long amount);
 
 #endif
