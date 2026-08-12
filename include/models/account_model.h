@@ -32,12 +32,12 @@ typedef enum {
 
 typedef struct {
     AccountStatus status;
-    double daily_limit;
+    long long daily_limit;
 } CardControls;
 
 typedef struct {
     int accID;
-    double bal;
+    long long bal;
 
     ProfileSettings profile;
     PreferenceSettings preference;
