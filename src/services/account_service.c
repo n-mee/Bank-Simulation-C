@@ -59,7 +59,7 @@ static AccountStateStatus update_account_status(Account* session, AccountStateOp
     return STATUS_OPERATION_SUCCESS;
 }
 
-static AccountStateStatus update_account_limit(Account* session, double* new_limt) {
+static AccountStateStatus update_account_limit(Account* session, long long* new_limt) {
     if (!session) return STATUS_OPERATION_ERR_SESSION_NULL;
 
     if (!is_valid_limit(new_limt)) return STATUS_OPERATION_ERR_OUT_OF_RANGE;
@@ -126,7 +126,7 @@ AccountStateStatus account_status_pipeline (Account* session, AccountStateOperat
     if (!get_yn_prompt(prompt, &confirm) || !confirm) return STATUS_OPERATION_ERR_SESSION_NULL;
 
     if (type == SET_LIMIT_UPDATE) {
-        double new_limit = get_prompt_double("\nEnter new limt: ");
+        long long new_limit = get_prompt_amount("\nEnter new limt: ");
         return update_account_limit(session, &new_limit);
     }
 
