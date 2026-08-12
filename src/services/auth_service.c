@@ -18,6 +18,15 @@ static AuthStatus set_default_values(Account* target) {
     return AUTH_OPERATION_SUCCESS;
 }
 
+bool service_account_exists(BankDatabase *db, int id) {
+    if (!db) return false;
+
+    int find_id = db_find_identity(db, id);
+    if (find_id == -1) return false;
+    
+    return true;
+}
+
 AuthStatus register_account (BankDatabase* db, Account raw_data, int* acc_id) {
     if (!db || !acc_id) return AUTH_ERR_SESSION_NULL;
 

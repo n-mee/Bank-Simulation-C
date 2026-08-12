@@ -39,6 +39,12 @@ void handle_login(BankDatabase *db, Account **session_user) {
     char temp_pin[PIN_LENGTH + 1];
     int temp_id = get_prompt_int("Enter your Unique ID: ");
 
+    if (!service_account_exists(db, temp_id)) {
+        *session_user == NULL;
+        auth_operation_error(AUTH_ERR_NOT_FOUND);
+        return;
+    }
+
     // prompts a pin input and checks if the pin input matches the one in account
     if (!get_prompt_string("\nEnter your PIN: ", temp_pin, sizeof(temp_pin))) {
         *session_user = NULL;
