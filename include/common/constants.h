@@ -25,4 +25,10 @@ typedef enum {
     SET_LIMIT_UPDATE
 } AccountStateOperationType;
 
+typedef enum {
+    WITHDRAW,
+    DEPOSIT,
+    TRANSFER
+} TransactionType;
+
 #endif

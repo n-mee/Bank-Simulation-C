@@ -4,7 +4,8 @@
 typedef enum {
     PARSE_SUCCESS = 0,
     ERR_INVALID_INT,
-    ERR_INVALID_DOUBLE,
+    ERR_OVERFLOW,
+    ERR_NEGATIVE,
     ERR_NULL_PTR,
     ERR_TRAILING_GARBAGE,
 } ParseExitResult;
@@ -56,5 +57,17 @@ typedef enum {
     AUTH_ERR_BAD_PIN,
     AUTH_ERR_DB_FULL
 } AuthStatus;
+
+typedef enum {
+    TXN_OPERATION_SUCCESS,
+    TXN_ERR_NULL,
+    TXN_INVALID_PIN,
+    TXN_MISMATCH_PIN,
+    TXN_INVALID_BAL,
+    TXN_INSUFFICIENT_BAL,
+    TXN_BAL_OVERFLOW,
+    TXN_ERR_RECEIVER_NOT_FOUND,
+    TXN_ERR_SELF_TRANSFER
+} TransactionStatus;
 
 #endif
