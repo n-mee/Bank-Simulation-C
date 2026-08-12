@@ -54,7 +54,7 @@ int db_account_creation(BankDatabase *db, Account new_acc) {
     int index = db->account_count;
     db->records[index] = new_acc;
     db->records[index].accID = account_id_generator(db);
-    db->records[index].bal = 0.0;
+    db->records[index].bal = 0;
 
     // Increments database records and returns ID
     int new_id = db->records[index].accID;

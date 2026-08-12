@@ -13,7 +13,7 @@ static AuthStatus set_default_values(Account* target) {
     target->preference.large_transaction_alert = false;
     target->preference.low_balance_alert = false;
     target->controls.status = ACCOUNT_ACTIVE;
-    target->controls.daily_limit = 10000.00;
+    target->controls.daily_limit = 10000;
 
     return AUTH_OPERATION_SUCCESS;
 }
