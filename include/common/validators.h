@@ -21,7 +21,7 @@
  * @param amt Amount that is being evaluated
  * @return True if balance is positive, False if it's not
  */
-bool is_valid_bal(double amt);
+bool is_valid_bal(long long amt);
 
 /**
  * @brief Validates pin by comparing two string values
@@ -47,6 +47,6 @@ bool is_valid_length_input(const char* target, int limit_len);
  */
 bool is_valid_id(int referrence, int target);
 bool is_valid_pin_length(const char* target_pin);
-bool is_valid_limit(const double* target);
+bool is_valid_limit(const long long* target);
 
 #endif

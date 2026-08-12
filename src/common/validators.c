@@ -3,7 +3,7 @@
 #include "cli/displays.h"
 
 // checks if the amount entered is valid and returns the according boolean values.
-bool is_valid_bal(double amt) {
+bool is_valid_bal(long long amt) {
     if (amt <= 0) {
         error_bal_msg();
         return false;
@@ -37,16 +37,8 @@ bool is_valid_id(int referrence, int target){
     return true;
 }
 
-bool is_valid_limit(const double* target) {
-    double lowest_limit = 10000.00;
-    double highest_limit = 50000.00;
-
-    if (target == NULL) {
-        return false;
-    }
-
-    if (*target < lowest_limit || *target > highest_limit) {
-        return false;
-    }
-    return true;
+bool is_valid_limit(const long long *target) {
+    if (target == NULL) return false;
+    
+    return (*target >= 10000 && *target <= 50000);
 }
