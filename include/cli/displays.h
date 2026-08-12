@@ -4,9 +4,6 @@
 #include <stdbool.h>
 #include "../include/models/account_model.h"
 // Success Msgs
-void transfer_status(bool success, Account* sender);
-void withdraw_status(bool success, Account* current_user);
-void deposit_status(bool success, Account* current_user);
 void dir_init_success();
 
 // Error Msgs

@@ -2,40 +2,6 @@
 #include <stdbool.h>
 #include "models/account_model.h"
 
-void transfer_status(bool success, Account* sender){
-    // Refers to the bool parameter and check what it returns.
-    if (success){
-        // Prints the "success" log along with the new balance of the sender.
-        printf("Transfer Sucessful!\n");
-        printf("Updated Balance: %.2lf.\n\n", sender->bal);
-    } else {
-        printf("[!] ERROR: Insufficient Balance to transfer.\n");
-    }
-}
-
-void withdraw_status(bool success, Account* current_user){
-    // Checks if the process of withdrawal returns true then prints the former condition.
-    if (success) {
-        printf("Withdrawal Successful!\n");
-        printf("New Balance: %.2lf.\n\n", current_user->bal);
-    // or prints the else if the withdrawal returns false.
-    } else {
-        printf("[!] ERROR: Insufficient Balance to Withdraw.\n");
-    }
-}
-
-void deposit_status(bool success, Account* current_user){
-    // Checks the process of deposit for boolean values and prints accordingly if it returns true
-    if (success) {
-        printf("Deposit Sucessful!\n");
-        printf("New Balance: %.2lf.\n\n", current_user->bal);
-    // or false.
-    } else {
-        printf("[!] ERROR: Deposit amount should be greater than 0.\n");
-    }
-}
-
-
 void dir_init_success() {
     printf("Successfuly Initiated the directory.\n");
 }
