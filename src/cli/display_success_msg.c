@@ -50,3 +50,11 @@ void auth_operation_success(AuthStatus status, const int* new_id, const Account*
             break;
     }
 }
+
+void account_transaction_success(TransactionType type) {
+    switch (type) {
+        case DEPOSIT: printf("[+] Deposit Success! Transaction has been recorded in the bank's database.\n"); break;
+        case WITHDRAW: printf("[+] Withdrawal Success! Please safely retrieve your cash.\n"); break;
+        case TRANSFER: printf("[+] Transfer Success! Funds has been safely wired to the receiver's balance.\n"); break;
+    }
+} 

@@ -1,6 +1,8 @@
 #include <stdbool.h>
 #include "repositories/account_repository.h"
 #include "models/account_model.h"
+#include "cli/display_success_msg.h"
+#include "cli/display_error_msg.h"
 #include "services/transaction_service.h"
 #include "controllers/transaction_controller.h"
 #include "common/constants.h"
@@ -8,69 +10,53 @@
 #include "cli/input.h"
 #include "cli/displays.h"
 
-// Handles the main deposit logic.
-void handle_deposit_request(Account* current_user){
-    char PIN[PIN_LENGTH + 1];
-
-    if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN))) return;
-    // check for valid pin
-    if (!is_valid_pin(current_user->profile.pin, PIN)) return;
-
-    // Gets the amount and checks if the amount is valid.
-    double deposit_amt = get_prompt_double("Enter amount: ");
-    if (!is_valid_bal(deposit_amt)) return;
-
-    // executes the main code and prints the result.
-    bool success = execute_deposit(current_user, deposit_amt);
-    deposit_status(success, current_user);
+static void account_transaction_routing(TransactionType type, TransactionStatus status) {
+    if (status == TXN_OPERATION_SUCCESS) {
+        account_transaction_success(type);
+    } else {
+        account_transaction_fail(status);
+    }
 }
 
-// Handles the main withdraw logic.
-void handle_withdraw_request(Account* current_user){
+void handle_transaction_pipeline(BankDatabase* db, Account* current_user, TransactionType type) {
+    if (!current_user) return;
+
     char PIN[PIN_LENGTH + 1];
-    if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN))) return;
-    // check for valid pin
-    if (!is_valid_pin(current_user->profile.pin, PIN)) return;
-
-    // handles the withdraw input and verifies the balance
-    double withdraw_amt = get_prompt_double("Enter amount: ");
-    if (!is_valid_bal(withdraw_amt)) return;
-
-    // handles the main business logic of bank and returns boolean if it succeed or not
-    bool success = execute_withdraw(current_user, withdraw_amt);
-    withdraw_status(success, current_user);
-}
-
-// Handles the main transfer logic.
-void handle_transfer_request(BankDatabase *db, Account *sender){
-    char PIN[PIN_LENGTH + 1];
-    if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN))) return;
-    // check for valid pin
-    if (!is_valid_pin(sender->profile.pin, PIN)) return;
-    // get the id of the reciever
-    int r_id = get_prompt_int("Enter receiver's UID: ");
-    // check if the reciever's id is in the database
-    int id_found = db_find_identity(db, r_id);
-    // if not it prints an error and closes
-    if (id_found == -1) {
-        invalid_reciever_msg();
+    if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN))) {
+        account_transaction_routing(type, TXN_INVALID_PIN);
+        return;
+    }
+    if (!is_valid_pin(current_user->profile.pin, PIN)) {
+        account_transaction_routing(type, TXN_MISMATCH_PIN);
         return;
     }
 
-    // this logic prevents self-transfer
-    if (db->records[id_found].accID == sender->accID) {
-        self_transfer_error();
-        return;
+    Account* receiver = NULL;
+
+    if (type == TRANSFER) {
+        if (!db) return;
+        int r_id = get_prompt_int("Enter receiver's UID: ");
+        int id_found = db_find_identity(db, r_id);
+
+        if (id_found == -1) {
+            account_transaction_routing(type, TXN_ERR_RECEIVER_NOT_FOUND);
+            return;
+        }
+        if (db->records[id_found].accID == current_user->accID) {
+            account_transaction_routing(type, TXN_ERR_SELF_TRANSFER);
+            return;
+        }
+
+        receiver = &db->records[id_found];
     }
 
-    // if id is found, we use a stack struct to transfer values
-    Account *receiver = &db->records[id_found];
+    long long amount = get_prompt_amount("Enter amount: ");
 
-    // gets the balance amount and verifies its validity
-    double transfer_amt = get_prompt_double("Enter amount: ");
-    if(!is_valid_bal(transfer_amt)) return;
+    TransactionStatus result;
+    if (type == DEPOSIT) result = execute_deposit(current_user, amount);
+    else if (type == WITHDRAW) result = execute_withdraw(current_user, amount);
+    else if (type == TRANSFER) result = execute_transfer(current_user, receiver, amount);
+    else return;
 
-    // handles the main logic of the transfer and returns the status of the transfer
-    bool success = execute_transfer(sender, receiver, transfer_amt);
-    transfer_status(success, sender);
+    account_transaction_routing(type, result);
 }

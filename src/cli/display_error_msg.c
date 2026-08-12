@@ -12,7 +12,8 @@ void invalid_integer_value(ParseExitResult status) {
 
 void invalid_double_input(ParseExitResult status) {
     switch (status) {
-        case ERR_INVALID_DOUBLE: printf("[!] ERROR: Input does not start with a decimal.\n"); break;
+        case ERR_OVERFLOW: printf("[!] ERROR: Cannot detect a number.\n"); break;
+        case ERR_NEGATIVE: printf("[!] ERROR: Number cannot be negative.\n"); break;
         case ERR_NULL_PTR: printf("[!] ERROR: Input returned a Null pointer.\n"); break;
         case ERR_TRAILING_GARBAGE: printf("[!] ERROR: Found trailing garbage characters after a number.\n"); break;
         default: break;
@@ -78,6 +79,35 @@ void auth_operation_error(AuthStatus status) {
         case AUTH_ERR_NOT_FOUND: printf("[!] ERROR: Account ID cannot be found\n"); break;
         case AUTH_ERR_SESSION_NULL: printf("[!] ERROR: Session is empty or NULL.\n"); break;
         default: break;
+    }
+}
+
+void account_transaction_fail(TransactionStatus status) {
+    switch (status) {
+        case TXN_INVALID_PIN:
+            printf("[!] ERROR: Request Canceled. Invalid security input format.\n");
+            break;
+        case TXN_MISMATCH_PIN:
+            printf("[!] ERROR: Access Denied. PIN authentication failed.\n");
+            break;
+        case TXN_INVALID_BAL:
+            printf("[!] ERROR: Execution Aborted. Transaction amount must be above 0.\n");
+            break;
+        case TXN_INSUFFICIENT_BAL:
+            printf("[!] ERROR: Denied. Current Balance is insufficient.\n");
+            break;
+        case TXN_BAL_OVERFLOW:
+            printf("[!] ERROR: Operational Abort. You must be elon musk's great great grandfather.\n");
+            break;
+        case TXN_ERR_RECEIVER_NOT_FOUND:
+            printf("[!] ERROR: Transaction Failed. Recipients unique ID does not exist.\n");
+            break;
+        case TXN_ERR_SELF_TRANSFER:
+            printf("[!] ERROR: Operation Denied. Cannot transfer funds to your own account.\n");
+            break;
+        default:
+            printf("[!] ERROR: Someting wrong has occured.\n");
+            break;
     }
 }
 

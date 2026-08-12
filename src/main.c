@@ -3,6 +3,7 @@
 #include "controllers/auth_controller.h"
 #include "cli/input.h"
 #include "repositories/account_repository.h"
+#include "common/exit_status.h"
 #include "cli/menus.h"
 #include "cli/displays.h"
 #include "controllers/account_controller.h"
@@ -44,13 +45,13 @@ int main(void) {
 
             switch (choice) {
                 case 1:
-                    handle_withdraw_request(current_session);
+                    handle_transaction_pipeline(&bank, current_session, WITHDRAW);
                     break;
                 case 2:
-                    handle_deposit_request(current_session);
+                    handle_transaction_pipeline(&bank, current_session, DEPOSIT);
                     break;
                 case 3:
-                    handle_transfer_request(&bank, current_session);
+                    handle_transaction_pipeline(&bank, current_session, TRANSFER);
                     break;
                 case 4:
                     handle_account_settings(current_session);
