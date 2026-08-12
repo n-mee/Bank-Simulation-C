@@ -40,14 +40,6 @@ void dir_init_success() {
     printf("Successfuly Initiated the directory.\n");
 }
 
-void login_successful() {
-    printf("Login success! Welcome Back!\n");
-}
-
-void acc_closed() {
-    printf("Closed accounts are unaccessible.\n");
-}
-
 void dir_initiation_err() {
     fprintf(stderr, "[!] ERROR: Failed to initialize directory.\n");
 }
@@ -60,20 +52,8 @@ void invalid_search() {
     printf("[!] ERROR: Unique ID doesn't exist.\n");
 }
 
-void registration_success(int *id) {
-    printf("Registration successful! ID: %d\n", *id);
-}
-
 void memory_allocation_error() {
     printf("[!] ERROR: Memory Allocation failed.. Exiting..");
-}
-
-void wrong_pin_msg() {
-    printf("[!] ERROR: Wrong PIN.\n");
-}
-
-void invalid_pin_msg() {
-    printf("[!] ERROR: Invalid PIN... Try Again.\n");
 }
 
 void invalid_reciever_msg(){
