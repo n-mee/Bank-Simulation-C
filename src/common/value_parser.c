@@ -1,6 +1,7 @@
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
 #include <stdbool.h>
 #include <string.h>
 #include "cli/displays.h"
@@ -46,16 +47,38 @@ ParseExitResult int_parser(const char* text, int* out_n) {
     return PARSE_SUCCESS;
 }
 
-ParseExitResult double_parser(const char* text, double* out_n) {
+ParseExitResult amount_parser(const char* text, long long* out_n) {
     char* end = NULL;
-    long value = strtod(text, &end);
+    errno = 0;
+
+    long long dollar  = strtoll(text, &end, 10);
 
     if (end == text) return ERR_NULL_PTR;
+    if (errno == ERANGE) return ERR_OVERFLOW;
+    if (dollar < 0) return ERR_NEGATIVE;
+
+    long long cents = 0;
+
+    if (*end == '.') {
+        char* cents_firstval = end + 1;
+        char* cents_endval = NULL;
+
+        cents = strtoll(cents_firstval, &cents_endval, 10);
+
+        if (cents_endval == cents_firstval) return ERR_NULL_PTR;
+        if (cents < 0 || cents > 99) return ERR_TRAILING_GARBAGE;
+
+        if (cents_endval - cents_firstval == 1) {
+            cents *= 10;
+        }
+
+        end = cents_endval;
+    }
 
     while(*end == ' ' || *end == '\t' || *end == '\n') end++;
     if(*end != '\0') return ERR_TRAILING_GARBAGE;
 
-    *out_n = (double)value;
+    *out_n = (dollar * 100) + cents;
     return PARSE_SUCCESS;
 }
 

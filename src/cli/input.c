@@ -42,15 +42,15 @@ int get_prompt_int(const char* prompt) {
     }
 }
 
-double get_prompt_double(const char* prompt) {
+long long get_prompt_amount(const char* prompt) {
     char msg[128];
-    double value;
+    long long amt;
 
     for(;;) {
         if (!read_line(prompt, msg, sizeof(msg))) return -1;
 
-        ParseExitResult status = double_parser(msg, &value);
-        if (status == PARSE_SUCCESS) return value;
+        ParseExitResult status = amount_parser(msg, &amt);
+        if (status == PARSE_SUCCESS) return amt;
 
         invalid_double_input(status);
     }
