@@ -31,3 +31,22 @@ void account_state_success(AccountStateOperationType type) {
         default: break;
     }
 }
+
+void auth_operation_success(AuthStatus status, const int* new_id, const Account* session) {
+    switch (status) {
+        case AUTH_REGISTRATION_SUCCESS:
+            if (new_id) {
+                printf("[+] Registration Success! ID: [%d].\n", *new_id);
+                printf("[-] This ID is your gateway to the bank system.\n");
+            }
+            break;
+        case AUTH_LOGIN_SUCCESS:
+            if (session) {
+                printf("[+] Login Success!\n");
+                printf("[-] Welcome Back, %s (%s)!\n", session->profile.name, session->profile.username);
+            }
+            break;
+        default: 
+            break;
+    }
+}

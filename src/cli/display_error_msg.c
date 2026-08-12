@@ -70,6 +70,17 @@ void account_state_error(AccountStateStatus status) {
     }
 }
 
+void auth_operation_error(AuthStatus status) {
+    switch (status) {
+        case AUTH_ERR_BAD_PIN: printf("[!] ERROR: Invalid PIN or PIN doesn't match the account's pin.\n"); break;
+        case AUTH_ERR_CLOSED: printf("[!] ERROR: Cannot login to an account that is CLOSED.\n"); break;
+        case AUTH_ERR_DB_FULL: printf("[!] ERROR: Account database limit is full.\n"); break;
+        case AUTH_ERR_NOT_FOUND: printf("[!] ERROR: Account ID cannot be found\n"); break;
+        case AUTH_ERR_SESSION_NULL: printf("[!] ERROR: Session is empty or NULL.\n"); break;
+        default: break;
+    }
+}
+
 void invalid_pin_length() {
     printf("[!] ERROR: Invalid PIN length.\n");
 }
