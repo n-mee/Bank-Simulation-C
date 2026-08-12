@@ -46,4 +46,15 @@ typedef enum {
     STATUS_OPERATION_ERR_SESSION_NULL
 } AccountStateStatus;
 
+typedef enum {
+    AUTH_OPERATION_SUCCESS = 0,
+    AUTH_REGISTRATION_SUCCESS,
+    AUTH_LOGIN_SUCCESS,
+    AUTH_ERR_SESSION_NULL,
+    AUTH_ERR_NOT_FOUND,
+    AUTH_ERR_CLOSED,
+    AUTH_ERR_BAD_PIN,
+    AUTH_ERR_DB_FULL
+} AuthStatus;
+
 #endif
