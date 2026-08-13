@@ -40,7 +40,7 @@ void handle_login(BankDatabase *db, Account **session_user) {
     int temp_id = get_prompt_int("Enter your Unique ID: ");
 
     if (!service_account_exists(db, temp_id)) {
-        *session_user == NULL;
+        *session_user = NULL;
         auth_operation_error(AUTH_ERR_NOT_FOUND);
         return;
     }
