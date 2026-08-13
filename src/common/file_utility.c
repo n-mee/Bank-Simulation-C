@@ -1,3 +1,7 @@
+#include <stdio.h>
+#include <errno.h>
+#include <time.h>
+#include <stdint.h>
 #include "common/file_utility.h"
 
 int verify_dir_status(const char* path) {
@@ -10,6 +14,23 @@ int verify_dir_status(const char* path) {
         }
     }
     return 0;
+}
+
+uint32_t do_crc32(const void* data, size_t total_accounts, size_t struct_size) {
+    size_t total_bytes = total_accounts * struct_size;
+    const uint8_t *byte_ptr = (const uint8_t *)data;
+
+    uint32_t crc = 0xFFFFFFFF;
+
+    for (size_t i = 0; i < total_bytes; i++) {
+        crc ^= byte_ptr[i];
+
+        for (int j = 0; j < 8; j++) {
+            uint32_t mask = -(crc & 1);
+            crc = (crc >> 1) ^ (0XEDB88320 & mask);
+        }
+    }
+    return ~crc;
 }
 
 void write_transac_log(const char* status, const char* op, int acc1, int acc2, long long amount) {
