@@ -37,7 +37,7 @@ int db_init(BankDatabase *db, int init_slots) {
     db->db_capacity = init_slots;
     db->account_count = 0;
     // Allocates memory and return whether it succeeded
-    db->records = malloc(init_slots * sizeof(Account));
+    db->records = calloc(init_slots, sizeof(Account));
     return (db->records != NULL);
 }
 
@@ -70,6 +70,10 @@ int db_expand(BankDatabase *db, int capacity) {
         Account *temp = realloc(db->records, capacity * sizeof(Account));
         if (temp == NULL) return -1;
         db->records = temp;
+
+        int new_accounts = capacity - db->db_capacity;
+        memset(db->records + db->db_capacity, 0, new_accounts * sizeof(Account));
+
         db->db_capacity = capacity;
     }
     return 1;
@@ -95,47 +99,4 @@ void db_termination(BankDatabase *db){
     }
     db->account_count = 0;
     db->db_capacity = 0;
-}
-
-// TODO: Read header file according to this function name
-void db_save_to_file(BankDatabase *db){
-
-    // Checks for directory avaibility
-    if (verify_dir_status("data") == -1) {
-        dir_initiation_err();
-        return;
-    } else {
-        dir_init_success();
-    }
-
-    // Initiates the creation of database file
-    FILE *data = fopen("data/database.bin", "wb");
-    if (data == NULL) {
-        invalid_file();
-        return;
-    }
-
-    //save the number of the accounts
-    fwrite(&db->account_count, sizeof(db->account_count), 1,data);
-    //saving the actual data themselves
-    fwrite(db->records, sizeof(Account), db->account_count, data);
-
-    fclose(data);
-}
-
-// TODO: read header file before touching this code
-void db_load_from_file(BankDatabase *db){
-    FILE *data = fopen("data/database.bin", "rb");
-    if (data == NULL) {
-        return;
-    }
-
-    fread(&db->account_count, sizeof(db->account_count), 1, data);
-    if (db_expand(db, db->account_count) == -1) {
-        fclose(data);
-        return;
-    }
-    fread(db->records, sizeof(Account), db->account_count, data);
-
-    fclose(data);
 }

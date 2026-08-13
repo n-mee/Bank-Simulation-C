@@ -70,4 +70,12 @@ typedef enum {
     TXN_ERR_SELF_TRANSFER
 } TransactionStatus;
 
+typedef enum {
+    FILE_OK = 0,
+    FILE_NOT_FOUND,
+    FILE_PERMISSION_DENIED,
+    FILE_WRITE_FAILED,
+    FILE_CORRUPTED
+} FileStatus;
+
 #endif
