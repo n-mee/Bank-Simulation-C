@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include "cli/display_success_msg.h"
+#include "cli/display_error_msg.h"
 #include "controllers/auth_controller.h"
 #include "cli/input.h"
+#include "common/file_operations.h"
 #include "repositories/account_repository.h"
 #include "common/exit_status.h"
 #include "cli/menus.h"
@@ -12,9 +15,22 @@
 int main(void) {
 
     BankDatabase bank;
-    db_init(&bank, 4);
+    if (db_init(&bank, 4) == 0) {
+        return 1;
+    }
 
-    db_load_from_file(&bank);
+    FileStatus status;
+    status = load_from_file(&bank);
+
+    if (status == FILE_OK) {
+        file_operation_success(status);
+    } else if (status == FILE_NOT_FOUND) {
+        printf("[-] WARN: No exiting database found. Starting a fresh save.\n");
+    } else {
+        file_operation_error(status);
+        db_termination(&bank);
+        return 1;
+    }
 
     Account *current_session = NULL;
     bool running = true;
@@ -59,6 +75,7 @@ int main(void) {
                 case 0:
                     exit_msg();
                     current_session = NULL;
+                    running = false;
                     break;
                 default:
                     invalid_selection_msg();
@@ -66,8 +83,14 @@ int main(void) {
             }
         }
     }
+    status = save_to_file(&bank);
 
-    db_save_to_file(&bank);
+    if (status == FILE_OK) {
+        file_operation_success(status);
+    } else {
+        file_operation_error(status);
+    }
+
     db_termination(&bank);
     return 0;
 }
