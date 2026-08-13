@@ -12,6 +12,7 @@ void account_notification_fail(NotificationsStatus status);
 void account_state_error(AccountStateStatus status);
 void auth_operation_error(AuthStatus status);
 void account_transaction_fail(TransactionStatus status);
+void file_operation_error(FileStatus status);
 void invalid_pin_length();
 
 #endif

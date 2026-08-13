@@ -111,6 +111,16 @@ void account_transaction_fail(TransactionStatus status) {
     }
 }
 
+void file_operation_error(FileStatus status) {
+    switch (status) {
+        case FILE_WRITE_FAILED: perror("[!] ERROR: Cannot write into the file.\n"); break;
+        case FILE_CORRUPTED: perror("[!] ERROR: File is corrupted.\n"); break;
+        case FILE_PERMISSION_DENIED: perror("[!] ERROR: System doesn't have administration rights to the folder.\n"); break;
+        case FILE_NOT_FOUND:
+        default: break;
+    }
+}
+
 void invalid_pin_length() {
     printf("[!] ERROR: Invalid PIN length.\n");
 }

@@ -10,5 +10,6 @@ void account_notification_status(AccountNotificationsType type, NotificationsSta
 void account_state_success(AccountStateOperationType type);
 void auth_operation_success(AuthStatus status, const int* new_id, const Account* session);
 void account_transaction_success(TransactionType type);
+void file_operation_success(FileStatus status);
 
 #endif

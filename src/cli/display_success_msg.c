@@ -57,4 +57,11 @@ void account_transaction_success(TransactionType type) {
         case WITHDRAW: printf("[+] Withdrawal Success! Please safely retrieve your cash.\n"); break;
         case TRANSFER: printf("[+] Transfer Success! Funds has been safely wired to the receiver's balance.\n"); break;
     }
-} 
+}
+
+void file_operation_success(FileStatus status) {
+    switch (status) {
+        case FILE_OK: printf("[+] File operation ran successfully.\n"); break;\
+        default: break;
+    }
+}
