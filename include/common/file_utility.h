@@ -21,6 +21,4 @@ int verify_dir_status(const char* path);
 
 uint32_t do_crc32(const void* data, size_t total_accounts, size_t struct_size);
 
-void write_transac_log(const char* status, const char* op, int acc1, int acc2, long long amount);
-
 #endif

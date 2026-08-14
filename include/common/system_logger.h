@@ -16,5 +16,6 @@ typedef enum {
 } SysLogLevel;
 
 void log_system_operations(SysLogLevel level, SystemComponent comp, int enum_code);
+void write_transac_log(const char* status, const char* op, int acc1, int acc2, long long amount);
 
 #endif
