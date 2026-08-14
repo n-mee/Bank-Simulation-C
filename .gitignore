@@ -5,7 +5,6 @@ build/
 *.out
 
 # ignore extra directories
-test/
 /data/
 .vscode/*
 /.github/
