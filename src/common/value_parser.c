@@ -1,10 +1,8 @@
 #include <ctype.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <stdbool.h>
 #include <string.h>
-#include "cli/displays.h"
 #include "common/value_parser.h"
 
 ParsedStringResult string_parser(const char* text, char* out_str, size_t size_limit) {

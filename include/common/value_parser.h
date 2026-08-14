@@ -1,9 +1,7 @@
-#ifndef INPUT_PARSER_H
-#define INPUT_PARSER_H
+#ifndef VALUE_PARSER_H
+#define VALUE_PARSER_H
 
 #include "common/exit_status.h"
-#include <stdlib.h>
-#include <stdbool.h>
 
 ParseExitResult int_parser(const char* text, int* out_n);
 ParseExitResult amount_parser(const char* text, long long* out_n);

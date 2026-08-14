@@ -2,7 +2,6 @@
 #define AUTH_CONTROLLER_H
 
 // Dependency Headers
-#include <stdbool.h>
 #include "repositories/account_repository.h"
 
 /**

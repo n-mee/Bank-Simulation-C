@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include <string.h>
 #include "cli/input.h"
 #include "common/validators.h"

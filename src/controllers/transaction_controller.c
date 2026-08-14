@@ -1,4 +1,3 @@
-#include <stdbool.h>
 #include "common/system_logger.h"
 #include "repositories/account_repository.h"
 #include "models/account_model.h"
@@ -9,7 +8,6 @@
 #include "common/constants.h"
 #include "common/validators.h"
 #include "cli/input.h"
-#include "cli/displays.h"
 
 static void account_transaction_routing(TransactionType type, TransactionStatus status) {
     if (status == TXN_OPERATION_SUCCESS) {

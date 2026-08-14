@@ -1,10 +1,8 @@
 #include <stdbool.h>
 #include <string.h>
-#include "common/validators.h"
-#include "common/value_parser.h"
 #include "cli/input.h"
-#include "cli/displays.h"
-#include "cli/display_success_msg.h"
+#include "common/validators.h"
+#include "common/exit_status.h"
 #include "services/account_service.h"
 
 

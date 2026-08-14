@@ -1,9 +1,7 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
 #include "common/file_utility.h"
-#include "cli/displays.h"
 #include "repositories/account_repository.h"
 
 /**

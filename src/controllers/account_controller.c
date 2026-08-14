@@ -1,10 +1,3 @@
-/*  ACCOUNT SETTINGS MODULES
-    
-    What it does:
-        1. specifically handles the account settings manu as well as the option inside
-        2. only for specific account settings option
-*/
-#include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 #include "cli/input.h"
@@ -12,7 +5,6 @@
 #include "cli/displays.h"
 #include "common/constants.h"
 #include "common/validators.h"
-#include "common/value_parser.h"
 #include "common/system_logger.h"
 #include "models/account_model.h"
 #include "cli/display_error_msg.h"

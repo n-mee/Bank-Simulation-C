@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdbool.h>
 #include "common/file_utility.h"
 #include "models/account_model.h"
 #include "services/transaction_service.h"

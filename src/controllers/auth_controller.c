@@ -1,11 +1,8 @@
 #include <stddef.h>
-#include <string.h>
 #include <stdbool.h>
 #include "cli/input.h"
-#include "cli/displays.h"
 #include "common/constants.h"
 #include "common/validators.h"
-#include "common/value_parser.h"
 #include "common/system_logger.h"
 #include "cli/display_error_msg.h"
 #include "services/auth_service.h"
