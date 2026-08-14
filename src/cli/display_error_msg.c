@@ -124,3 +124,7 @@ void file_operation_error(FileStatus status) {
 void invalid_pin_length() {
     printf("[!] ERROR: Invalid PIN length.\n");
 }
+
+void invalid_selection_msg() {
+    printf("[!] ERROR: Invalid selection.\n");
+}

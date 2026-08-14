@@ -1,23 +1,23 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include <stdbool.h>
-#include "../include/models/account_model.h"
-// Success Msgs
-void dir_init_success();
+#include <stdio.h>
 
-// Error Msgs
-void dir_initiation_err();
-void self_transfer_error();
-void invalid_file();
-void invalid_search();
-void memory_allocation_error();
-void invalid_reciever_msg();
-void error_bal_msg();
-void invalid_selection_msg();
+typedef enum {
+    MSG_EXIT_TO_MENU,
+    MSG_EXIT_SYS,
+    MSG_COUNT
+} SystemMessageID;
 
-// Msgs
-void back_to_menu();
-void exit_msg();
+static inline void show_system_msg(SystemMessageID id) {
+        const char* const SYS_MESSAGES[] = {
+        [MSG_EXIT_TO_MENU] = "[-] Exiting to Menu..",
+        [MSG_EXIT_SYS] = "[-] System is exiting..."
+    };
+
+    if (id >= 0 && id < MSG_COUNT) {
+        printf("%s\n", SYS_MESSAGES[id]);
+    }
+}
 
 #endif
