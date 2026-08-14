@@ -55,7 +55,7 @@ void handle_account_settings(Account *current_session) {
                 break;
             case 0:
                 // if user presses 0 which is exit it closes immediately
-                back_to_menu();
+                show_system_msg(MSG_EXIT_TO_MENU);
                 in_settings = false;
                 break;
             default:
@@ -88,7 +88,7 @@ void handle_profile_settings(Account *current_session) {
                 account_operation_error(status);               
                 break;
             case 0:
-                back_to_menu();
+                show_system_msg(MSG_EXIT_TO_MENU);
                 in_settings = false;
                 break;
             default:
@@ -124,7 +124,7 @@ void handle_preference_settings(Account *current_session) {
                 handle_sub_pref_settings(current_session);
                 break;
             case 0:
-                back_to_menu();
+                show_system_msg(MSG_EXIT_TO_MENU);
                 in_settings = false;
                 break;
             default:
@@ -157,7 +157,7 @@ void handle_sub_pref_settings(Account *current_session) {
                 }
                 break;
             case 0:
-                back_to_menu();
+                show_system_msg(MSG_EXIT_TO_MENU);
                 in_subpref = false;
                 break;
             default:
@@ -193,7 +193,7 @@ void handle_payment_settings (Account *current_session) {
                     account_status_routing(SET_LIMIT_UPDATE, status);
                     break;
                 case 0:
-                    back_to_menu();
+                    show_system_msg(MSG_EXIT_TO_MENU);
                     in_settings = false;
                     break;
                 default:

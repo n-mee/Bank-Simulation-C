@@ -73,7 +73,7 @@ int main(void) {
                     handle_account_settings(current_session);
                     break;
                 case 0:
-                    exit_msg();
+                    show_system_msg(MSG_EXIT_SYS);
                     current_session = NULL;
                     running = false;
                     break;
