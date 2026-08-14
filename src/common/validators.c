@@ -1,15 +1,5 @@
 #include "common/validators.h"
-#include "common/value_parser.h"
-#include "cli/displays.h"
-
-// checks if the amount entered is valid and returns the according boolean values.
-bool is_valid_bal(long long amt) {
-    if (amt <= 0) {
-        error_bal_msg();
-        return false;
-    }
-    return true;
-}
+#include "common/constants.h"
 
 bool is_valid_pin(const char* target_pin, const char* input_pin) {
     if (strcmp(target_pin, input_pin) != 0) {

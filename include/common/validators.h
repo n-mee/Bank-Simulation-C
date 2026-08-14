@@ -12,16 +12,8 @@
  * 
  * TODO: Fix the duplication and only keep one pin validation
  *       function, then refactor the codebase.
- */
+*/
 
-
-
-/**
- * @brief Validates the balance by checking if it's greater than 0
- * @param amt Amount that is being evaluated
- * @return True if balance is positive, False if it's not
- */
-bool is_valid_bal(long long amt);
 
 /**
  * @brief Validates pin by comparing two string values
