@@ -4,7 +4,7 @@
 #include "common/exit_status.h"
 
 void invalid_integer_value(ParseExitResult status);
-void invalid_double_input(ParseExitResult status);
+void invalid_longlong_input(ParseExitResult status);
 void invalid_bool_value(YesNoResult status);
 void invalid_string_value(ParsedStringResult status);
 void account_operation_error(Credentials status);

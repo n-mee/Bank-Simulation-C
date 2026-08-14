@@ -52,7 +52,7 @@ long long get_prompt_amount(const char* prompt) {
         ParseExitResult status = amount_parser(msg, &amt);
         if (status == PARSE_SUCCESS) return amt;
 
-        invalid_double_input(status);
+        invalid_longlong_input(status);
     }
 }
 
