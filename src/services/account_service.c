@@ -69,13 +69,13 @@ static AccountStateStatus update_account_limit(Account* session, long long* new_
 }
 
 Credentials change_credential_pipeline(Account* session, AccountOperationType type) {
-    if (!session) return ERR_ACCOUNT_NULL;
+    if (!session) return CRED_ERR_ACCOUNT_NULL;
 
     char current_pin[PIN_LENGTH + 1];
     char new_value[256];
 
-    if (!get_prompt_string("\nEnter your PIN: ", current_pin, sizeof(current_pin))) return ERR_INVALID_PIN;
-    if (!is_valid_pin(session->profile.pin, current_pin)) return ERR_MISMATCH_PIN;
+    if (!get_prompt_string("\nEnter your PIN: ", current_pin, sizeof(current_pin))) return CRED_ERR_INVALID_PIN;
+    if (!is_valid_pin(session->profile.pin, current_pin)) return CRED_ERR_MISMATCH_PIN;
     
     const char* prompt = NULL;
 
@@ -87,11 +87,10 @@ Credentials change_credential_pipeline(Account* session, AccountOperationType ty
         prompt = "\nEnter your new username: ";
     }
 
-    if (!get_prompt_string(prompt, new_value, sizeof(new_value) - 1)) return ERR_INPUT_STR_ERROR;   
-    if (!account_update_credentials(session, type, new_value)) return ERR_UPDATE_OPERATION_FAIL;
+    if (!get_prompt_string(prompt, new_value, sizeof(new_value) - 1)) return CRED_ERR_INPUT_STR_ERROR;   
+    if (!account_update_credentials(session, type, new_value)) return CRED_ERR_UPDATE_OPERATION_FAIL;
 
-    account_operation_success(type);
-    return OPERATION_SUCCESS;
+    return CRED_OPERATION_SUCCESS;
 }
 
 NotificationsStatus account_notifications_pipeline (Account* session, AccountNotificationsType type, bool enabled) {
