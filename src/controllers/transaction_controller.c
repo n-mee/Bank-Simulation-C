@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include "common/system_logger.h"
 #include "repositories/account_repository.h"
 #include "models/account_model.h"
 #include "cli/display_success_msg.h"
@@ -19,7 +20,10 @@ static void account_transaction_routing(TransactionType type, TransactionStatus 
 }
 
 void handle_transaction_pipeline(BankDatabase* db, Account* current_user, TransactionType type) {
-    if (!current_user) return;
+    if (!current_user) {
+        log_system_operations(ERROR, COMP_TRANSACTION, TXN_ERR_NULL);
+        return;
+    }
 
     char PIN[PIN_LENGTH + 1];
     if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN))) {
@@ -57,6 +61,12 @@ void handle_transaction_pipeline(BankDatabase* db, Account* current_user, Transa
     else if (type == WITHDRAW) result = execute_withdraw(current_user, amount);
     else if (type == TRANSFER) result = execute_transfer(current_user, receiver, amount);
     else return;
+
+    if (result == TXN_OPERATION_SUCCESS) {
+        log_system_operations(INFO, COMP_TRANSACTION, result);
+    } else {
+        log_system_operations(WARN, COMP_TRANSACTION, result);
+    }
 
     account_transaction_routing(type, result);
 }

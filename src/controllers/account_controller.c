@@ -13,26 +13,58 @@
 #include "common/constants.h"
 #include "common/validators.h"
 #include "common/value_parser.h"
+#include "common/system_logger.h"
 #include "models/account_model.h"
 #include "cli/display_error_msg.h"
 #include "cli/display_success_msg.h"
 #include "services/account_service.h"
 #include "controllers/account_controller.h"
 
+static void account_credentials_routing(AccountOperationType type, Credentials status) {
+
+    SysLogLevel level = (status == CRED_ERR_INVALID_PIN) ? WARN :
+                        (status == CRED_ERR_MISMATCH_PIN) ? WARN :
+                        (status == CRED_OPERATION_SUCCESS) ? INFO : ERROR;
+    
+    log_system_operations(level, COMP_ACC_CREDS, status);
+
+    if (status == CRED_OPERATION_SUCCESS) {
+        account_operation_success(type);
+    } else {
+        account_operation_error(status);
+    }
+
+}
+
 static void account_notifications_routing(AccountNotificationsType type, NotificationsStatus status) {
+
+    SysLogLevel level = (status == NOTIF_WARN_ALREADY_SET) ? WARN :
+                        (status == NOTIF_ERR_SESSION_NULL) ? ERROR : INFO;
+
+    log_system_operations(level, COMP_ACC_NOTIF, status);
+
     if (status == NOTIF_WARN_ALREADY_SET || status == NOTIF_ERR_SESSION_NULL) {
+
         account_notification_fail(status);
     } else {
         account_notification_status(type, status);
     }
+
 }
 
 static void account_status_routing(AccountStateOperationType type, AccountStateStatus status) {
+
+    SysLogLevel level = (status == STATUS_OPERATION_WARN_ALREADY_SET) ? WARN :
+                        (status == STATUS_OPERATION_SUCCESS) ? INFO : ERROR;
+
+    log_system_operations(level, COMP_ACC_STATUS, status);
+
     if (status != STATUS_OPERATION_SUCCESS) {
         account_state_error(status);
     } else {
         account_state_success(type);
     }
+
 }
 
 // handles the users settings config if he presses option 4
@@ -77,15 +109,15 @@ void handle_profile_settings(Account *current_session) {
         switch(choice) {
             case 1:
                 status = change_credential_pipeline(current_session, UPDATE_USERNAME);
-                account_operation_error(status);
+                account_credentials_routing(UPDATE_USERNAME, status);
                 break;
             case 2:
                 status = change_credential_pipeline(current_session, UPDATE_EMAIL);
-                account_operation_error(status);
+                account_credentials_routing(UPDATE_EMAIL, status);
                 break;
             case 3:
                 status = change_credential_pipeline(current_session, UPDATE_PIN);
-                account_operation_error(status);               
+                account_credentials_routing(UPDATE_PIN, status);            
                 break;
             case 0:
                 show_system_msg(MSG_EXIT_TO_MENU);
