@@ -3,7 +3,7 @@
 
 // dependency header (data model)
 #include "common/constants.h"
-#include "../include/models/account_model.h"
+#include "models/account_model.h"
 
 /** ================================
  *        ACCOUNT FUNCTIONS

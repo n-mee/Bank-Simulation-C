@@ -2,7 +2,7 @@
 #define ACCOUNT_CONTROLLER_H
 
 // Dependency Headers
-#include "../include/models/account_model.h"
+#include "models/account_model.h"
 
 /**
  * @brief Account settings menu logic switching
