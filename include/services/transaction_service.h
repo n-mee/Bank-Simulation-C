@@ -1,8 +1,7 @@
-#ifndef TRANSACTION_H
-#define TRANSACTION_H
+#ifndef TRANSACTION_SERVICE_H
+#define TRANSACTION_SERVICE_H
 
 // Dependency Headers
-#include <stdbool.h>
 #include "common/exit_status.h"
 #include "models/account_model.h"
 

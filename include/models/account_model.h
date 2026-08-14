@@ -1,5 +1,5 @@
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef ACCOUNT_MODEL_H
+#define ACCOUNT_MODEL_H
 
 /**
  * @brief Account database model used in the database

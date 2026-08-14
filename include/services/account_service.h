@@ -1,5 +1,5 @@
-#ifndef ACCOUNT_ACTIONS_H
-#define ACCOUNT_ACTIONS_H
+#ifndef ACCOUNT_SERVICE_H
+#define ACCOUNT_SERVICE_H
 
 // dependency header (data model)
 #include "common/constants.h"
