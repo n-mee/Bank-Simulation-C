@@ -1,8 +1,11 @@
 #ifndef INPUT_H
 #define INPUT_H
 
-int get_receiver_id_input();
-double get_amount();
-void get_pin(char* PIN);
+#include <stdbool.h>
+
+bool get_prompt_string(const char* prompt, char* out_n, size_t size);
+int get_prompt_int(const char* prompt);
+long long get_prompt_amount(const char* prompt);
+bool get_yn_prompt(const char* prompt, bool* out_c);
 
 #endif

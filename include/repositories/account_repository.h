@@ -2,7 +2,8 @@
 #define ACCOUNT_REPOSITORY_H
 
 // dependency header (one used for pointers inside struct)
-#include "../include/models/account_model.h"
+#include "common/file_utility.h"
+#include "models/account_model.h"
 
 // Database struct 
 typedef struct {
@@ -66,34 +67,6 @@ int db_find_identity(BankDatabase *db, int target_id);
  * @param db Pointer reference for database
  */
 void db_termination(BankDatabase *db);
-
-
-
-
-
-/* ====================================
- *            SERIALIZATION
- * ====================================
- */
-
-/**
- * TODO: Fix return type from void to exit status
- * 
- * 
- * @brief Saves the state of database as a binary file (.bin/wb)
- * @param db The database to be saved
- */
-void db_save_to_file(BankDatabase *db);
-
-/** 
- * TODO: Fix return type to ensure the function operation is successful
- *       or not
- * 
- * 
- * @brief Loads the database state from file into the struct database
- * @param db The actual database to pass its structure to
- */
-void db_load_from_file(BankDatabase *db);
 
 
 #endif

@@ -1,123 +1,131 @@
-#include <stdio.h>
+#include <stdbool.h>
 #include <string.h>
+#include "cli/input.h"
 #include "common/validators.h"
-#include "common/value_parser.h"
-#include "cli/displays.h"
+#include "common/exit_status.h"
 #include "services/account_service.h"
 
 
-void account_update_pin(Account *session, const char* new_pin) {
-    // Replaces the sessions account pin with the param pin
-    strncpy(session->profile.pin, new_pin, sizeof(session->profile.pin) - 1);
-    // Assigns a null terminator at the end of the string
-    session->profile.pin[sizeof(session->profile.pin) - 1] = '\0';
+static bool account_update_credentials(Account *session, AccountOperationType type, const char* str) {
+    if (!session || !str) return false;
+
+    if (type == UPDATE_PIN) {
+        if (strlen(str) != PIN_LENGTH || !is_valid_pin_length(str)) return false;
+    } else if (type == UPDATE_USERNAME) {
+        if (!is_valid_length_input(str, USERNAME_LEN)) return false;
+    } else if (type == UPDATE_EMAIL) {
+        if (!is_valid_length_input(str, EMAIL_LEN)) return false;
+    }
+
+    char* dest = NULL;
+    size_t dest_size = 0;
+
+    if (type == UPDATE_PIN) {
+        dest = session->profile.pin;
+        dest_size = sizeof(session->profile.pin);
+    } else if (type == UPDATE_USERNAME) {
+        dest = session->profile.username;
+        dest_size = sizeof(session->profile.username);
+    } else if (type == UPDATE_EMAIL) {
+        dest = session->profile.email;
+        dest_size = sizeof(session->profile.email);
+    } else {
+        return false;
+    }
+
+    if (strlen(str) >= dest_size) return false;
+    strncpy(dest, str, dest_size - 1);
+    dest[dest_size - 1] = '\0';
+
+    return true;
 }
 
-void account_update_username(Account *session, const char* new_name) {
-    // Replaces the sessions account name with the param name
-    strncpy(session->profile.username, new_name, sizeof(session->profile.username) - 1);
-    // Assigns a null terminator at the end of the string
-    session->profile.username[sizeof(session->profile.username) - 1] = '\0';
+static AccountStateStatus update_account_status(Account* session, AccountStateOperationType type) {
+    if (!session) return STATUS_OPERATION_ERR_SESSION_NULL;
+
+    if (session->controls.status == ACCOUNT_CLOSED) return STATUS_OPERATION_ERR_CLOSE_INCOMPATIBLE;
+
+    AccountStatus select_status;
+    if (type == SET_STATE_FREEZE) select_status = ACCOUNT_FROZEN;
+    else if (type == SET_STATE_ACTIVATE) select_status = ACCOUNT_ACTIVE;
+    else if (type == SET_STATE_CLOSED) select_status = ACCOUNT_CLOSED;
+    else return STATUS_OPERATION_ERR_SESSION_NULL;
+
+    if (session->controls.status == select_status) return STATUS_OPERATION_WARN_ALREADY_SET;
+
+    session->controls.status = select_status;
+    return STATUS_OPERATION_SUCCESS;
 }
 
-void account_update_email(Account *session, const char* new_email) {
-    // Replaces the sessions account name with the param name
-    strncpy(session->profile.email, new_email, sizeof(session->profile.email) - 1);
-    // Assigns a null terminator at the end of the string
-    session->profile.email[sizeof(session->profile.email) - 1] = '\0';
+static AccountStateStatus update_account_limit(Account* session, long long* new_limt) {
+    if (!session) return STATUS_OPERATION_ERR_SESSION_NULL;
+
+    if (!is_valid_limit(new_limt)) return STATUS_OPERATION_ERR_OUT_OF_RANGE;
+
+    session->controls.daily_limit = *new_limt;
+    return STATUS_OPERATION_SUCCESS;
 }
 
-void set_email_notif(Account *session, bool enabled) {
-    if (session->preference.email_notif == enabled) {
-        email_notif_alr_on(enabled);
-        return;
+Credentials change_credential_pipeline(Account* session, AccountOperationType type) {
+    if (!session) return CRED_ERR_ACCOUNT_NULL;
+
+    char current_pin[PIN_LENGTH + 1];
+    char new_value[256];
+
+    if (!get_prompt_string("\nEnter your PIN: ", current_pin, sizeof(current_pin))) return CRED_ERR_INVALID_PIN;
+    if (!is_valid_pin(session->profile.pin, current_pin)) return CRED_ERR_MISMATCH_PIN;
+    
+    const char* prompt = NULL;
+
+    if (type == UPDATE_PIN) {
+        prompt = "\nEnter your new PIN: ";
+    } else if (type == UPDATE_EMAIL) {
+        prompt = "\nEnter your new e-mail: ";
+    } else if (type == UPDATE_USERNAME) {
+        prompt = "\nEnter your new username: ";
     }
-    session->preference.email_notif = enabled;
-    email_enable_msg(enabled);
+
+    if (!get_prompt_string(prompt, new_value, sizeof(new_value) - 1)) return CRED_ERR_INPUT_STR_ERROR;   
+    if (!account_update_credentials(session, type, new_value)) return CRED_ERR_UPDATE_OPERATION_FAIL;
+
+    return CRED_OPERATION_SUCCESS;
 }
 
-void set_push_notif(Account *session, bool enabled) {
-    if (session->preference.push_notif == enabled) {
-        push_notif_alr_on(enabled);
-        return;
-    }
-    session->preference.push_notif = enabled;
-    push_enable_msg(enabled);
+NotificationsStatus account_notifications_pipeline (Account* session, AccountNotificationsType type, bool enabled) {
+    if (!session) return NOTIF_ERR_SESSION_NULL;
+
+    bool* target_field = NULL;
+
+    if (type == ENABLE_EMAIL_NOTIF) target_field = &session->preference.email_notif;
+    else if (type == ENABLE_PUSH_NOTIF) target_field = &session->preference.push_notif;
+    else if (type == ENABLE_LARGE_TXN_NOTIF) target_field = &session->preference.large_transaction_alert;
+    else if (type == ENABLE_LARGE_TXN_NOTIF) target_field = &session->preference.low_balance_alert;
+    else return NOTIF_ERR_SESSION_NULL;
+
+    if (*target_field == enabled) return NOTIF_WARN_ALREADY_SET;
+
+    *target_field = enabled;
+
+    return enabled ? NOTIF_SUCCESS_ENABLED : NOTIF_SUCCESS_DISABLED;
 }
 
-void set_low_bal_notif(Account *session, bool enabled) {
-    if (session->preference.low_balance_alert == enabled) {
-        lowbal_notif_alr_on(enabled);
-        return;
-    }
-    session->preference.low_balance_alert = enabled;
-    lowbal_enable_msg(enabled);
-}
+AccountStateStatus account_status_pipeline (Account* session, AccountStateOperationType type){
+    if (!session) return STATUS_OPERATION_ERR_SESSION_NULL;
 
-void set_large_txn_notif(Account *session, bool enabled) {
-    if (session->preference.large_transaction_alert == enabled) {
-        txn_notif_alr_on(enabled);
-        return;
-    }
-    session->preference.large_transaction_alert = enabled;
-    txn_enable_msg(enabled);
-}
+    bool confirm = false;
+    const char* prompt = NULL;
 
-void set_acc_frozen(Account *session) {
-    if (get_yes_no_prompt("\nDo you wanna FREEZE your account? (yes/no): ") != true) {
-        printf("Returning...\n");
-        return;
+    if (type == SET_STATE_FREEZE) prompt = "\nDo you wanna FREEZE your account? (yes/no): ";
+    else if (type == SET_STATE_ACTIVATE) prompt = "\nDo you wanna RE-ACTIVATE your account? (yes/no): ";
+    else if (type == SET_STATE_CLOSED) prompt = "\nDo you wanna CLOSE your account? (yes/no): ";
+    else if (type == SET_LIMIT_UPDATE) prompt = "\nDaily Limits should ony be around 10k - 50k.\nDo you wanna continue? (yes/no): ";
+
+    if (!get_yn_prompt(prompt, &confirm) || !confirm) return STATUS_OPERATION_ERR_SESSION_NULL;
+
+    if (type == SET_LIMIT_UPDATE) {
+        long long new_limit = get_prompt_amount("\nEnter new limt: ");
+        return update_account_limit(session, &new_limit);
     }
 
-    if (session->controls.status == ACCOUNT_CLOSED) {
-        two_acc_status_inc();
-        return;
-    }
-
-    if (session->controls.status == ACCOUNT_FROZEN) {
-        acc_is_frozen();
-        return;
-    }
-
-    session->controls.status = ACCOUNT_FROZEN;
-    acc_freeze_success();
-}
-
-void set_acc_active(Account *session) {
-    if (get_yes_no_prompt("\nDo you wanna Re-Activate your account? (yes/no): ") != true) {
-        printf("Returning...\n");
-        return;
-    }
-
-    if (session->controls.status == ACCOUNT_ACTIVE) {
-        acc_is_active();
-        return;
-    }
-
-    session->controls.status = ACCOUNT_ACTIVE;
-    acc_reactivation_success();
-}
-
-void set_acc_closed(Account *session) {
-    if (get_yes_no_prompt("\nDo you wanna CLOSE your account? (yes/no): ") != true) {
-        printf("Returning...\n");
-        return;
-    }
-
-    if (session->controls.status == ACCOUNT_CLOSED) {
-        acc_is_closed();
-        return;
-    }
-
-    session->controls.status = ACCOUNT_CLOSED;
-    closed_acc_success();
-}
-
-void set_daily_limit(Account *session, double new_limit) {
-    if (!is_valid_limit(&new_limit)) {
-        limit_out_range();
-        return;
-    }
-    session->controls.daily_limit = new_limit;
-    acc_limit_success(session);
+    return update_account_status(session, type);
 }

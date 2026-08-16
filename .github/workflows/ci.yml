@@ -1,0 +1,25 @@
+name: C/C++ CI
+
+on:
+    push:
+        branches: [ "development", "staging", "main" ]
+    pull_request:
+        branches: [ "development", "staging", "main" ]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository code
+              uses: actions/checkout@v4
+
+            - name: Install build tools and Valgrind
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y build-essential valgrind
+
+            - name: Compile project
+              run: make all
+
+            - name: Run Memory Leak Checks
+              run: echo "0" | make memcheck

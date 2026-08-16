@@ -1,72 +1,75 @@
-/*  ACCOUNT SETTINGS MODULES
-    
-    What it does:
-        1. specifically handles the account settings manu as well as the option inside
-        2. only for specific account settings option
-*/
-#include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include "models/account_model.h"
+#include "cli/input.h"
 #include "cli/menus.h"
 #include "cli/displays.h"
+#include "common/constants.h"
 #include "common/validators.h"
-#include "common/value_parser.h"
+#include "common/file_utility.h"
+#include "common/system_logger.h"
+#include "models/account_model.h"
+#include "cli/display_error_msg.h"
+#include "cli/display_success_msg.h"
 #include "services/account_service.h"
 #include "controllers/account_controller.h"
 
+static void account_credentials_routing(AccountOperationType type, Credentials status) {
 
-// changes the pin of the user using Pass-by-referrence
-void change_pin_pipeline(Account *session) {
-    char current_pin[6];
-    get_string_prompt("\nEnter Current PIN: ", current_pin, sizeof(current_pin));
+    SysLogLevel level = (status == CRED_ERR_INVALID_PIN) ? WARN :
+                        (status == CRED_ERR_MISMATCH_PIN) ? WARN :
+                        (status == CRED_OPERATION_SUCCESS) ? INFO : ERROR;
+    
+    log_system_operations(level, COMP_ACC_CREDS, status);
 
-    // check if the current pin matches before changing it
-    if (!is_valid_pin(session->profile.pin, current_pin)) return;
+    if (status == CRED_OPERATION_SUCCESS) {
+        account_operation_success(type);
+        wait_for_delay(3);
+        clear_screen();
+    } else {
+        account_operation_error(status);
+        wait_for_delay(3);
+        clear_screen();
+    }
 
-    // declaring var for new pin
-    char new_pin[6];
-    get_string_prompt("\nEnter your New PIN: ", new_pin, sizeof(new_pin));
-
-    // change pin logic
-    account_update_pin(session, new_pin);
-    // return pin success
-    change_pin_success(session);
 }
 
-// change name function using Pass-by-referrence
-void change_username_pipeline(Account *session) {
-    char current_pin[6];
-    get_string_prompt("\nEnter current PIN: ", current_pin, sizeof(current_pin));
+static void account_notifications_routing(AccountNotificationsType type, NotificationsStatus status) {
 
-    // checks if the current pin inputted matches the current_user's pin
-    if (!is_valid_pin(session->profile.pin, current_pin)) return;
+    SysLogLevel level = (status == NOTIF_WARN_ALREADY_SET) ? WARN :
+                        (status == NOTIF_ERR_SESSION_NULL) ? ERROR : INFO;
 
-    // declaring of variable for new name
-    char new_name[50];
-    get_string_prompt("\nEnter your new Display Name: ", new_name, sizeof(new_name));
+    log_system_operations(level, COMP_ACC_NOTIF, status);
 
-    // checks if the length of the name meets the require length for input (e.g. is it more than 50 or less than 4)
-    if (!is_valid_length_input(new_name)) return;
+    if (status == NOTIF_WARN_ALREADY_SET || status == NOTIF_ERR_SESSION_NULL) {
 
-    // same logic in pin, changes the account name and returns the success msg
-    account_update_username(session, new_name);
-    change_name_success(session);
+        account_notification_fail(status);
+        wait_for_delay(3);
+        clear_screen();
+    } else {
+        account_notification_status(type, status);
+        wait_for_delay(3);
+        clear_screen();
+    }
+
 }
 
-void change_email_pipeline(Account *session) {
-    char current_pin[6];
-    get_string_prompt("\nEnter Current PIN: ", current_pin, sizeof(current_pin));
+static void account_status_routing(AccountStateOperationType type, AccountStateStatus status) {
 
-    if(!is_valid_pin(session->profile.pin, current_pin)) return;
+    SysLogLevel level = (status == STATUS_OPERATION_WARN_ALREADY_SET) ? WARN :
+                        (status == STATUS_OPERATION_SUCCESS) ? INFO : ERROR;
 
-    char new_email[51];
-    get_string_prompt("\nEnter your new email: ", new_email, sizeof(new_email));
+    log_system_operations(level, COMP_ACC_STATUS, status);
 
-    if (!is_valid_length_input(new_email)) return;
+    if (status != STATUS_OPERATION_SUCCESS) {
+        account_state_error(status);
+        wait_for_delay(3);
+        clear_screen();
+    } else {
+        account_state_success(type);
+        wait_for_delay(3);
+        clear_screen();
+    }
 
-    account_update_email(session, new_email);
-    update_email_status(session);
 }
 
 // handles the users settings config if he presses option 4
@@ -75,22 +78,30 @@ void handle_account_settings(Account *current_session) {
     bool in_settings = true;
     while (in_settings) {
         account_menu();
-        int choice = get_int_prompt("\nEnter your choice: ");
+        int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
             case 1:
+                wait_for_delay(2);
+                clear_screen();
                 handle_profile_settings(current_session);
                 break;
             case 2:
+                wait_for_delay(2);
+                clear_screen();
                 handle_preference_settings(current_session);
                 break;
             case 3:
+                wait_for_delay(2);
+                clear_screen();
                 handle_payment_settings(current_session);
                 break;
             case 0:
                 // if user presses 0 which is exit it closes immediately
-                back_to_menu();
+                show_system_msg(MSG_EXIT_TO_MENU);
                 in_settings = false;
+                wait_for_delay(1);
+                clear_screen();
                 break;
             default:
                 // prints an error msg and goes back to the menu
@@ -101,25 +112,31 @@ void handle_account_settings(Account *current_session) {
 }
 
 void handle_profile_settings(Account *current_session) {
-
+    Credentials status;
     bool in_settings = true;
+
     while (in_settings) {
         profile_settings();
-        int choice = get_int_prompt("\nEnter your choice: ");
+        int choice = get_prompt_int("\nEnter your choice: ");
 
         switch(choice) {
             case 1:
-                change_username_pipeline(current_session);
+                status = change_credential_pipeline(current_session, UPDATE_USERNAME);
+                account_credentials_routing(UPDATE_USERNAME, status);
                 break;
             case 2:
-                change_email_pipeline(current_session);
+                status = change_credential_pipeline(current_session, UPDATE_EMAIL);
+                account_credentials_routing(UPDATE_EMAIL, status);
                 break;
             case 3:
-                change_pin_pipeline(current_session);
+                status = change_credential_pipeline(current_session, UPDATE_PIN);
+                account_credentials_routing(UPDATE_PIN, status);            
                 break;
             case 0:
-                back_to_menu();
+                show_system_msg(MSG_EXIT_TO_MENU);
                 in_settings = false;
+                wait_for_delay(1);
+                clear_screen();
                 break;
             default:
                 invalid_selection_msg();
@@ -129,113 +146,136 @@ void handle_profile_settings(Account *current_session) {
 }
 
 void handle_preference_settings(Account *current_session) {
+    NotificationsStatus status;
+    bool toggle_choice;
     bool in_settings = true;
+
     while (in_settings) {
         preference_settings();
-        int choice = get_int_prompt("\nEnter your choice: ");
+        int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
             case 1:
-                set_email_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle email notifications? (yes/no): "));
+                if (get_yn_prompt("\nDo you wanna toggle email notifications? (yes/no): ", &toggle_choice)) {
+                    status = account_notifications_pipeline(current_session, ENABLE_EMAIL_NOTIF, toggle_choice);
+                    account_notifications_routing(ENABLE_EMAIL_NOTIF, status);
+                }
                 break;
             case 2:
-                set_push_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle push notifications? (yes/no): "));
+                if (get_yn_prompt("\nDo you wanna toggle push notifications? (yes/no): ", &toggle_choice)) {
+                    status = account_notifications_pipeline(current_session, ENABLE_PUSH_NOTIF, toggle_choice);
+                    account_notifications_routing(ENABLE_PUSH_NOTIF, status);
+                }
                 break;
             case 3:
                 handle_sub_pref_settings(current_session);
                 break;
             case 0:
-                back_to_menu();
+                show_system_msg(MSG_EXIT_TO_MENU);
                 in_settings = false;
+                wait_for_delay(1);
+                clear_screen();
                 break;
             default:
                 invalid_selection_msg();
-                continue;
+                break;
         }
     }
 }
 
 void handle_sub_pref_settings(Account *current_session) {
+    NotificationsStatus status;
+    bool toggle_choice;
     bool in_subpref = true;
+
     while (in_subpref) {
         alert_pref_settings();
-        int choice = get_int_prompt("\nEnter your choice: ");
+        int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
             case 1:
-                set_low_bal_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle Low Balance Alerts? (yes/no): "));
+                if (get_yn_prompt("\nDo you wanna toggle Large Transaction Alerts? (yes/no): ", &toggle_choice)) {
+                    status = account_notifications_pipeline(current_session, ENABLE_LARGE_TXN_NOTIF, toggle_choice);
+                    account_notifications_routing(ENABLE_LARGE_TXN_NOTIF, status);
+                }
                 break;
             case 2:
-                set_large_txn_notif(current_session, get_yes_no_prompt("\nDo you wanna toggle Large Transaction Alerts? (yes/no): "));
+                if (get_yn_prompt("\nDo you wanna toggle Low Balance Alerts? (yes/no): ", &toggle_choice)) {
+                    status = account_notifications_pipeline(current_session, ENABLE_LOW_BAL_NOTIF, toggle_choice);
+                    account_notifications_routing(ENABLE_LOW_BAL_NOTIF, status);
+                }
                 break;
             case 0:
-                back_to_menu();
+                show_system_msg(MSG_EXIT_TO_MENU);
                 in_subpref = false;
+                wait_for_delay(1);
+                clear_screen();
                 break;
             default:
                 invalid_selection_msg();
-                continue;
+                break;
         }
     }
 }
 
-void update_account_status(Account *current_session) {
-    bool in_accstatus = true;
-    while (in_accstatus) {
-        account_status_menu();
-        int choice = get_int_prompt("\nEnter your choice: ");
 
-        switch (choice) {
-            case 1:
-                set_acc_frozen(current_session);
-                break;
-            case 2:
-                set_acc_active(current_session);
-                break;
-            case 3:
-                set_acc_closed(current_session);
-                break;
-            case 0:
-                back_to_menu();
-                in_accstatus = false;
-                break;
-            default:
-                invalid_selection_msg();
-                continue;
+void handle_payment_settings (Account *current_session) {
+    AccountStateStatus status;
+    bool in_settings = true;
+    bool in_sub_settings = false;
+
+    while (in_settings) {
+
+        if (in_sub_settings) {
+            account_status_menu();
+        } else {
+            payment_settings();
+        }
+
+        int choice = get_prompt_int("\nEnter your choice: ");
+
+        if (!in_sub_settings) {
+            switch (choice) {
+                case 1:
+                    in_sub_settings = true;
+                    break;
+                case 2:
+                    status = account_status_pipeline(current_session, SET_LIMIT_UPDATE);
+                    account_status_routing(SET_LIMIT_UPDATE, status);
+                    break;
+                case 0:
+                    show_system_msg(MSG_EXIT_TO_MENU);
+                    in_settings = false;
+                    wait_for_delay(1);
+                    clear_screen();
+                    break;
+                default:
+                    invalid_selection_msg();
+                    break;
+            }
+        } else {
+            switch (choice) {
+                case 1:
+                    status = account_status_pipeline(current_session, SET_STATE_FREEZE);
+                    account_status_routing(SET_STATE_FREEZE, status);
+                    break;
+                case 2:
+                    status = account_status_pipeline(current_session, SET_STATE_ACTIVATE);
+                    account_status_routing(SET_STATE_ACTIVATE, status);
+                    break;
+                case 3:
+                    status = account_status_pipeline(current_session, SET_STATE_CLOSED);
+                    account_status_routing(SET_STATE_CLOSED, status);
+                    break;
+                case 0:
+                    in_sub_settings = false;
+                    wait_for_delay(1);
+                    clear_screen();
+                    break;
+                default:
+                    invalid_selection_msg();
+                    break;
+            }
         }
     }
-}
-
-void handle_payment_settings(Account *current_session) {
-    bool in_psettings = true;
-    while (in_psettings) {
-        payment_settings();
-        int choice = get_int_prompt("\nEnter your choice: ");
-
-        switch (choice) {
-            case 1:
-                update_account_status(current_session);
-                break;
-            case 2:
-                update_daily_limit(current_session);
-                break;
-            case 0:
-                back_to_menu();
-                in_psettings = false;
-                break;
-            default:
-                invalid_selection_msg();
-                continue;
-        }
-    }
-}
-
- void update_daily_limit(Account *current_session) {
-    if (get_yes_no_prompt("\nDaily Limits should only be around 10,000 to 50,000. Are you sure you wanna continue? (yes/no): ") != true) {
-        back_to_menu();
-        return;
-    }
-
-    double new_limit = get_decimal_prompt("\nEnter new limit: ");
-    set_daily_limit(current_session, new_limit);
 }

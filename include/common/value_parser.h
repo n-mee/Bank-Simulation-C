@@ -1,28 +1,11 @@
-#ifndef INPUT_PARSER_H
-#define INPUT_PARSER_H
+#ifndef VALUE_PARSER_H
+#define VALUE_PARSER_H
 
-/**
- * @brief Prompts the user and safely parses a string input to an integer
- * @param prompt Message displayed on the terminal
- * @return Convered integer value
- */
-int get_int_prompt(const char* prompt);
+#include "common/exit_status.h"
 
-/**
- * @brief Prompts the user and safely parses a string input to an integer
- * @param prompt Message displayed on the terminal
- * @return Converted double value
- */
-double get_decimal_prompt(const char* prompt);
-
-/**
- * @brief Safely reads a string input and trims the trailing newline char
- * @param prompt Message displayed on the terminal
- * @param output_buffer Pointer to the character array where string will be stored in
- * @param buffer_size The max size of the output to prevent overflow
- */
-void get_string_prompt(const char* prompt, char* output_buffer, int buffer_size);
-
-bool get_yes_no_prompt(const char* prompt);
+ParseExitResult int_parser(const char* text, int* out_n);
+ParseExitResult amount_parser(const char* text, long long* out_n);
+YesNoResult yn_parser(const char* text, bool* out_v);
+ParsedStringResult string_parser(const char* text, char* out_str, size_t size_limit);
 
 #endif

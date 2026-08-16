@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <errno.h>
 #include "common/file_utility.h"
 
 int verify_dir_status(const char* path) {
@@ -11,3 +13,16 @@ int verify_dir_status(const char* path) {
     }
     return 0;
 }
+
+void clear_screen() {
+    printf("\033[H\033[2J");
+    fflush(stdout);
+}
+
+void wait_for_delay(unsigned int seconds) {
+    #if defined(__WIN32) || defined(__WIN64)
+        Sleep(seconds * 1000);
+    #elif defined(__linux__) || defined(__APPLE__)
+        sleep(seconds);
+    #endif
+} 

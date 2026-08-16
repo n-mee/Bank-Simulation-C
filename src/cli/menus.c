@@ -6,10 +6,10 @@ void gateway_menu(void) {
     puts("            Net-Bank Gateway           ");
     puts("+-------------------------------------+"); 
     puts("|                                     |");
-    puts("|  [1] LOGIN                          |");
-    puts("|  [2] REGISTER                       |");
+    puts("|   [1] LOGIN                         |");
+    puts("|   [2] REGISTER                      |");
     puts("|                                     |");
-    puts("|  [0] EXIT                           |");
+    puts("|   [0] EXIT                          |");
     puts("|                                     |");
     puts("+-------------------------------------+");
 }
@@ -19,12 +19,12 @@ void main_menu(void) {
     puts("         Net-Bank Secure Portal        ");
     puts("+-------------------------------------+"); 
     puts("|                                     |");
-    puts("|  [1] WITHDRAW                       |");
-    puts("|  [2] DEPOSIT                        |");
-    puts("|  [3] TRANSFER                       |");
-    puts("|  [4] ACCOUNT SETTINGS               |");
+    puts("|   [1] WITHDRAW                      |");
+    puts("|   [2] DEPOSIT                       |");
+    puts("|   [3] TRANSFER                      |");
+    puts("|   [4] ACCOUNT SETTINGS              |");
     puts("|                                     |");
-    puts("|  [0] EXIT                           |");
+    puts("|   [0] EXIT                          |");
     puts("|                                     |");
     puts("+-------------------------------------+");
 }
@@ -48,11 +48,11 @@ void profile_settings(void) {
     puts("            Profile Settings           ");
     puts("+-------------------------------------+");
     puts("|                                     |");
-    puts("|   [1] Change Username               |");
-    puts("|   [2] Change E-mail                 |");
-    puts("|   [3] Change Pin                    |");
+    puts("|    [1] Change Username              |");
+    puts("|    [2] Change E-mail                |");
+    puts("|    [3] Change Pin                   |");
     puts("|                                     |");
-    puts("|   [0] EXIT                          |");
+    puts("|    [0] EXIT                         |");
     puts("|                                     |");
     puts("+-------------------------------------+");
 }
@@ -76,8 +76,8 @@ void alert_pref_settings(void) {
     puts("          Alert Notifications          ");
     puts("+-------------------------------------+");
     puts("|                                     |");
-    puts("|   [3] Low Balance Alerts            |");
-    puts("|   [4] Large Transaction Alerts      |");
+    puts("|   [1] Low Balance Alerts            |");
+    puts("|   [2] Large Transaction Alerts      |");
     puts("|                                     |");
     puts("|   [0] EXIT                          |");
     puts("|                                     |");

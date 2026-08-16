@@ -2,26 +2,9 @@
 #define TRANSACTION_CONTROLLER_H
 
 // Dependency Headers
-#include "../include/models/account_model.h"
-#include "../include/repositories/account_repository.h"
+#include "models/account_model.h"
+#include "repositories/account_repository.h"
 
-/**
- * @brief Processes account withdrawal after several safety checks
- * @param current_user Pointer to current active user
- */
-void handle_withdraw_request(Account* current_user);
-
-/**
- * @brief Handles account logic with several security checks
- * @param current_user Pointer to current active user
- */
-void handle_deposit_request(Account* current_user);
-
-/**
- * @brief Processing account transfer between 2 accounts after several security checks
- * @param db Pointer to master database for account reference
- * @param sender Pointer to current active user who's the sender
- */
-void handle_transfer_request(BankDatabase *db, Account *sender);
+void handle_transaction_pipeline(BankDatabase* db, Account* current_user, TransactionType type);
 
 #endif

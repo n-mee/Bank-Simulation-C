@@ -1,5 +1,5 @@
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef ACCOUNT_MODEL_H
+#define ACCOUNT_MODEL_H
 
 /**
  * @brief Account database model used in the database
@@ -8,11 +8,14 @@
  *        an account you see being accessed in the database
 */
 
+#include <stdbool.h>
+#include "common/constants.h"
+
 typedef struct {
     char name[51];
     char username[21];
     char email[71];
-    char pin[5];
+    char pin[PIN_LENGTH + 1];
 } ProfileSettings;
 
 typedef struct {
@@ -30,12 +33,12 @@ typedef enum {
 
 typedef struct {
     AccountStatus status;
-    double daily_limit;
+    long long daily_limit;
 } CardControls;
 
 typedef struct {
     int accID;
-    double bal;
+    long long bal;
 
     ProfileSettings profile;
     PreferenceSettings preference;

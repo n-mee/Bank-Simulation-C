@@ -2,8 +2,7 @@
 #define AUTH_CONTROLLER_H
 
 // Dependency Headers
-#include <stdbool.h>
-#include "../include/repositories/account_repository.h"
+#include "repositories/account_repository.h"
 
 /**
  * @brief Handles identity registration menu logic
