@@ -19,7 +19,16 @@
  * @return 0 if successful, -1 if the initialization or creation failed.
  */
 int verify_dir_status(const char* path);
+
+/**
+ * @brief standard semi-terminal screen clearing
+ */
 void clear_screen();
+
+/**
+ * @brief dynamic delay terminal operations that checks if OS runs on Linux or Windows or MAC
+ * @param seconds count for how many delay system should process
+ */
 void wait_for_delay(unsigned int seconds);
 
 #endif

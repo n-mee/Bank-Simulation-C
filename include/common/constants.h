@@ -1,9 +1,13 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+// limit sizes for validation
+
 #define PIN_LENGTH 4
 #define EMAIL_LEN 12
 #define USERNAME_LEN 3
+
+// operation flags
 
 typedef enum {
     UPDATE_PIN,

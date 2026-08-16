@@ -38,7 +38,19 @@ bool is_valid_length_input(const char* target, int limit_len);
  * @return True if both ID matches, False if not
  */
 bool is_valid_id(int referrence, int target);
+
+/**
+ * @brief validates pin length
+ * @param target_pin pin reference to be evaluated
+ * @return true if the pin matches the standard length, false if not
+ */
 bool is_valid_pin_length(const char* target_pin);
+
+/**
+ * @brief validates daily balance limit range
+ * @param target reference for the daily limit
+ * @return true if the balance is within range, false if its not
+ */
 bool is_valid_limit(const long long* target);
 
 #endif
