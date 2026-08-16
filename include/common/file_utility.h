@@ -11,14 +11,11 @@
     #define make_dir(path) mkdir(path, 0755)
 #endif
 
-#include <stdint.h>
 /**
  * @brief Initializes the directory given from parameter
  * @param path String reference for directory to be evaluated
  * @return 0 if successful, -1 if the initialization or creation failed.
  */
 int verify_dir_status(const char* path);
-
-uint32_t do_crc32(const void* data, size_t total_accounts, size_t struct_size);
 
 #endif
