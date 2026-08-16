@@ -1,0 +1,85 @@
+name: C/C++ CI
+
+on:
+    push:
+        branches: [ "development", "staging", "main" ]
+    pull_request:
+        branches: [ "development", "staging", "main" ]
+
+jobs:
+    build:
+        name: Build and Test
+        strategy:
+          matrix:
+            os: [ubuntu-latest, windows-latest]
+            include:
+              - os: ubuntu-latest
+                artifact_name: cBankApp_linux
+              - os: windows-latest
+                artifact_name: cBankApp.exe
+
+        runs-on: ${{ matrix.os }}
+        
+        steps:
+            - name: Checkout repository code
+              uses: actions/checkout@v4
+
+            - name: Install build tools and Valgrind
+              if: matrix.os == 'ubuntu-latest'
+              run: |
+                sudo apt-get update
+                sudo apt-get install -y build-essential valgrind
+
+            - name: Set up Make (Win64)
+              if: matrix.os == 'windows-latest'
+              run: |
+                echo "Using built-in Windows build tools"
+
+            - name: Compile project
+              run: make all
+
+            - name: Run Memory Leak Checks
+              if: matrix.os == 'ubuntu-latest'
+              run: echo "0" | make memcheck
+
+            - name: Rename executable for releasing artifact
+              shell: bash
+              run: |
+                if [ "${{ matrix.os }}" = "windows-latest"]; then
+                  mv bin/bankapp.exe ${{ matrix.artifact_name }} || echo "No exe found, matching name"
+                else
+                  mv bin/bankapp ${{ matrix.artifact_name }} || echo "No binary found, matching name"
+                fi
+            
+
+            - name: Upload Artifacts for Release
+              uses: actions/upload-artifact@v4
+              with:
+                name: ${{ matrix.artifact_name }}
+                path: ${{ matrix.artifact_name }}
+    
+
+    release:
+        name: Deploy Release App
+        needs: build
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download all compiled binaries
+              uses: actions/download-artifact@v4
+              with:
+                path: ./artifacts
+                merge-multiple: true
+            
+            - name: Create Automated Release
+              uses: softprops/action-gh-release@v2
+              with:
+                tag_name: release-${{ github.run_number }}
+                name: Production Release Build ${{ github.run_number }}
+                draft: false
+                prerelease: false
+                files: |
+                  ./artifacts/cBankApp_linux
+                  ./artifacts/cBankApp.exe
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
