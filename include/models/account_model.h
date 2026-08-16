@@ -8,6 +8,7 @@
  *        an account you see being accessed in the database
 */
 
+#include <stdbool.h>
 #include "common/constants.h"
 
 typedef struct {
