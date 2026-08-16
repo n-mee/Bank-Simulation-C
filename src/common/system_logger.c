@@ -6,6 +6,12 @@
 #include "services/account_service.h"
 #include "services/transaction_service.h"
 
+
+/**
+ * @brief converts authentication enum code into readable strings for logging
+ * @param status enum code raw integer value
+ * @return returns the translated string enum code
+ */
 static const char* sys_cvrttostr_auth(int status) {
     switch (status) {
         case AUTH_ERR_SESSION_NULL: return "AUTH_CRITICAL_SESSION_IS_NULL";
@@ -17,6 +23,11 @@ static const char* sys_cvrttostr_auth(int status) {
     }
 }
 
+/**
+ * @brief converts transaction enum code into readable strings for logging
+ * @param status enum code raw integer value
+ * @return returns the translated string enum code
+ */
 static const char* sys_cvrttostr_transac(int status) {
     switch (status) {
         case TXN_ERR_NULL: return "TRANSACTION_CRITICAL_SESSION_NULL";
@@ -28,6 +39,11 @@ static const char* sys_cvrttostr_transac(int status) {
     }
 }
 
+/**
+ * @brief converts account state enum code into readable strings for logging
+ * @param status enum code raw integer value
+ * @return returns the translated string enum code
+ */
 static const char* sys_cvrttostr_status(int status) {
     switch (status) {
         case STATUS_OPERATION_ERR_SESSION_NULL: return "STATUS_CRITICAL_SESSION_NULL";
@@ -37,6 +53,11 @@ static const char* sys_cvrttostr_status(int status) {
     }
 }
 
+/**
+ * @brief converts notifications enum code into readable strings for logging
+ * @param status enum code raw integer value
+ * @return returns the translated string enum code
+ */
 static const char* sys_cvrttostr_notif(int status) {
     switch (status) {
         case NOTIF_ERR_SESSION_NULL: return "NOTIF_CRITICAL_SESSION_EMPTY";
@@ -45,6 +66,11 @@ static const char* sys_cvrttostr_notif(int status) {
     }
 }
 
+/**
+ * @brief converts credentials enum code into readable strings for logging
+ * @param status enum code raw integer value
+ * @return returns the translated string enum code
+ */
 static const char* sys_cvrttostr_creds(int status) {
     switch (status) {
         case CRED_ERR_ACCOUNT_NULL: return "CREDENTIALS_CRITICAL_ACCOUNT_NULL";

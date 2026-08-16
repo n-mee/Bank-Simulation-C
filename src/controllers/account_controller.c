@@ -13,6 +13,11 @@
 #include "services/account_service.h"
 #include "controllers/account_controller.h"
 
+/**
+ * @brief handles the dynamic status msgs for credential controller
+ * @param type reference flag for type of operations
+ * @param status enum code for status return checking
+ */
 static void account_credentials_routing(AccountOperationType type, Credentials status) {
 
     SysLogLevel level = (status == CRED_ERR_INVALID_PIN) ? LOG_WARN :
@@ -33,6 +38,11 @@ static void account_credentials_routing(AccountOperationType type, Credentials s
 
 }
 
+/**
+ * @brief handles dynamic status msg for notifications preference controller
+ * @param type reference flag for operation type
+ * @param status operatin return code for status msg
+ */
 static void account_notifications_routing(AccountNotificationsType type, NotificationsStatus status) {
 
     SysLogLevel level = (status == NOTIF_WARN_ALREADY_SET) ? LOG_WARN :
@@ -53,6 +63,11 @@ static void account_notifications_routing(AccountNotificationsType type, Notific
 
 }
 
+/**
+ * @brief handles the dynamic status msg for account state and payment settings
+ * @param type reference flag for status operation type
+ * @param status returned code for status msg evaluation
+ */
 static void account_status_routing(AccountStateOperationType type, AccountStateStatus status) {
 
     SysLogLevel level = (status == STATUS_OPERATION_WARN_ALREADY_SET) ? LOG_WARN :
@@ -72,7 +87,6 @@ static void account_status_routing(AccountStateOperationType type, AccountStateS
 
 }
 
-// handles the users settings config if he presses option 4
 void handle_account_settings(Account *current_session) {
     // set state for while loop
     bool in_settings = true;
@@ -97,14 +111,12 @@ void handle_account_settings(Account *current_session) {
                 handle_payment_settings(current_session);
                 break;
             case 0:
-                // if user presses 0 which is exit it closes immediately
                 show_system_msg(MSG_EXIT_TO_MENU);
                 in_settings = false;
                 wait_for_delay(1);
                 clear_screen();
                 break;
             default:
-                // prints an error msg and goes back to the menu
                 invalid_selection_msg();
                 break;
         }

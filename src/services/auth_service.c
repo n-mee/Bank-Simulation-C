@@ -4,6 +4,11 @@
 #include "services/auth_service.h"
 #include "repositories/account_repository.h"
 
+/**
+ * @brief sets default values in a new user account
+ * @param target reference for the newly created account struct
+ * @return returns an enum code for errors and success msg
+ */
 static AuthStatus set_default_values(Account* target) {
     if (!target) return AUTH_ERR_SESSION_NULL;
 

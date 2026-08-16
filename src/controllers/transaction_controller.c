@@ -9,6 +9,11 @@
 #include "common/validators.h"
 #include "cli/input.h"
 
+/**
+ * @brief handles dynamic status msg for transaction operation
+ * @param type reference flag for transaction operation type
+ * @param status returned code for status msg evaluation
+ */
 static void account_transaction_routing(TransactionType type, TransactionStatus status) {
     if (status == TXN_OPERATION_SUCCESS) {
         account_transaction_success(type);

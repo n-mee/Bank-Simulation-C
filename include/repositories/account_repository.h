@@ -5,23 +5,12 @@
 #include "common/file_utility.h"
 #include "models/account_model.h"
 
-// Database struct 
+// vector database for resizing
 typedef struct {
-    // points to the struct model in the dependency header
     Account *records;
-    /*  
-        Code below acts as a allocator
-        and storage limt for structs
-        they count how many accs are active
-        and capacity acts as a storage size
-        limiter
-    */
     int account_count;
     int db_capacity;
 } BankDatabase;
-
-
-
 
 
 /* ======================================

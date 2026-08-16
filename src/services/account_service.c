@@ -5,7 +5,13 @@
 #include "common/exit_status.h"
 #include "services/account_service.h"
 
-
+/**
+ * @brief handles account credentials update operation
+ * @param session reference for current active user
+ * @param type reference flag for operation type
+ * @param str dynamic constant for account credentials
+ * @return True if the operation succeeds, False if it fails
+ */
 static bool account_update_credentials(Account *session, AccountOperationType type, const char* str) {
     if (!session || !str) return false;
 
@@ -40,6 +46,12 @@ static bool account_update_credentials(Account *session, AccountOperationType ty
     return true;
 }
 
+/**
+ * @brief handles account state operations
+ * @param session reference for current active user
+ * @param type reference flag for operation type
+ * @return returns an custom enum code for errors and success
+ */
 static AccountStateStatus update_account_status(Account* session, AccountStateOperationType type) {
     if (!session) return STATUS_OPERATION_ERR_SESSION_NULL;
 
@@ -57,6 +69,12 @@ static AccountStateStatus update_account_status(Account* session, AccountStateOp
     return STATUS_OPERATION_SUCCESS;
 }
 
+/**
+ * @brief handles account daily limiter operations
+ * @param session reference for current active user
+ * @param new_limit reference for new update daily imit
+ * @return returns a custom enum code for errors and success
+ */
 static AccountStateStatus update_account_limit(Account* session, long long* new_limt) {
     if (!session) return STATUS_OPERATION_ERR_SESSION_NULL;
 

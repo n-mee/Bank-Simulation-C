@@ -4,6 +4,13 @@
 #include "common/file_utility.h"
 #include "common/file_operations.h"
 
+/**
+ * @brief a 32bit crc checksum for file integrity
+ * @param data a dynamic data reference for account model struct
+ * @param total_accounts counst the total exisint account in database
+ * @param struct_size passed the size of the account model struct
+ * @return returns a custom 32bit uint value to embedd at the file
+ */
 static uint32_t do_crc32(const void* data, size_t total_accounts, size_t struct_size) {
     size_t total_bytes = total_accounts * struct_size;
     const uint8_t *byte_ptr = (const uint8_t *)data;
