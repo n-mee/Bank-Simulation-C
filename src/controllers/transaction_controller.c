@@ -12,8 +12,12 @@
 static void account_transaction_routing(TransactionType type, TransactionStatus status) {
     if (status == TXN_OPERATION_SUCCESS) {
         account_transaction_success(type);
+        wait_for_delay(3);
+        clear_screen();
     } else {
         account_transaction_fail(status);
+        wait_for_delay(3);
+        clear_screen();
     }
 }
 
@@ -24,7 +28,7 @@ void handle_transaction_pipeline(BankDatabase* db, Account* current_user, Transa
     }
 
     char PIN[PIN_LENGTH + 1];
-    if (!get_prompt_string("\nEnter your PIN: ", PIN, sizeof(PIN))) {
+    if (!get_prompt_string("Enter your PIN: ", PIN, sizeof(PIN))) {
         account_transaction_routing(type, TXN_INVALID_PIN);
         return;
     }

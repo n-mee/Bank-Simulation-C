@@ -5,6 +5,7 @@
 #include "cli/displays.h"
 #include "common/constants.h"
 #include "common/validators.h"
+#include "common/file_utility.h"
 #include "common/system_logger.h"
 #include "models/account_model.h"
 #include "cli/display_error_msg.h"
@@ -22,8 +23,12 @@ static void account_credentials_routing(AccountOperationType type, Credentials s
 
     if (status == CRED_OPERATION_SUCCESS) {
         account_operation_success(type);
+        wait_for_delay(3);
+        clear_screen();
     } else {
         account_operation_error(status);
+        wait_for_delay(3);
+        clear_screen();
     }
 
 }
@@ -38,8 +43,12 @@ static void account_notifications_routing(AccountNotificationsType type, Notific
     if (status == NOTIF_WARN_ALREADY_SET || status == NOTIF_ERR_SESSION_NULL) {
 
         account_notification_fail(status);
+        wait_for_delay(3);
+        clear_screen();
     } else {
         account_notification_status(type, status);
+        wait_for_delay(3);
+        clear_screen();
     }
 
 }
@@ -53,8 +62,12 @@ static void account_status_routing(AccountStateOperationType type, AccountStateS
 
     if (status != STATUS_OPERATION_SUCCESS) {
         account_state_error(status);
+        wait_for_delay(3);
+        clear_screen();
     } else {
         account_state_success(type);
+        wait_for_delay(3);
+        clear_screen();
     }
 
 }
@@ -69,18 +82,26 @@ void handle_account_settings(Account *current_session) {
 
         switch (choice) {
             case 1:
+                wait_for_delay(2);
+                clear_screen();
                 handle_profile_settings(current_session);
                 break;
             case 2:
+                wait_for_delay(2);
+                clear_screen();
                 handle_preference_settings(current_session);
                 break;
             case 3:
+                wait_for_delay(2);
+                clear_screen();
                 handle_payment_settings(current_session);
                 break;
             case 0:
                 // if user presses 0 which is exit it closes immediately
                 show_system_msg(MSG_EXIT_TO_MENU);
                 in_settings = false;
+                wait_for_delay(1);
+                clear_screen();
                 break;
             default:
                 // prints an error msg and goes back to the menu
@@ -114,6 +135,8 @@ void handle_profile_settings(Account *current_session) {
             case 0:
                 show_system_msg(MSG_EXIT_TO_MENU);
                 in_settings = false;
+                wait_for_delay(1);
+                clear_screen();
                 break;
             default:
                 invalid_selection_msg();
@@ -150,6 +173,8 @@ void handle_preference_settings(Account *current_session) {
             case 0:
                 show_system_msg(MSG_EXIT_TO_MENU);
                 in_settings = false;
+                wait_for_delay(1);
+                clear_screen();
                 break;
             default:
                 invalid_selection_msg();
@@ -183,6 +208,8 @@ void handle_sub_pref_settings(Account *current_session) {
             case 0:
                 show_system_msg(MSG_EXIT_TO_MENU);
                 in_subpref = false;
+                wait_for_delay(1);
+                clear_screen();
                 break;
             default:
                 invalid_selection_msg();
@@ -219,6 +246,8 @@ void handle_payment_settings (Account *current_session) {
                 case 0:
                     show_system_msg(MSG_EXIT_TO_MENU);
                     in_settings = false;
+                    wait_for_delay(1);
+                    clear_screen();
                     break;
                 default:
                     invalid_selection_msg();
@@ -240,6 +269,8 @@ void handle_payment_settings (Account *current_session) {
                     break;
                 case 0:
                     in_sub_settings = false;
+                    wait_for_delay(1);
+                    clear_screen();
                     break;
                 default:
                     invalid_selection_msg();

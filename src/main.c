@@ -24,10 +24,16 @@ int main(void) {
 
     if (status == FILE_OK) {
         file_operation_success(status);
+        wait_for_delay(3);
+        clear_screen();
     } else if (status == FILE_NOT_FOUND) {
         printf("[-] WARN: No exiting database found. Starting a fresh save.\n");
+        wait_for_delay(3);
+        clear_screen();
     } else {
         file_operation_error(status);
+        wait_for_delay(3);
+        clear_screen();
         db_termination(&bank);
         return 1;
     }
@@ -49,6 +55,8 @@ int main(void) {
                     handle_registration(&bank);
                     break;
                 case 0:
+                    wait_for_delay(3);
+                    clear_screen();
                     running = false;
                     break;
                 default:
@@ -76,6 +84,8 @@ int main(void) {
                     show_system_msg(MSG_EXIT_SYS);
                     current_session = NULL;
                     running = false;
+                    wait_for_delay(3);
+                    clear_screen();
                     break;
                 default:
                     invalid_selection_msg();
@@ -87,8 +97,12 @@ int main(void) {
 
     if (status == FILE_OK) {
         file_operation_success(status);
+        wait_for_delay(3);
+        clear_screen();
     } else {
         file_operation_error(status);
+        wait_for_delay(3);
+        clear_screen();
     }
 
     db_termination(&bank);

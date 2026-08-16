@@ -34,9 +34,13 @@ void handle_registration(BankDatabase *db) {
     if (status == AUTH_REGISTRATION_SUCCESS) {
         log_system_operations(INFO, COMP_AUTH, status);
         auth_operation_success(status, &acc_id, NULL);
+        wait_for_delay(3);
+        clear_screen();
     } else {
         log_system_operations(WARN, COMP_AUTH, status);
         auth_operation_error(status);
+        wait_for_delay(3);
+        clear_screen();
     }
 }
 
@@ -58,7 +62,7 @@ void handle_login(BankDatabase *db, Account **session_user) {
     }
 
     // prompts a pin input and checks if the pin input matches the one in account
-    if (!get_prompt_string("\nEnter your PIN: ", temp_pin, sizeof(temp_pin))) {
+    if (!get_prompt_string("Enter your PIN: ", temp_pin, sizeof(temp_pin))) {
         *session_user = NULL;
         log_system_operations(WARN, COMP_AUTH, AUTH_ERR_BAD_PIN);
         return;
@@ -69,9 +73,13 @@ void handle_login(BankDatabase *db, Account **session_user) {
     if (status == AUTH_LOGIN_SUCCESS) {
         log_system_operations(INFO, COMP_AUTH, status);
         auth_operation_success(status, &temp_id, *session_user);
+        wait_for_delay(3);
+        clear_screen();
     } else {
         *session_user = NULL;
         log_system_operations(WARN, COMP_AUTH, status);
         auth_operation_error(status);
+        wait_for_delay(3);
+        clear_screen();
     }
 }
