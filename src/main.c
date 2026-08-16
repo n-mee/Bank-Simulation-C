@@ -1,16 +1,42 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include "cli/display_success_msg.h"
+#include "cli/display_error_msg.h"
 #include "controllers/auth_controller.h"
-#include "utils/input_parser.h"
-#include "data/database_manager.h"
-#include "views/menus.h"
-#include "views/displays.h"
+#include "cli/input.h"
+#include "common/file_operations.h"
+#include "repositories/account_repository.h"
+#include "common/exit_status.h"
+#include "cli/menus.h"
+#include "cli/displays.h"
+#include "controllers/account_controller.h"
 #include "controllers/transaction_controller.h"
 
 int main(void) {
 
     BankDatabase bank;
-    db_init(&bank, 4);
+    if (db_init(&bank, 4) == 0) {
+        return 1;
+    }
+
+    FileStatus status;
+    status = load_from_file(&bank);
+
+    if (status == FILE_OK) {
+        file_operation_success(status);
+        wait_for_delay(3);
+        clear_screen();
+    } else if (status == FILE_NOT_FOUND) {
+        printf("[-] WARN: No exiting database found. Starting a fresh save.\n");
+        wait_for_delay(3);
+        clear_screen();
+    } else {
+        file_operation_error(status);
+        wait_for_delay(3);
+        clear_screen();
+        db_termination(&bank);
+        return 1;
+    }
 
     Account *current_session = NULL;
     bool running = true;
@@ -19,7 +45,7 @@ int main(void) {
     while(running) {
         if (current_session == NULL){
             gateway_menu();
-            choice = get_int_prompt("Enter your choice: ");
+            choice = get_prompt_int("Enter your choice: ");
 
             switch (choice) {
                 case 1:
@@ -29,6 +55,8 @@ int main(void) {
                     handle_registration(&bank);
                     break;
                 case 0:
+                    wait_for_delay(3);
+                    clear_screen();
                     running = false;
                     break;
                 default:
@@ -37,31 +65,44 @@ int main(void) {
             }
         } else {
             main_menu();
-            choice = get_int_prompt("Enter your choice: ");
+            choice = get_prompt_int("Enter your choice: ");
 
             switch (choice) {
                 case 1:
-                    handle_withdraw_request(current_session);
+                    handle_transaction_pipeline(&bank, current_session, WITHDRAW);
                     break;
                 case 2:
-                    handle_deposit_request(current_session);
+                    handle_transaction_pipeline(&bank, current_session, DEPOSIT);
                     break;
                 case 3:
-                    handle_transfer_request(&bank, current_session);
+                    handle_transaction_pipeline(&bank, current_session, TRANSFER);
                     break;
                 case 4:
-                    wip_msg();
-                    running = false;
+                    handle_account_settings(current_session);
                     break;
                 case 0:
-                    exit_msg();
+                    show_system_msg(MSG_EXIT_SYS);
                     current_session = NULL;
+                    running = false;
+                    wait_for_delay(3);
+                    clear_screen();
                     break;
                 default:
                     invalid_selection_msg();
                     break;
             }
         }
+    }
+    status = save_to_file(&bank);
+
+    if (status == FILE_OK) {
+        file_operation_success(status);
+        wait_for_delay(3);
+        clear_screen();
+    } else {
+        file_operation_error(status);
+        wait_for_delay(3);
+        clear_screen();
     }
 
     db_termination(&bank);

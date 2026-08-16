@@ -1,12 +1,16 @@
-#ifndef HANDLER_H
-#define HANDLER_H
+#ifndef TRANSACTION_CONTROLLER_H
+#define TRANSACTION_CONTROLLER_H
 
-// Transact Handlers
-#include "data/model.h"
-#include "data/database_manager.h"
-void handle_withdraw_request(Account* current_user);
-void handle_deposit_request(Account* current_user);
-void handle_transfer_request(BankDatabase *db, Account *sender);
+// Dependency Headers
+#include "models/account_model.h"
+#include "repositories/account_repository.h"
 
-//Input Handler
+/**
+ * @brief handles the transaction menu and switches dynamically depending on transaction type
+ * @param db pointer reference to the active database used to look for receiver in transfer
+ * @param current_user reference for the current active account
+ * @param type transaction flag used for dynamic switching operation
+ */
+void handle_transaction_pipeline(BankDatabase* db, Account* current_user, TransactionType type);
+
 #endif
