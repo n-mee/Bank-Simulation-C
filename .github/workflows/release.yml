@@ -60,7 +60,6 @@ jobs:
                 name: ${{ matrix.artifact_name }}
                 path: ${{ matrix.artifact_name }}
     
-
     release:
         name: Deploy Release App
         needs: build
