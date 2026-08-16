@@ -10,9 +10,9 @@ typedef enum {
 } SystemComponent;
 
 typedef enum {
-    INFO,
-    WARN,
-    ERROR,
+    LOG_INFO,
+    LOG_WARN,
+    LOG_ERROR,
 } SysLogLevel;
 
 /**

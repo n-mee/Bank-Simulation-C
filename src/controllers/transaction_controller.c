@@ -23,7 +23,7 @@ static void account_transaction_routing(TransactionType type, TransactionStatus 
 
 void handle_transaction_pipeline(BankDatabase* db, Account* current_user, TransactionType type) {
     if (!current_user) {
-        log_system_operations(ERROR, COMP_TRANSACTION, TXN_ERR_NULL);
+        log_system_operations(LOG_ERROR, COMP_TRANSACTION, TXN_ERR_NULL);
         return;
     }
 
@@ -65,9 +65,9 @@ void handle_transaction_pipeline(BankDatabase* db, Account* current_user, Transa
     else return;
 
     if (result == TXN_OPERATION_SUCCESS) {
-        log_system_operations(INFO, COMP_TRANSACTION, result);
+        log_system_operations(LOG_INFO, COMP_TRANSACTION, result);
     } else {
-        log_system_operations(WARN, COMP_TRANSACTION, result);
+        log_system_operations(LOG_WARN, COMP_TRANSACTION, result);
     }
 
     account_transaction_routing(type, result);

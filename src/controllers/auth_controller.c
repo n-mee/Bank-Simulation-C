@@ -13,7 +13,7 @@
 // handles the gateway registartion logic
 void handle_registration(BankDatabase *db) {
     if (!db) {
-        log_system_operations(ERROR, COMP_AUTH, AUTH_ERR_SESSION_NULL);
+        log_system_operations(LOG_ERROR, COMP_AUTH, AUTH_ERR_SESSION_NULL);
         return;
     }
 
@@ -32,12 +32,12 @@ void handle_registration(BankDatabase *db) {
 
 
     if (status == AUTH_REGISTRATION_SUCCESS) {
-        log_system_operations(INFO, COMP_AUTH, status);
+        log_system_operations(LOG_INFO, COMP_AUTH, status);
         auth_operation_success(status, &acc_id, NULL);
         wait_for_delay(3);
         clear_screen();
     } else {
-        log_system_operations(WARN, COMP_AUTH, status);
+        log_system_operations(LOG_WARN, COMP_AUTH, status);
         auth_operation_error(status);
         wait_for_delay(3);
         clear_screen();
@@ -47,7 +47,7 @@ void handle_registration(BankDatabase *db) {
 // handles the gateway login menu logic
 void handle_login(BankDatabase *db, Account **session_user) {
     if (!db || !session_user) {
-        log_system_operations(ERROR, COMP_AUTH, AUTH_ERR_SESSION_NULL);
+        log_system_operations(LOG_ERROR, COMP_AUTH, AUTH_ERR_SESSION_NULL);
         return;
     }
 
@@ -56,7 +56,7 @@ void handle_login(BankDatabase *db, Account **session_user) {
 
     if (!service_account_exists(db, temp_id)) {
         *session_user = NULL;
-        log_system_operations(WARN, COMP_AUTH, AUTH_ERR_NOT_FOUND);
+        log_system_operations(LOG_WARN, COMP_AUTH, AUTH_ERR_NOT_FOUND);
         auth_operation_error(AUTH_ERR_NOT_FOUND);
         return;
     }
@@ -64,20 +64,20 @@ void handle_login(BankDatabase *db, Account **session_user) {
     // prompts a pin input and checks if the pin input matches the one in account
     if (!get_prompt_string("Enter your PIN: ", temp_pin, sizeof(temp_pin))) {
         *session_user = NULL;
-        log_system_operations(WARN, COMP_AUTH, AUTH_ERR_BAD_PIN);
+        log_system_operations(LOG_WARN, COMP_AUTH, AUTH_ERR_BAD_PIN);
         return;
     }
 
     AuthStatus status = authenticate_account(db, temp_id, temp_pin, session_user);
 
     if (status == AUTH_LOGIN_SUCCESS) {
-        log_system_operations(INFO, COMP_AUTH, status);
+        log_system_operations(LOG_INFO, COMP_AUTH, status);
         auth_operation_success(status, &temp_id, *session_user);
         wait_for_delay(3);
         clear_screen();
     } else {
         *session_user = NULL;
-        log_system_operations(WARN, COMP_AUTH, status);
+        log_system_operations(LOG_WARN, COMP_AUTH, status);
         auth_operation_error(status);
         wait_for_delay(3);
         clear_screen();

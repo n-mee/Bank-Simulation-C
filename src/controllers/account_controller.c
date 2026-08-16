@@ -15,9 +15,9 @@
 
 static void account_credentials_routing(AccountOperationType type, Credentials status) {
 
-    SysLogLevel level = (status == CRED_ERR_INVALID_PIN) ? WARN :
-                        (status == CRED_ERR_MISMATCH_PIN) ? WARN :
-                        (status == CRED_OPERATION_SUCCESS) ? INFO : ERROR;
+    SysLogLevel level = (status == CRED_ERR_INVALID_PIN) ? LOG_WARN :
+                        (status == CRED_ERR_MISMATCH_PIN) ? LOG_WARN :
+                        (status == CRED_OPERATION_SUCCESS) ? LOG_INFO : LOG_ERROR;
     
     log_system_operations(level, COMP_ACC_CREDS, status);
 
@@ -35,8 +35,8 @@ static void account_credentials_routing(AccountOperationType type, Credentials s
 
 static void account_notifications_routing(AccountNotificationsType type, NotificationsStatus status) {
 
-    SysLogLevel level = (status == NOTIF_WARN_ALREADY_SET) ? WARN :
-                        (status == NOTIF_ERR_SESSION_NULL) ? ERROR : INFO;
+    SysLogLevel level = (status == NOTIF_WARN_ALREADY_SET) ? LOG_WARN :
+                        (status == NOTIF_ERR_SESSION_NULL) ? LOG_ERROR : LOG_INFO;
 
     log_system_operations(level, COMP_ACC_NOTIF, status);
 
@@ -55,8 +55,8 @@ static void account_notifications_routing(AccountNotificationsType type, Notific
 
 static void account_status_routing(AccountStateOperationType type, AccountStateStatus status) {
 
-    SysLogLevel level = (status == STATUS_OPERATION_WARN_ALREADY_SET) ? WARN :
-                        (status == STATUS_OPERATION_SUCCESS) ? INFO : ERROR;
+    SysLogLevel level = (status == STATUS_OPERATION_WARN_ALREADY_SET) ? LOG_WARN :
+                        (status == STATUS_OPERATION_SUCCESS) ? LOG_INFO : LOG_ERROR;
 
     log_system_operations(level, COMP_ACC_STATUS, status);
 
