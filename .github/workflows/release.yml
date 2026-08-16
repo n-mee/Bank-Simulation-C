@@ -47,7 +47,7 @@ jobs:
             - name: Rename executable for releasing artifact
               shell: bash
               run: |
-                if [ "${{ matrix.os }}" = "windows-latest"]; then
+                if [ "${{ matrix.os }}" = "windows-latest" ]; then
                   mv bin/bankapp.exe ${{ matrix.artifact_name }} || echo "No exe found, matching name"
                 else
                   mv bin/bankapp ${{ matrix.artifact_name }} || echo "No binary found, matching name"
@@ -80,8 +80,8 @@ jobs:
             - name: Create Automated Release
               uses: softprops/action-gh-release@v2
               with:
-                tag_name: ${{ github.run_number }}
-                name: Release ${{ github.run_number }}
+                tag_name: ${{ github.ref_name }}
+                name: Release ${{ github.ref_name }}
                 draft: false
                 prerelease: false
                 files: |
