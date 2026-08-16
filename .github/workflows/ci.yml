@@ -22,4 +22,4 @@ jobs:
               run: make all
 
             - name: Run Memory Leak Checks
-              run: echo "" | make memcheck
+              run: printf "\n" | make memcheck
