@@ -1,9 +1,12 @@
+> [!IMPORTANT]
+> **This repository is being actively re-written on a higher language. 
+> The details regarding the documentation of the project is outdated and will be changed once the migration is finished.**
+
 # cBankSim
 
 A terminal-based and local spin-off of how banks operate, purely coded in C.
 
 ## Description
-
 Since it is purely coded in C. It is mostly **terminal-based** due to GUI limitiations on a language like C. However, the terminal still provides a decent UI/UX experience with a simple and neat generic format design and a delay between operations.
 
 ### Whats inside of the bank
