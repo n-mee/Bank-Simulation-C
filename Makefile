@@ -1,11 +1,11 @@
-CC := gcc
-CFLAGS := -Iinclude -Wall -Wextra -g
+CXX := g++
+CXXFLAGS := -Iinclude -Wall -Wextra -g -MMD -MP
 
 BIN_DIR := bin
 BUILD_DIR := build
 
-SRCS := src/main.c $(wildcard src/cli/*.c src/repositories/*.c src/controllers/*.c src/services/*.c src/common/*.c)
-OBJS := $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRCS))
+SRCS := src/main.cpp $(wildcard src/cli/*.cpp src/repositories/*.cpp src/controllers/*.cpp src/services/*.cpp src/common/*.cpp)
+OBJS := $(patsubst %.cpp, $(BUILD_DIR)/%.o, $(SRCS))
 DEPS := $(OBJS:.o=.d)
 
 TARGET := $(BIN_DIR)/bankapp
@@ -16,11 +16,11 @@ all: $(TARGET)
 
 $(TARGET): $(OBJS)
 		@mkdir -p $(BIN_DIR)
-		$(CC) $(CFLAGS) $^ -o $@
+		$(CXX) $(CXXFLAGS) $^ -o $@
 
-$(BUILD_DIR)/%.o: %.c
+$(BUILD_DIR)/%.o: %.cpp
 		@mkdir -p $(dir $@)
-		$(CC) $(CFLAGS) -c $< -o $@
+		$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
 		rm -rf $(BUILD_DIR)/* $(BIN_DIR)/*
