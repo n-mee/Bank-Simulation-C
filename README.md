@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> **This repository is being actively re-written on a higher language. 
+> **This repository is being actively being refactored and re-written on a newer language. 
 > The details regarding the documentation of the project is outdated and will be changed once the migration is finished.**
 
 # cBankSim
