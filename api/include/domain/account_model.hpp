@@ -1,5 +1,4 @@
-#ifndef ACCOUNT_MODEL_H
-#define ACCOUNT_MODEL_H
+#pragma once
 
 /**
  * @brief Account database model used in the database
@@ -9,7 +8,7 @@
 */
 
 #include <stdbool.h>
-#include "common/constants.h"
+#include "common/constants.hpp"
 
 typedef struct {
     char name[51];
@@ -44,5 +43,3 @@ typedef struct {
     PreferenceSettings preference;
     CardControls controls;
 } Account;
-
-#endif

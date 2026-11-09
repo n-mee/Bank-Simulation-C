@@ -1,5 +1,4 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#pragma once
 
 // limit sizes for validation
 
@@ -34,5 +33,3 @@ typedef enum {
     DEPOSIT,
     TRANSFER
 } TransactionType;
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef EXIT_STATUS_H
-#define EXIT_STATUS_H
+#pragma once
 
 typedef enum {
     PARSE_SUCCESS = 0,
@@ -77,5 +76,3 @@ typedef enum {
     FILE_WRITE_FAILED,
     FILE_CORRUPTED
 } FileStatus;
-
-#endif
