@@ -14,7 +14,7 @@ At the current version **(V1)**, it contains pretty basic bank operations like *
 1. **Login Menu Screen (Initial System Menu)**
 
 <div align="center">
-    <img src=".github/assets/bank_login_menu.png" alt="Login Menu Screen">
+    <img src="assets/bank_login_menu.png" alt="Login Menu Screen">
 </div>
 
 This is what you will see everytime you run the code, the system will always require you to login like how every bank does.
@@ -22,15 +22,15 @@ This is what you will see everytime you run the code, the system will always req
 2. **Main Menu Screen (After Logging In)**
 
 <div align="center">
-    <img src=".github/assets/bank_main_menu.png" alt="Main Menu Screen">
+    <img src="assets/bank_main_menu.png" alt="Main Menu Screen">
 </div>
 
 The main menu where you will spend most of the time whether it is checking if my code runs or trying what each feature does.
 
-3. **Account Management Settings (UAS Menu)**
+1. **Account Management Settings (UAS Menu)**
 
 <div align="center">
-    <img src=".github/assets/bank_account_settings_menu.png" alt="User Account Settings Menu">
+    <img src="assets/bank_account_settings_menu.png" alt="User Account Settings Menu">
 </div>
 
 This is menu can be found in the 4th selection in the main menu and this is the goto for changing credentials, setting up notif flags or limits.
