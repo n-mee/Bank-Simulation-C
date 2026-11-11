@@ -2,15 +2,15 @@
 #include <stdbool.h>
 #include "cli/display_success_msg.hpp"
 #include "cli/display_error_msg.hpp"
-#include "controllers/auth_controller.h"
+#include "controllers/auth_controller.hpp"
 #include "cli/input.hpp"
-#include "common/file_operations.h"
-#include "repositories/account_repository.h"
-#include "common/exit_status.h"
+#include "file_operations.hpp"
+#include "account_repository.hpp"
+#include "common/exit_status.hpp"
 #include "cli/menus.hpp"
 #include "cli/displays.hpp"
-#include "controllers/account_controller.h"
-#include "controllers/transaction_controller.h"
+#include "controllers/account_controller.hpp"
+#include "controllers/transaction_controller.hpp"
 
 int main(void) {
 
