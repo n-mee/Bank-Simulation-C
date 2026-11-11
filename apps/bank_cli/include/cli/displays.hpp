@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdio.h>
+#include <cstdio>
 
 // flags for switching standard system msg
 typedef enum {
@@ -14,13 +14,13 @@ typedef enum {
  * @brief inline system message for standard system message
  * @param id reference flag for dynamic message switching
  */
-static inline void show_system_msg(SystemMessageID id) {
-        const char* const SYS_MESSAGES[] = {
-        [MSG_EXIT_TO_MENU] = "[-] Exiting to Menu..",
-        [MSG_EXIT_SYS] = "[-] System is exiting..."
+inline void show_system_msg(SystemMessageID id) {
+        static constexpr char* const SYS_MESSAGES[MSG_COUNT] = {
+        "[-] Exiting to Menu..",
+        "[-] System is exiting..."
     };
 
     if (id >= 0 && id < MSG_COUNT) {
-        printf("%s\n", SYS_MESSAGES[id]);
+        std::printf("%s\n", SYS_MESSAGES[id]);
     }
 }
