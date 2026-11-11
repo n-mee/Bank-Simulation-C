@@ -1,8 +1,7 @@
 #include <string.h>
 #include <stdio.h>
-#include "cli/display_error_msg.hpp"
 #include "common/exit_status.hpp"
-#include "cli/input.hpp"
+#include "input.hpp"
 #include "value_parser.hpp"
 
 static bool read_line(const char* prompt, char* buf, size_t size) {
@@ -23,8 +22,6 @@ bool get_prompt_string(const char* prompt, char* out_str, size_t size) {
 
         ParsedStringResult status = string_parser(msg, out_str, size);
         if (status == PARSED_STRING_SUCCESS) return true;
-
-        invalid_string_value(status);
     }
 }
 
@@ -37,8 +34,6 @@ int get_prompt_int(const char* prompt) {
 
         ParseExitResult status = int_parser(msg, &value);
         if (status == PARSE_SUCCESS) return value;
-
-        invalid_integer_value(status);
     }
 }
 
@@ -51,8 +46,6 @@ long long get_prompt_amount(const char* prompt) {
 
         ParseExitResult status = amount_parser(msg, &amt);
         if (status == PARSE_SUCCESS) return amt;
-
-        invalid_longlong_input(status);
     }
 }
 
@@ -64,7 +57,5 @@ bool get_yn_prompt(const char* prompt, bool* out_c) {
 
         YesNoResult status = yn_parser(msg, out_c);
         if (status == YN_SUCCESS) return true;
-
-        invalid_bool_value(status);
     }
 }

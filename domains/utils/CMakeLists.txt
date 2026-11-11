@@ -1,4 +1,5 @@
 add_library(utils SHARED
+    src/input.cpp
     src/system_logger.cpp
     src/validators.cpp
     src/value_parser.cpp    
