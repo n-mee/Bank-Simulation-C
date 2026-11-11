@@ -26,31 +26,38 @@ jobs:
             - name: Checkout repository code
               uses: actions/checkout@v4
 
-            - name: Install build tools and Valgrind
+            - name: Install build tools and Valgrind (For Linux)
               if: matrix.os == 'ubuntu-latest'
               run: |
                 sudo apt-get update
                 sudo apt-get install -y build-essential valgrind
 
-            - name: Set up Make (Win64)
+            - name: Setup CMake 4.0+
+              uses: jwlawson/actions-setup-cmake@v2
+              with:
+                cmake-version: '4.0.x'
+
+            - name: Setup MVSC (For Windows)
               if: matrix.os == 'windows-latest'
-              run: |
-                echo "Using built-in Windows build tools"
+              uses: ilammy/msvc-dev-cmd@v1
+
+            - name: Configure CMake
+              run: cmake -B build -DCMAKE_BUILD_TYPE=Release
 
             - name: Compile project
-              run: make all
+              run: cmake --build build --config Release
 
             - name: Run Memory Leak Checks
               if: matrix.os == 'ubuntu-latest'
-              run: echo "0" | make memcheck
+              run: echo "0" | valgrind --leak-check=full --error-exitcode=1 ./build/apps/bank_cli/bank_cli
 
             - name: Rename executable for releasing artifact
               shell: bash
               run: |
                 if [ "${{ matrix.os }}" = "windows-latest" ]; then
-                  mv bin/bankapp.exe ${{ matrix.artifact_name }} || echo "No exe found, matching name"
+                  mv ./build/apps/bank_cli/bank_cli.exe ${{ matrix.artifact_name }}
                 else
-                  mv bin/bankapp ${{ matrix.artifact_name }} || echo "No binary found, matching name"
+                  mv ./build/apps/bank_cli/bank_cli ${{ matrix.artifact_name }}
                 fi
             
 
