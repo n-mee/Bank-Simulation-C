@@ -1,5 +1,5 @@
-#include "common/validators.h"
-#include "common/constants.h"
+#include "validators.hpp"
+#include "common/constants.hpp"
 
 bool is_valid_pin(const char* target_pin, const char* input_pin) {
     if (strcmp(target_pin, input_pin) != 0) {

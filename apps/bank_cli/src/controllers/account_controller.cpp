@@ -1,17 +1,17 @@
 #include <string.h>
 #include <stdbool.h>
-#include "cli/input.h"
-#include "cli/menus.h"
-#include "cli/displays.h"
-#include "common/constants.h"
-#include "common/validators.h"
-#include "common/file_utility.h"
-#include "common/system_logger.h"
-#include "models/account_model.h"
-#include "cli/display_error_msg.h"
-#include "cli/display_success_msg.h"
-#include "services/account_service.h"
-#include "controllers/account_controller.h"
+#include "cli/input.hpp"
+#include "cli/menus.hpp"
+#include "cli/displays.hpp"
+#include "common/constants.hpp"
+#include "validators.hpp"
+#include "file_utility.hpp"
+#include "system_logger.hpp"
+#include "domain/account_model.hpp"
+#include "cli/display_error_msg.hpp"
+#include "cli/display_success_msg.hpp"
+#include "account_service.hpp"
+#include "controllers/account_controller.hpp"
 
 /**
  * @brief handles the dynamic status msgs for credential controller

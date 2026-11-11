@@ -1,5 +1,4 @@
-#ifndef VALIDATORS_H
-#define VALIDATORS_H
+#pragma once
 
 // Dependency Header
 #include <stdbool.h>
@@ -52,5 +51,3 @@ bool is_valid_pin_length(const char* target_pin);
  * @return true if the balance is within range, false if its not
  */
 bool is_valid_limit(const long long* target);
-
-#endif

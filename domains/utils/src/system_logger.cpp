@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <time.h>
-#include "common/file_utility.h"
-#include "common/system_logger.h"
-#include "services/auth_service.h"
-#include "services/account_service.h"
-#include "services/transaction_service.h"
+#include "file_utility.hpp"
+#include "system_logger.hpp"
+#include "common/exit_status.hpp"
 
 
 /**

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <errno.h>
-#include "common/file_utility.h"
+#include "file_utility.hpp"
 
 int verify_dir_status(const char* path) {
     // Checks if the return value of a system call is succesful

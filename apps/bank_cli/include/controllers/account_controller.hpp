@@ -1,8 +1,7 @@
-#ifndef ACCOUNT_CONTROLLER_H
-#define ACCOUNT_CONTROLLER_H
+#pragma once
 
 // Dependency Headers
-#include "models/account_model.h"
+#include "domain/account_model.hpp"
 
 /**
  * @brief Account settings menu logic switching
@@ -33,5 +32,3 @@ void handle_sub_pref_settings(Account *current_session);
  * @param reference for current active account
  */
 void handle_payment_settings(Account *current_session);
-
-#endif

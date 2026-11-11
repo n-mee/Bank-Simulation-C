@@ -1,9 +1,8 @@
-#ifndef ACCOUNT_REPOSITORY_H
-#define ACCOUNT_REPOSITORY_H
+#pragma once
 
 // dependency header (one used for pointers inside struct)
-#include "common/file_utility.h"
-#include "core/domain/account_model.h"
+#include "file_utility.hpp"
+#include "domain/account_model.hpp"
 
 // vector database for resizing
 typedef struct {
@@ -56,6 +55,3 @@ int db_find_identity(BankDatabase *db, int target_id);
  * @param db Pointer reference for database
  */
 void db_termination(BankDatabase *db);
-
-
-#endif

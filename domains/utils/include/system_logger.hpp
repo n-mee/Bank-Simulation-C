@@ -1,5 +1,4 @@
-#ifndef SYSTEM_LOGGER_H
-#define SYSTEM_LOGGER_H
+#pragma once
 
 typedef enum {
     COMP_AUTH,
@@ -32,5 +31,3 @@ void log_system_operations(SysLogLevel level, SystemComponent comp, int enum_cod
  * @param amount balance used during transaction
  */
 void write_transac_log(const char* status, const char* op, int acc1, int acc2, long long amount);
-
-#endif

@@ -1,14 +1,14 @@
 #include <stddef.h>
 #include <stdbool.h>
-#include "cli/input.h"
-#include "common/constants.h"
-#include "common/validators.h"
-#include "common/system_logger.h"
-#include "cli/display_error_msg.h"
-#include "services/auth_service.h"
-#include "cli/display_success_msg.h"
-#include "controllers/auth_controller.h"
-#include "repositories/account_repository.h"
+#include "cli/input.hpp"
+#include "common/constants.hpp"
+#include "validators.hpp"
+#include "system_logger.hpp"
+#include "cli/display_error_msg.hpp"
+#include "auth_service.hpp"
+#include "cli/display_success_msg.hpp"
+#include "controllers/auth_controller.hpp"
+#include "account_repository.hpp"
 
 // handles the gateway registartion logic
 void handle_registration(BankDatabase *db) {

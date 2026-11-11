@@ -1,9 +1,8 @@
-#ifndef AUTH_SERVICE_H
-#define AUTH_SERVICE_H
+#pragma once
 
-#include "repositories/account_repository.h"
-#include "models/account_model.h"
-#include "common/exit_status.h"
+#include "account_repository.hpp"
+#include "domain/account_model.hpp"
+#include "common/exit_status.hpp"
 
 /**
  * @brief looks up the id for matching existing accounts in the database
@@ -31,5 +30,3 @@ AuthStatus register_account(BankDatabase* db, Account raw_data, int *new_id);
  * @return returns an enum status code for error and success msg
  */
 AuthStatus authenticate_account(BankDatabase* db, int id, const char* pin, Account** session);
-
-#endif

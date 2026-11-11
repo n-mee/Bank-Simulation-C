@@ -1,9 +1,7 @@
-#ifndef TRANSACTION_SERVICE_H
-#define TRANSACTION_SERVICE_H
-
+#pragma once
 // Dependency Headers
-#include "common/exit_status.h"
-#include "models/account_model.h"
+#include "common/exit_status.hpp"
+#include "domain/account_model.hpp"
 
 /**
  * @brief handles the withdraw operation
@@ -29,5 +27,3 @@ TransactionStatus execute_deposit(Account* current_user, long long amount);
  * @return a custom enum code for errors and success msg
  */
 TransactionStatus execute_transfer(Account* sender, Account* receiver, long long amount);
-
-#endif

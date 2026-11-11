@@ -1,8 +1,8 @@
 #pragma once
 
-#include "models/account_model.h"
-#include "common/constants.h"
-#include "common/exit_status.h"
+#include "domain/account_model.hpp"
+#include "common/constants.hpp"
+#include "common/exit_status.hpp"
 
 /**
  * @brief dynamic status msg for success operations in credentials

@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <errno.h>
-#include "common/file_utility.h"
-#include "common/file_operations.h"
+#include "file_utility.hpp"
+#include "file_operations.hpp"
 
 /**
  * @brief a 32bit crc checksum for file integrity

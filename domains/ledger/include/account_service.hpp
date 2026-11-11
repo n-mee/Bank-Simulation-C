@@ -1,9 +1,8 @@
-#ifndef ACCOUNT_SERVICE_H
-#define ACCOUNT_SERVICE_H
-
+#pragma once
 // dependency header (data model)
-#include "common/constants.h"
-#include "models/account_model.h"
+#include "common/exit_status.hpp"
+#include "common/constants.hpp"
+#include "domain/account_model.hpp"
 
 /**
  * @brief handles the process of changing user credentials depending on operation type
@@ -29,6 +28,3 @@ NotificationsStatus account_notifications_pipeline (Account* session, AccountNot
  * @return returns an enum code for errors and success operations
  */
 AccountStateStatus account_status_pipeline (Account* session, AccountStateOperationType type);
-
-
-#endif

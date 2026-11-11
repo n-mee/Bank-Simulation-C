@@ -1,8 +1,7 @@
-#ifndef AUTH_CONTROLLER_H
-#define AUTH_CONTROLLER_H
+#pragma once
 
 // Dependency Headers
-#include "repositories/account_repository.h"
+#include "account_repository.hpp"
 
 /**
  * @brief Handles identity registration menu logic
@@ -15,5 +14,3 @@ void handle_registration(BankDatabase *db);
  * @param session_user Current active account found in database
  */
 void handle_login(BankDatabase *db, Account **session_user);
-
-#endif

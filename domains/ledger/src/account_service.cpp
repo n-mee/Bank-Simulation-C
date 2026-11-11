@@ -1,9 +1,9 @@
 #include <stdbool.h>
 #include <string.h>
-#include "cli/input.h"
-#include "common/validators.h"
-#include "common/exit_status.h"
-#include "services/account_service.h"
+#include "cli/input.hpp"
+#include "validators.hpp"
+#include "common/exit_status.hpp"
+#include "account_service.hpp"
 
 /**
  * @brief handles account credentials update operation

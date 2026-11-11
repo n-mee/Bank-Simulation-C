@@ -1,6 +1,6 @@
 #pragma once
 
-#include "common/exit_status.h"
+#include "common/exit_status.hpp"
 
 /**
  * @brief dynamic msgs for errors in int input

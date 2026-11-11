@@ -3,7 +3,7 @@
 #include <errno.h>
 #include <stdbool.h>
 #include <string.h>
-#include "common/value_parser.h"
+#include "value_parser.hpp"
 
 ParsedStringResult string_parser(const char* text, char* out_str, size_t size_limit) {
     if (text == NULL || out_str == NULL || size_limit == 0) {

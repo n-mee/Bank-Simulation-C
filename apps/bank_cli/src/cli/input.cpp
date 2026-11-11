@@ -1,9 +1,9 @@
 #include <string.h>
 #include <stdio.h>
 #include "cli/display_error_msg.hpp"
-#include "common/exit_status.h"
+#include "common/exit_status.hpp"
 #include "cli/input.hpp"
-#include "common/value_parser.h"
+#include "value_parser.hpp"
 
 static bool read_line(const char* prompt, char* buf, size_t size) {
     printf("%s", prompt);

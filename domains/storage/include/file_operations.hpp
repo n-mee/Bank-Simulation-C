@@ -1,8 +1,7 @@
-#ifndef FILE_OPERATIONS_H
-#define FILE_OPERATIONS_H
+#pragma once
 
-#include "common/exit_status.h"
-#include "repositories/account_repository.h"
+#include "common/exit_status.hpp"
+#include "account_repository.hpp"
 
 /**
  * @brief loads the data from the file into the database
@@ -17,5 +16,3 @@ FileStatus load_from_file(BankDatabase *db);
  * @return custom status code for logging and error msg
  */
 FileStatus save_to_file(BankDatabase *db);
-
-#endif

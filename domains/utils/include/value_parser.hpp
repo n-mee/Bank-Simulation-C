@@ -1,7 +1,7 @@
-#ifndef VALUE_PARSER_H
-#define VALUE_PARSER_H
+#pragma once
 
-#include "common/exit_status.h"
+#include <stdlib.h>
+#include "common/exit_status.hpp"
 
 /**
  * @brief converts a string value into a integer
@@ -35,5 +35,3 @@ YesNoResult yn_parser(const char* text, bool* out_v);
  * @return exit status code depending on operation status
  */
 ParsedStringResult string_parser(const char* text, char* out_str, size_t size_limit);
-
-#endif

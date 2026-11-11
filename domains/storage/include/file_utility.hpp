@@ -1,5 +1,4 @@
-#ifndef FILE_UTILITY_H
-#define FILE_UTILITY_H
+#pragma once
 
 // Platform Indipendent syscalls() for different OS
 #if defined(_WIN32) || defined(_WIN64)
@@ -30,5 +29,3 @@ void clear_screen();
  * @param seconds count for how many delay system should process
  */
 void wait_for_delay(unsigned int seconds);
-
-#endif

@@ -1,9 +1,7 @@
-#ifndef TRANSACTION_CONTROLLER_H
-#define TRANSACTION_CONTROLLER_H
-
+#pragma once
 // Dependency Headers
-#include "models/account_model.h"
-#include "repositories/account_repository.h"
+#include "domain/account_model.hpp"
+#include "account_repository.hpp"
 
 /**
  * @brief handles the transaction menu and switches dynamically depending on transaction type
@@ -12,5 +10,3 @@
  * @param type transaction flag used for dynamic switching operation
  */
 void handle_transaction_pipeline(BankDatabase* db, Account* current_user, TransactionType type);
-
-#endif

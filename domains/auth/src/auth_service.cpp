@@ -1,8 +1,7 @@
 #include <string.h>
-#include "cli/input.h"
-#include "common/validators.h"
-#include "services/auth_service.h"
-#include "repositories/account_repository.h"
+#include "validators.hpp"
+#include "auth_service.hpp"
+#include "account_repository.hpp"
 
 /**
  * @brief sets default values in a new user account
