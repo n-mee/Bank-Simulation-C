@@ -1,6 +1,6 @@
 #include <stdbool.h>
 #include <string.h>
-#include "cli/input.hpp"
+#include "input.hpp"
 #include "validators.hpp"
 #include "common/exit_status.hpp"
 #include "account_service.hpp"
