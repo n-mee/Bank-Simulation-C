@@ -3,7 +3,7 @@
 #include "cli/display_success_msg.hpp"
 #include "cli/display_error_msg.hpp"
 #include "controllers/auth_controller.hpp"
-#include "cli/input.hpp"
+#include "input.hpp"
 #include "file_operations.hpp"
 #include "account_repository.hpp"
 #include "common/exit_status.hpp"

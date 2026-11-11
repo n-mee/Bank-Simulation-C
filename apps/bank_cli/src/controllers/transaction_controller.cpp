@@ -7,7 +7,7 @@
 #include "controllers/transaction_controller.hpp"
 #include "common/constants.hpp"
 #include "validators.hpp"
-#include "cli/input.hpp"
+#include "input.hpp"
 
 /**
  * @brief handles dynamic status msg for transaction operation

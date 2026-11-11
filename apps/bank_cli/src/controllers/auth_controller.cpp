@@ -1,6 +1,6 @@
 #include <stddef.h>
 #include <stdbool.h>
-#include "cli/input.hpp"
+#include "input.hpp"
 #include "common/constants.hpp"
 #include "validators.hpp"
 #include "system_logger.hpp"

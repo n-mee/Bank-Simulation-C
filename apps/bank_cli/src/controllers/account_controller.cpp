@@ -1,6 +1,6 @@
 #include <string.h>
 #include <stdbool.h>
-#include "cli/input.hpp"
+#include "input.hpp"
 #include "cli/menus.hpp"
 #include "cli/displays.hpp"
 #include "common/constants.hpp"
