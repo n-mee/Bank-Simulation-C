@@ -84,7 +84,7 @@ void Menu::AlertSettings(void) {
     std::cout << "+-------------------------------------+";
 }
 
-void Menu::PaymentSettngs(void) {
+void Menu::PaymentSettings(void) {
     std::cout << "+-------------------------------------+";
     std::cout << "            Payment Settings           ";
     std::cout << "+-------------------------------------+";

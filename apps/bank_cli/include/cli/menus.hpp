@@ -13,7 +13,7 @@ namespace Menu {
     void AlertSettings(void);
 
 
-    void PaymentSettngs(void);
+    void PaymentSettings(void);
     void AccountStatusSettings(void);
-    
+
 }
