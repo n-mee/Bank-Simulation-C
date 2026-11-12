@@ -1,112 +1,112 @@
-#include <stdio.h>
+#include <iostream>
 #include "cli/menus.hpp"
 
-void gateway_menu(void) {
-    puts("+-------------------------------------+");
-    puts("            Net-Bank Gateway           ");
-    puts("+-------------------------------------+"); 
-    puts("|                                     |");
-    puts("|   [1] LOGIN                         |");
-    puts("|   [2] REGISTER                      |");
-    puts("|                                     |");
-    puts("|   [0] EXIT                          |");
-    puts("|                                     |");
-    puts("+-------------------------------------+");
+void Menu::TerminalGateway(void) {
+    std::cout << "+-------------------------------------+";
+    std::cout << "            Net-Bank Gateway           ";
+    std::cout << "+-------------------------------------+"; 
+    std::cout << "|                                     |";
+    std::cout << "|   [1] LOGIN                         |";
+    std::cout << "|   [2] REGISTER                      |";
+    std::cout << "|                                     |";
+    std::cout << "|   [0] EXIT                          |";
+    std::cout << "|                                     |";
+    std::cout << "+-------------------------------------+";
 }
 
-void main_menu(void) {
-    puts("+-------------------------------------+");
-    puts("         Net-Bank Secure Portal        ");
-    puts("+-------------------------------------+"); 
-    puts("|                                     |");
-    puts("|   [1] WITHDRAW                      |");
-    puts("|   [2] DEPOSIT                       |");
-    puts("|   [3] TRANSFER                      |");
-    puts("|   [4] ACCOUNT SETTINGS              |");
-    puts("|                                     |");
-    puts("|   [0] EXIT                          |");
-    puts("|                                     |");
-    puts("+-------------------------------------+");
+void Menu::TerminalMain(void) {
+    std::cout << "+-------------------------------------+";
+    std::cout << "         Net-Bank Secure Portal        ";
+    std::cout << "+-------------------------------------+"; 
+    std::cout << "|                                     |";
+    std::cout << "|   [1] WITHDRAW                      |";
+    std::cout << "|   [2] DEPOSIT                       |";
+    std::cout << "|   [3] TRANSFER                      |";
+    std::cout << "|   [4] ACCOUNT SETTINGS              |";
+    std::cout << "|                                     |";
+    std::cout << "|   [0] EXIT                          |";
+    std::cout << "|                                     |";
+    std::cout << "+-------------------------------------+";
 }
 
-void account_menu(void) {
-    puts("+-------------------------------------+");
-    puts("            Account Settings           ");
-    puts("+-------------------------------------+");
-    puts("|                                     |");
-    puts("|   [1] PROFILE SETTINGS              |");
-    puts("|   [2] PREFERENCE SETTINGS           |");
-    puts("|   [3] CARD AND PAYMENT CONTROLS     |");
-    puts("|                                     |");
-    puts("|   [0] EXIT                          |");
-    puts("|                                     |");
-    puts("+-------------------------------------+");
+void Menu::AccountSettings(void) {
+    std::cout << "+-------------------------------------+";
+    std::cout << "            Account Settings           ";
+    std::cout << "+-------------------------------------+";
+    std::cout << "|                                     |";
+    std::cout << "|   [1] PROFILE SETTINGS              |";
+    std::cout << "|   [2] PREFERENCE SETTINGS           |";
+    std::cout << "|   [3] CARD AND PAYMENT CONTROLS     |";
+    std::cout << "|                                     |";
+    std::cout << "|   [0] EXIT                          |";
+    std::cout << "|                                     |";
+    std::cout << "+-------------------------------------+";
 }
 
-void profile_settings(void) {
-    puts("+-------------------------------------+");
-    puts("            Profile Settings           ");
-    puts("+-------------------------------------+");
-    puts("|                                     |");
-    puts("|    [1] Change Username              |");
-    puts("|    [2] Change E-mail                |");
-    puts("|    [3] Change Pin                   |");
-    puts("|                                     |");
-    puts("|    [0] EXIT                         |");
-    puts("|                                     |");
-    puts("+-------------------------------------+");
+void Menu::ProfileSettings(void) {
+    std::cout << "+-------------------------------------+";
+    std::cout << "            Profile Settings           ";
+    std::cout << "+-------------------------------------+";
+    std::cout << "|                                     |";
+    std::cout << "|    [1] Change Username              |";
+    std::cout << "|    [2] Change E-mail                |";
+    std::cout << "|    [3] Change Pin                   |";
+    std::cout << "|                                     |";
+    std::cout << "|    [0] EXIT                         |";
+    std::cout << "|                                     |";
+    std::cout << "+-------------------------------------+";
 }
 
-void preference_settings(void) {
-    puts("+-------------------------------------+");
-    puts("          Preference Settings          ");
-    puts("+-------------------------------------+");
-    puts("|                                     |");
-    puts("|   [1] Email Notifications           |");
-    puts("|   [2] Push Notifications            |");
-    puts("|   [3] Alert Notifications           |");
-    puts("|                                     |");
-    puts("|   [0] EXIT                          |");
-    puts("|                                     |");
-    puts("+-------------------------------------+");
+void Menu::NotificationSettings(void) {
+    std::cout << "+-------------------------------------+";
+    std::cout << "          Preference Settings          ";
+    std::cout << "+-------------------------------------+";
+    std::cout << "|                                     |";
+    std::cout << "|   [1] Email Notifications           |";
+    std::cout << "|   [2] Push Notifications            |";
+    std::cout << "|   [3] Alert Notifications           |";
+    std::cout << "|                                     |";
+    std::cout << "|   [0] EXIT                          |";
+    std::cout << "|                                     |";
+    std::cout << "+-------------------------------------+";
 }
 
-void alert_pref_settings(void) {
-    puts("+-------------------------------------+");
-    puts("          Alert Notifications          ");
-    puts("+-------------------------------------+");
-    puts("|                                     |");
-    puts("|   [1] Low Balance Alerts            |");
-    puts("|   [2] Large Transaction Alerts      |");
-    puts("|                                     |");
-    puts("|   [0] EXIT                          |");
-    puts("|                                     |");
-    puts("+-------------------------------------+");
+void Menu::AlertSettings(void) {
+    std::cout << "+-------------------------------------+";
+    std::cout << "          Alert Notifications          ";
+    std::cout << "+-------------------------------------+";
+    std::cout << "|                                     |";
+    std::cout << "|   [1] Low Balance Alerts            |";
+    std::cout << "|   [2] Large Transaction Alerts      |";
+    std::cout << "|                                     |";
+    std::cout << "|   [0] EXIT                          |";
+    std::cout << "|                                     |";
+    std::cout << "+-------------------------------------+";
 }
 
-void payment_settings(void) {
-    puts("+-------------------------------------+");
-    puts("            Payment Settings           ");
-    puts("+-------------------------------------+");
-    puts("|                                     |");
-    puts("|   [1] Account Status                |");
-    puts("|   [2] Daily Limit                   |");
-    puts("|                                     |");
-    puts("|   [0] EXIT                          |");
-    puts("|                                     |");
-    puts("+-------------------------------------+");
+void Menu::PaymentSettngs(void) {
+    std::cout << "+-------------------------------------+";
+    std::cout << "            Payment Settings           ";
+    std::cout << "+-------------------------------------+";
+    std::cout << "|                                     |";
+    std::cout << "|   [1] Account Status                |";
+    std::cout << "|   [2] Daily Limit                   |";
+    std::cout << "|                                     |";
+    std::cout << "|   [0] EXIT                          |";
+    std::cout << "|                                     |";
+    std::cout << "+-------------------------------------+";
 }
 
-void account_status_menu(void) {
-    puts("+-------------------------------------+");
-    puts("             Account Status            ");
-    puts("+-------------------------------------+");
-    puts("|                                     |");
-    puts("|   [1] Freeze Account                |");
-    puts("|   [2] Unfreeze Account              |");
-    puts("|   [3] Close Account                 |");
-    puts("|                                     |");
-    puts("|   [0] EXIT                          |");
-    puts("|                                     |");
-    puts("+-------------------------------------+");
+void Menu::AccountStatusSettings(void) {
+    std::cout << "+-------------------------------------+";
+    std::cout << "             Account Status            ";
+    std::cout << "+-------------------------------------+";
+    std::cout << "|                                     |";
+    std::cout << "|   [1] Freeze Account                |";
+    std::cout << "|   [2] Unfreeze Account              |";
+    std::cout << "|   [3] Close Account                 |";
+    std::cout << "|                                     |";
+    std::cout << "|   [0] EXIT                          |";
+    std::cout << "|                                     |";
+    std::cout << "+-------------------------------------+";
 }
