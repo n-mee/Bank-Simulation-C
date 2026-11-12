@@ -44,7 +44,7 @@ int main(void) {
 
     while(running) {
         if (current_session == NULL){
-            gateway_menu();
+            Menu::TerminalGateway();
             choice = get_prompt_int("Enter your choice: ");
 
             switch (choice) {
@@ -64,7 +64,7 @@ int main(void) {
                     break;
             }
         } else {
-            main_menu();
+            Menu::TerminalMain();
             choice = get_prompt_int("Enter your choice: ");
 
             switch (choice) {

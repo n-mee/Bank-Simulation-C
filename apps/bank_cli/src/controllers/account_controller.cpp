@@ -91,7 +91,7 @@ void handle_account_settings(Account *current_session) {
     // set state for while loop
     bool in_settings = true;
     while (in_settings) {
-        account_menu();
+        Menu::AccountSettings();
         int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
@@ -128,7 +128,7 @@ void handle_profile_settings(Account *current_session) {
     bool in_settings = true;
 
     while (in_settings) {
-        profile_settings();
+        Menu::ProfileSettings();
         int choice = get_prompt_int("\nEnter your choice: ");
 
         switch(choice) {
@@ -163,7 +163,7 @@ void handle_preference_settings(Account *current_session) {
     bool in_settings = true;
 
     while (in_settings) {
-        preference_settings();
+        Menu::NotificationSettings();
         int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
@@ -201,7 +201,7 @@ void handle_sub_pref_settings(Account *current_session) {
     bool in_subpref = true;
 
     while (in_subpref) {
-        alert_pref_settings();
+        Menu::AlertSettings();
         int choice = get_prompt_int("\nEnter your choice: ");
 
         switch (choice) {
@@ -239,9 +239,9 @@ void handle_payment_settings (Account *current_session) {
     while (in_settings) {
 
         if (in_sub_settings) {
-            account_status_menu();
+            Menu::AccountStatusSettings();
         } else {
-            payment_settings();
+            Menu::PaymentSettings();
         }
 
         int choice = get_prompt_int("\nEnter your choice: ");
