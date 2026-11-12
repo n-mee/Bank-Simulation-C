@@ -2,111 +2,111 @@
 #include "cli/menus.hpp"
 
 void Menu::TerminalGateway(void) {
-    std::cout << "+-------------------------------------+";
-    std::cout << "            Net-Bank Gateway           ";
-    std::cout << "+-------------------------------------+"; 
-    std::cout << "|                                     |";
-    std::cout << "|   [1] LOGIN                         |";
-    std::cout << "|   [2] REGISTER                      |";
-    std::cout << "|                                     |";
-    std::cout << "|   [0] EXIT                          |";
-    std::cout << "|                                     |";
-    std::cout << "+-------------------------------------+";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "            Net-Bank Gateway           \n";
+    std::cout << "+-------------------------------------+\n"; 
+    std::cout << "|                                     |\n";
+    std::cout << "|   [1] LOGIN                         |\n";
+    std::cout << "|   [2] REGISTER                      |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [0] EXIT                          |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "+-------------------------------------+\n";
 }
 
 void Menu::TerminalMain(void) {
-    std::cout << "+-------------------------------------+";
-    std::cout << "         Net-Bank Secure Portal        ";
-    std::cout << "+-------------------------------------+"; 
-    std::cout << "|                                     |";
-    std::cout << "|   [1] WITHDRAW                      |";
-    std::cout << "|   [2] DEPOSIT                       |";
-    std::cout << "|   [3] TRANSFER                      |";
-    std::cout << "|   [4] ACCOUNT SETTINGS              |";
-    std::cout << "|                                     |";
-    std::cout << "|   [0] EXIT                          |";
-    std::cout << "|                                     |";
-    std::cout << "+-------------------------------------+";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "         Net-Bank Secure Portal        \n";
+    std::cout << "+-------------------------------------+\n"; 
+    std::cout << "|                                     |\n";
+    std::cout << "|   [1] WITHDRAW                      |\n";
+    std::cout << "|   [2] DEPOSIT                       |\n";
+    std::cout << "|   [3] TRANSFER                      |\n";
+    std::cout << "|   [4] ACCOUNT SETTINGS              |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [0] EXIT                          |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "+-------------------------------------+\n";
 }
 
 void Menu::AccountSettings(void) {
-    std::cout << "+-------------------------------------+";
-    std::cout << "            Account Settings           ";
-    std::cout << "+-------------------------------------+";
-    std::cout << "|                                     |";
-    std::cout << "|   [1] PROFILE SETTINGS              |";
-    std::cout << "|   [2] PREFERENCE SETTINGS           |";
-    std::cout << "|   [3] CARD AND PAYMENT CONTROLS     |";
-    std::cout << "|                                     |";
-    std::cout << "|   [0] EXIT                          |";
-    std::cout << "|                                     |";
-    std::cout << "+-------------------------------------+";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "            Account Settings           \n";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [1] PROFILE SETTINGS              |\n";
+    std::cout << "|   [2] PREFERENCE SETTINGS           |\n";
+    std::cout << "|   [3] CARD AND PAYMENT CONTROLS     |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [0] EXIT                          |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "+-------------------------------------+\n";
 }
 
 void Menu::ProfileSettings(void) {
-    std::cout << "+-------------------------------------+";
-    std::cout << "            Profile Settings           ";
-    std::cout << "+-------------------------------------+";
-    std::cout << "|                                     |";
-    std::cout << "|    [1] Change Username              |";
-    std::cout << "|    [2] Change E-mail                |";
-    std::cout << "|    [3] Change Pin                   |";
-    std::cout << "|                                     |";
-    std::cout << "|    [0] EXIT                         |";
-    std::cout << "|                                     |";
-    std::cout << "+-------------------------------------+";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "            Profile Settings           \n";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|    [1] Change Username              |\n";
+    std::cout << "|    [2] Change E-mail                |\n";
+    std::cout << "|    [3] Change Pin                   |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|    [0] EXIT                         |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "+-------------------------------------+\n";
 }
 
 void Menu::NotificationSettings(void) {
-    std::cout << "+-------------------------------------+";
-    std::cout << "          Preference Settings          ";
-    std::cout << "+-------------------------------------+";
-    std::cout << "|                                     |";
-    std::cout << "|   [1] Email Notifications           |";
-    std::cout << "|   [2] Push Notifications            |";
-    std::cout << "|   [3] Alert Notifications           |";
-    std::cout << "|                                     |";
-    std::cout << "|   [0] EXIT                          |";
-    std::cout << "|                                     |";
-    std::cout << "+-------------------------------------+";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "          Preference Settings          \n";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [1] Email Notifications           |\n";
+    std::cout << "|   [2] Push Notifications            |\n";
+    std::cout << "|   [3] Alert Notifications           |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [0] EXIT                          |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "+-------------------------------------+\n";
 }
 
 void Menu::AlertSettings(void) {
-    std::cout << "+-------------------------------------+";
-    std::cout << "          Alert Notifications          ";
-    std::cout << "+-------------------------------------+";
-    std::cout << "|                                     |";
-    std::cout << "|   [1] Low Balance Alerts            |";
-    std::cout << "|   [2] Large Transaction Alerts      |";
-    std::cout << "|                                     |";
-    std::cout << "|   [0] EXIT                          |";
-    std::cout << "|                                     |";
-    std::cout << "+-------------------------------------+";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "          Alert Notifications          \n";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [1] Low Balance Alerts            |\n";
+    std::cout << "|   [2] Large Transaction Alerts      |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [0] EXIT                          |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "+-------------------------------------+\n";
 }
 
 void Menu::PaymentSettings(void) {
-    std::cout << "+-------------------------------------+";
-    std::cout << "            Payment Settings           ";
-    std::cout << "+-------------------------------------+";
-    std::cout << "|                                     |";
-    std::cout << "|   [1] Account Status                |";
-    std::cout << "|   [2] Daily Limit                   |";
-    std::cout << "|                                     |";
-    std::cout << "|   [0] EXIT                          |";
-    std::cout << "|                                     |";
-    std::cout << "+-------------------------------------+";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "            Payment Settings           \n";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [1] Account Status                |\n";
+    std::cout << "|   [2] Daily Limit                   |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [0] EXIT                          |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "+-------------------------------------+\n";
 }
 
 void Menu::AccountStatusSettings(void) {
-    std::cout << "+-------------------------------------+";
-    std::cout << "             Account Status            ";
-    std::cout << "+-------------------------------------+";
-    std::cout << "|                                     |";
-    std::cout << "|   [1] Freeze Account                |";
-    std::cout << "|   [2] Unfreeze Account              |";
-    std::cout << "|   [3] Close Account                 |";
-    std::cout << "|                                     |";
-    std::cout << "|   [0] EXIT                          |";
-    std::cout << "|                                     |";
-    std::cout << "+-------------------------------------+";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "             Account Status            \n";
+    std::cout << "+-------------------------------------+\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [1] Freeze Account                |\n";
+    std::cout << "|   [2] Unfreeze Account              |\n";
+    std::cout << "|   [3] Close Account                 |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "|   [0] EXIT                          |\n";
+    std::cout << "|                                     |\n";
+    std::cout << "+-------------------------------------+\n";
 }
